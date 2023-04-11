@@ -25,29 +25,29 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
 ### Project Setup
 
 ```sh
-/client) npm install
+cd client && npm install
 ```
 
 #### Compile and Hot-Reload for Development
 
 ```sh
-/client) npm run dev
+cd client && npm run dev
 ```
 
 #### Type-Check, Compile and Minify for Production
 
 ```sh
-/client) npm run build
+npm run build
 ```
 
 #### Run Unit Tests with [Vitest](https://vitest.dev/)
 
 ```sh
-/client) npm run test:unit
+npm run test:unit
 ```
 
 #### Lint with [ESLint](https://eslint.org/)
 
 ```sh
-/client) npm run lint
+npm run lint
 ```
