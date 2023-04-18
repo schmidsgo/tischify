@@ -1,6 +1,7 @@
 version: "3.8"
 services:
   db:
+    container_name: tischify-db
     image: postgres:15.2
     restart: always
     environment:
@@ -10,6 +11,7 @@ services:
       - "5432:5432"
     volumes:
       - db:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 volumes:
   db:
     driver: local
