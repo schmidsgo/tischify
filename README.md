@@ -1,5 +1,7 @@
 # Tischify
 
+![image]("/client/public/tischify-demo.png")
+
 ## Technologie-Stack:
 
 - Vue 3.2 mit Pinia
