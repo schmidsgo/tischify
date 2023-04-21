@@ -1,23 +1,37 @@
+<script setup>
+import Searchbar from './components/Searchbar.vue';
+import CardItem from './components/Card/CardItem.vue';
+import Navbar from './components/Navbar.vue';
+import SearchResult from './components/SearchResult.vue';
+</script>
+
 <template>
-  <div
-    class="container-xl w-full h-screen flex items-center justify-center bg-gray-100"
-  >
-    <h1 class="text-xl text-sky-500 mr-1">Hello world!</h1>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke="currentColor"
-      class="w-6 h-6 text-sky-500"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z"
-      />
-    </svg>
+  <div>
+    <Navbar />
+    <Searchbar />
+    <div class="p-6">
+      <h2 class="text-2xl font-medium pb-2 border-b-2 border-blue-400">
+        Empfehlungen
+      </h2>
+      <div class="grid grid-cols-4 gap-4 p-4">
+        <CardItem v-for="cafe in filteredCafes" :key="cafe.id" :cafe="cafe" />
+        <CardItem />
+        <CardItem />
+        <CardItem />
+        <CardItem />
+      </div>
+    </div>
+    <div class="p-6">
+      <h2 class="text-2xl font-medium pb-2 border-b-2 border-blue-400">
+        Im Trend
+      </h2>
+      <div class="grid grid-cols-4 gap-4 p-4">
+        <CardItem />
+        <CardItem />
+        <CardItem />
+        <CardItem />
+      </div>
+    </div>
+    <!-- <SearchResult /> -->
   </div>
 </template>
-
-<script setup></script>
