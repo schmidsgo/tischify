@@ -1,6 +1,6 @@
 # Tischify
 
-![image]("/client/public/tischify-demo.png")
+![tischify-demo image](https://github.com/Tischify/Tischify/blob/147549985f1533b7c0ca3cf598f677907b20950f/client/public/tischify-demo.png)
 
 ## Technologie-Stack:
 
