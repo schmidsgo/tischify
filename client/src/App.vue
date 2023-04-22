@@ -14,7 +14,7 @@ import SearchResult from './components/SearchResult.vue';
         Empfehlungen
       </h2>
       <div class="grid grid-cols-4 gap-4 p-4">
-        <CardItem v-for="cafe in filteredCafes" :key="cafe.id" :cafe="cafe" />
+        <!-- <CardItem v-for="cafe in filteredCafes" :key="cafe.id" :cafe="cafe" /> -->
         <CardItem />
         <CardItem />
         <CardItem />
