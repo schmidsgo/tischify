@@ -5,7 +5,7 @@
 ## Technologie-Stack:
 
 - Vue 3.2 mit Pinia
-- Tailwindcss 3
+- Vuetify 3
 - Express
 - Postgres (pg.js)
 
