@@ -1,26 +1,48 @@
-<script setup></script>
-
 <template>
-  <div class="flex flex-col h-[20vh] items-center justify-center">
-    <h1 class="text-4xl font-semibold text-blue-500 mb-4">
-      Jetzt einen Tisch buchen
-    </h1>
-    <div class="flex items-center">
-      <input
-        type="text"
-        placeholder="e.g) Augsburg"
-        class="bg-gray-200 py-2 px-3 text-gray-600 rounded-md focus:border-blue-500"
-      />
-      <input
-        type="text"
-        placeholder="e.g) Restaurant, Cafe, Bar"
-        class="bg-gray-200 py-2 px-3 text-gray-600 rounded-md focus:border-blue-500 mx-2"
-      />
-      <button
-        class="ml-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg focus:outline-none"
-      >
-        suchen
-      </button>
-    </div>
+  <div>
+    <v-img
+      src="bar1.jpeg"
+      gradient="to bottom, rgba(0,0,0,.5), rgba(0,0,0,.5)"
+      height="50vh"
+      cover
+      class="align-center"
+    >
+      <v-row justify="center">
+        <v-col cols="7">
+          <h1 class="text-h3 text-white font-weight-bold">
+            Jetzt einen Tisch buchen
+          </h1>
+        </v-col>
+        <v-col cols="7">
+          <div class="d-flex align-start justify-end w-100">
+            <v-text-field
+              clearable
+              placeholder="e.g. Augsburg"
+              compact
+              variant="solo"
+              density="compact"
+            />
+            <v-text-field
+              clearable
+              placeholder="e.g. ) Restaurant, Café, Bar"
+              compact
+              variant="solo"
+              density="compact"
+              class="mx-2"
+            />
+            <v-btn color="blue" class="ml-2">Suchen</v-btn>
+          </div>
+        </v-col>
+      </v-row>
+
+      <!-- <div class="d-flex align-center">
+      <v-label for="sort-by" class="mr-2">Sort By:</v-label>
+      <v-select v-model="sortBy" :items="sortOptions" outlined />
+    </div> -->
+    </v-img>
   </div>
 </template>
+
+<script>
+export default {};
+</script>

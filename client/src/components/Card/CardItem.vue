@@ -1,25 +1,47 @@
-<script setup></script>
-
 <template>
-  <div class="bg-white hover:bg-gray-100 rounded-lg shadow-md overflow-hidden">
-    <img class="w-full h-48 object-cover" src="/cafe1.jpeg" />
-    <div class="p-4">
-      <h2 class="text-xl font-medium">Cafe DEMO</h2>
-      <p class="text-gray-600 text-sm my-2">
-        a small chill cafe in the central of Augsburg
-      </p>
-      <div class="flex">
-        <button
-          class="bg-pink-500 hover:bg-pink-600 text-white my-2 mr-2 px-4 py-2 rounded-lg focus:outline-none"
+  <v-hover v-slot="{ isHovering, props }">
+    <!-- FIXME: cursor-pointer -->
+    <v-card
+      :elevation="isHovering ? 10 : 2"
+      :class="{ 'on-hover': isHovering, 'cursor-pointer': isHovering }"
+      v-bind="props"
+      class="mx-auto rounded-lg"
+    >
+      <v-img class="align-end text-white" height="200" :src="item.image" cover>
+        <v-card-title class="text-h6 font-weight-bold">{{
+          item.name
+        }}</v-card-title>
+      </v-img>
+      <v-card-subtitle class="text-blue pt-4">
+        #{{ item.category }} <span class="text-grey">in</span> #{{
+          item.location
+        }}
+      </v-card-subtitle>
+      <v-card-text class="py-1">
+        <v-icon color="" icon="mdi-dialpad" class="mr-2" />{{ item.telefon }}
+      </v-card-text>
+      <v-card-actions class="mb-2">
+        <v-btn color="pink" variant="tonal"
+          >{{ item.capacity['18:00'] }} 18:00</v-btn
         >
-          ◎ 18:00
-        </button>
-        <button
-          class="bg-pink-500 hover:bg-pink-600 text-white my-2 px-4 py-2 rounded-lg focus:outline-none"
+        <v-btn color="pink" variant="tonal"
+          >{{ item.capacity['18:30'] }} 18:30</v-btn
         >
-          △ 18:30
-        </button>
-      </div>
-    </div>
-  </div>
+        <v-btn color="pink" variant="tonal"
+          >{{ item.capacity['19:00'] }} 19:00</v-btn
+        >
+      </v-card-actions>
+    </v-card>
+  </v-hover>
 </template>
+
+<script lang="ts">
+export default {
+  props: {
+    item: {
+      type: Object,
+      required: true
+    }
+  }
+};
+</script>
