@@ -14,35 +14,45 @@
           </h1>
         </v-col>
         <v-col cols="7">
-          <div class="d-flex align-start justify-end w-100">
-            <v-text-field
-              clearable
-              placeholder="e.g. Augsburg"
-              compact
-              variant="solo"
-              density="compact"
-            />
-            <v-text-field
-              clearable
-              placeholder="e.g. ) Restaurant, Café, Bar"
-              compact
-              variant="solo"
-              density="compact"
-              class="mx-2"
-            />
-            <v-btn color="blue" class="ml-2">Suchen</v-btn>
-          </div>
+          <v-form @submit.prevent>
+            <div class="d-flex align-start justify-end w-75">
+              <v-text-field
+                clearable
+                placeholder="e.g. Restaurant1, Augsburg, Cafe"
+                compact
+                variant="solo"
+                density="compact"
+                v-model="query"
+              />
+              <v-btn
+                type="submit"
+                color="blue"
+                class="ml-2"
+                @click="submitSearch"
+              >
+                Suchen
+              </v-btn>
+            </div>
+          </v-form>
         </v-col>
       </v-row>
-
-      <!-- <div class="d-flex align-center">
-      <v-label for="sort-by" class="mr-2">Sort By:</v-label>
-      <v-select v-model="sortBy" :items="sortOptions" outlined />
-    </div> -->
     </v-img>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      query: '',
+      sortBy: 'name' //FIXME:
+    };
+  },
+  methods: {
+    submitSearch() {
+      this.$emit('search', this.query, this.sortBy);
+      console.log(this.query, this.sortBy);
+    }
+  }
+};
 </script>
