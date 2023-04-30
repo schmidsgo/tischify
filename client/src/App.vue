@@ -85,11 +85,12 @@
 </template>
 
 <script lang="ts">
-import Searchbar from './components/Searchbar.vue';
-import Navbar from './components/Navbar.vue';
-import CardItem from './components/Card/CardItem.vue';
-import SearchResult from './components/SearchResult.vue';
+import Searchbar from '@/components/Searchbar.vue';
+import Navbar from '@/components/Navbar.vue';
+import CardItem from '@/components/Card/CardItem.vue';
+import SearchResult from '@/components/SearchResult.vue';
 import dummy_data from '../dummy_data.json';
+import { useRestaurantStore } from '@/stores/state.ts';
 
 export default {
   data() {
@@ -111,7 +112,13 @@ export default {
       this.searchType = type;
     }
   },
+  created() {
+    useRestaurantStore().fetchRestaurants();
+  },
   computed: {
+    restaurants() {
+      return useRestaurantStore().restaurants;
+    },
     filteredItems() {
       // TODO: should render any type of search
       let items = this.items;
