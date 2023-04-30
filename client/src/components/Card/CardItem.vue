@@ -19,6 +19,13 @@
       </v-card-subtitle>
       <v-card-text class="py-1">
         <v-icon color="" icon="mdi-dialpad" class="mr-2" />{{ item.telefon }}
+        <v-btn
+          @click="showBookingModal = true"
+          variant="tonal"
+          class="bg-blue-lighten-2 hover:bg-blue-lighten-3 text-white ml-3 px-2 py-2 rounded-xl focus:outline-none"
+        >
+          Book Now
+        </v-btn>
       </v-card-text>
       <v-card-actions class="mb-2">
         <v-btn color="pink" variant="tonal">
@@ -31,17 +38,62 @@
           {{ item.capacity['19:00'] }} 19:00
         </v-btn>
       </v-card-actions>
+      <!-- FIXME: -->
+      <!-- <BookingModal :showBookingModal="showBookingModal" :tenant="item" /> -->
+      <v-dialog v-model="showBookingModal" :persistent="true">
+        <v-card>
+          <v-card-title class="text-lg font-medium mb-2">
+            Book {{ item.name }}
+          </v-card-title>
+          <v-card-text>
+            <form @submit.prevent="submitBooking">
+              <v-text-field
+                label="Name"
+                v-model="booking.name"
+                outlined
+                dense
+              />
+              <v-text-field
+                label="Personen"
+                v-model="booking.people"
+                outlined
+                dense
+              />
+              <v-text-field
+                label="Datum und Uhrzeit"
+                v-model="booking.datetime"
+                type="datetime-local"
+                outlined
+                dense
+              />
+              <v-card-actions class="justify-end">
+                <v-btn color="blue" type="submit"> buchen </v-btn>
+              </v-card-actions>
+            </form>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
     </v-card>
   </v-hover>
 </template>
 
 <script lang="ts">
+import { useStore } from '@/stores/state';
+
 export default {
   props: {
     item: {
       type: Object,
       required: true
     }
+  },
+  setup() {
+    const { booking, showBookingModal, submitBooking } = useStore();
+    return {
+      booking,
+      showBookingModal,
+      submitBooking
+    };
   }
 };
 </script>
