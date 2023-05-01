@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const db = require("./queries");
+const dummyData = require("./dummyData.js");
 const app = express();
 const port = 3000;
 
@@ -18,6 +19,8 @@ app.get("/", (request, response) => {
 app.get("/users", db.getUsers);
 
 app.get("/users/:id", db.GetUserById);
+
+app.get("/restaurants", dummyData.getRestaurants)
 
 app.post("/users", db.CreateUser);
 
