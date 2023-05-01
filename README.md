@@ -27,10 +27,18 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
 ### Project Setup
 
 ```sh
+cd server && npm install
+```
+
+```sh
 cd client && npm install
 ```
 
 #### Compile and Hot-Reload for Development
+
+```sh
+cd server && node index.js
+```
 
 ```sh
 cd client && npm run dev
