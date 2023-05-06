@@ -1,5 +1,5 @@
-import { createApp } from 'vue';
-import { createVuetify, ThemeDefinition } from 'vuetify';
+import { createVuetify } from 'vuetify';
+import type { ThemeDefinition } from 'vuetify';
 
 const myCustomLightTheme: ThemeDefinition = {
   dark: false,

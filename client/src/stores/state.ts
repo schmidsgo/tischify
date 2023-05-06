@@ -14,47 +14,19 @@ export const useStore = defineStore({
   actions: {
     submitBooking(id: string) {
       return axios
-        .post('/bookings', {
+        .post('http://localhost:3000/bookings', {
           id: id,
           name: this.booking.name,
+          people: this.booking.people,
           datetime: this.booking.datetime
         })
-        .then(response => {
+        .then(res => {
           this.showBookingModal;
+          console.log(res.status);
         })
         .catch(err => {
           console.log(err);
         });
-    }
-  }
-});
-
-export const useRestaurantStore = defineStore({
-  id: 'restaurants',
-  state: () => ({
-    restaurants: []
-  }),
-  actions: {
-    async fetchRestaurants() {
-      try {
-        const baseUrl = 'https://worldwide-restaurants.p.rapidapi.com/details';
-        const response = await axios.get(baseUrl, {
-          params: {
-            country_id: 'DE',
-            language: 'de_DE',
-            currency: 'EUR'
-          },
-          headers: {
-            'content-type': 'application/x-www-form-urlencoded',
-            'X-RapidAPI-Key': import.meta.env.VITE_API_KEY,
-            'X-RapidAPI-Host': 'worldwide-restaurants.p.rapidapi.com'
-          }
-        });
-        this.restaurants = response.data.results;
-        console.log(this.restaurants);
-      } catch (err) {
-        console.error(err);
-      }
     }
   }
 });

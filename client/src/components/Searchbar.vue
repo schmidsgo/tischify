@@ -1,3 +1,32 @@
+<!-- FIXME: -->
+<!-- <script setup lang="ts">
+const query = '';
+const sortBy = 'name'; //FIXME:
+
+const emit = defineEmits(['search']);
+
+const submitSearch = () => {
+  emit('search', { query, sortBy });
+};
+</script> -->
+
+<script lang="ts">
+export default {
+  data() {
+    return {
+      query: '',
+      sortBy: 'name'
+    };
+  },
+  methods: {
+    submitSearch() {
+      this.$emit('search', this.query, this.sortBy);
+      console.log(this.query, this.sortBy);
+    }
+  }
+};
+</script>
+
 <template>
   <div>
     <v-img
@@ -39,20 +68,3 @@
     </v-img>
   </div>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      query: '',
-      sortBy: 'name' //FIXME:
-    };
-  },
-  methods: {
-    submitSearch() {
-      this.$emit('search', this.query, this.sortBy);
-      console.log(this.query, this.sortBy);
-    }
-  }
-};
-</script>

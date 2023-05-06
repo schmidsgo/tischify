@@ -1,4 +1,4 @@
-export interface ItemType {
+export type ItemType = {
   id: string;
   name: string;
   location: string;
@@ -10,4 +10,4 @@ export interface ItemType {
   };
   telefon: string;
   category: string;
-}
+};

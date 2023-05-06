@@ -2,6 +2,7 @@
   "name": "client",
   "version": "0.0.0",
   "private": true,
+  "proxy": "http://localhost:3000",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
@@ -20,7 +21,8 @@
     "sass": "^1.62.1",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
-    "vuetify": "^3.1.15"
+    "vue-tabler-icons": "^2.20.0",
+    "vuetify": "^3.2.2"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",

@@ -1,3 +1,66 @@
+<script setup lang="ts">
+import { computed, reactive, ref } from 'vue';
+import Navbar from './components/Navbar.vue';
+import Searchbar from './components/Searchbar.vue';
+import CardItem from './components/Card/CardItem.vue';
+// import SearchResult from './components/SearchResult.vue';
+import axios from 'axios';
+import type { ItemType } from './types/types';
+
+const state = reactive({
+  restaurants: [] as ItemType[]
+});
+const searchQuery = ref('');
+const searchType = ref('name');
+
+axios.get('http://localhost:3000/restaurants').then(res => {
+  state.restaurants = res.data;
+});
+
+const handleSearch = (query: string, type: string) => {
+  searchQuery.value = query;
+  searchType.value = type;
+};
+
+const filteredItems = computed(() => {
+  let items = state.restaurants;
+  if (searchQuery.value) {
+    switch (searchType.value) {
+      case 'name':
+        const searchQueryValue = searchQuery.value || '';
+        items = items.filter(item =>
+          item.name.toLowerCase().includes(searchQueryValue.toLowerCase())
+        );
+        break;
+      case 'location':
+        items = items.filter(item =>
+          item.location.toLowerCase().includes(searchQuery.value.toLowerCase())
+        );
+        break;
+      case 'category':
+        items = items.filter(item =>
+          item.category.toLowerCase().includes(searchQuery.value.toLowerCase())
+        );
+        break;
+      default:
+        items = [];
+        break;
+    }
+  }
+  return items;
+});
+
+const fourRests = computed(() =>
+  state.restaurants.filter(item => item.location === 'Augsburg').slice(0, 4)
+);
+
+const fourCafes = computed(() =>
+  state.restaurants
+    .filter(item => item.capacity['18:00'] === '\u25b3')
+    .slice(0, 4)
+);
+</script>
+
 <template>
   <div class="bg-grey-lighten-5">
     <Navbar />
@@ -83,80 +146,3 @@
     </v-layout>
   </div>
 </template>
-
-<script lang="ts">
-import Searchbar from '@/components/Searchbar.vue';
-import Navbar from '@/components/Navbar.vue';
-import CardItem from '@/components/Card/CardItem.vue';
-import SearchResult from '@/components/SearchResult.vue';
-import dummy_data from '../dummy_data.json';
-import { useRestaurantStore } from '@/stores/state.ts';
-
-export default {
-  data() {
-    return {
-      items: dummy_data,
-      searchQuery: '',
-      searchType: 'name'
-    };
-  },
-  components: {
-    Navbar,
-    Searchbar,
-    CardItem,
-    SearchResult
-  },
-  methods: {
-    handleSearch(query: string, type: string) {
-      this.searchQuery = query;
-      this.searchType = type;
-    }
-  },
-  created() {
-    useRestaurantStore().fetchRestaurants();
-  },
-  computed: {
-    restaurants() {
-      return useRestaurantStore().restaurants;
-    },
-    filteredItems() {
-      // TODO: should render any type of search
-      let items = this.items;
-      if (this.searchQuery) {
-        switch (this.searchType) {
-          case 'name':
-            const searchQuery = this.searchQuery || '';
-            items = items.filter(item =>
-              item.name.toLowerCase().includes(searchQuery.toLowerCase())
-            );
-            break;
-          case 'location':
-            items = items.filter(item =>
-              item.location.toLowerCase().includes(searchQuery.toLowerCase())
-            );
-            break;
-          case 'category':
-            items = items.filter(item =>
-              item.category.toLowerCase().includes(searchQuery.toLowerCase())
-            );
-            break;
-          default:
-            items = [];
-            break;
-        }
-      }
-      return items;
-    },
-    fourRests() {
-      return this.items
-        .filter(item => item.location === 'Augsburg')
-        .slice(0, 4);
-    },
-    fourCafes() {
-      return this.items
-        .filter(item => item.capacity['18:00'] === '\u25b3')
-        .slice(0, 4);
-    }
-  }
-};
-</script>
