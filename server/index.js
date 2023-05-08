@@ -28,7 +28,7 @@ app.get("/restaurants", dummyData.getRestaurants);
 app.post("/users", db.CreateUser);
 
 //TODO: add a logic for bookings
-// app.post("/bookings", db.CreateUser);
+app.post("/bookings", db.CreateBooking);
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);

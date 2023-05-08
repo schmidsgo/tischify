@@ -11,8 +11,9 @@ const getUsers = (request, response) => {
   pool.query("SELECT * FROM users", (error, results) => {
     if (error) {
       response.status(400).send(error);
+    } else {
+      response.status(200).json(results.rows);
     }
-    response.status(200).json(results.rows);
   });
 };
 
@@ -25,8 +26,9 @@ const GetUserById = (request, response) => {
     (error, results) => {
       if (error) {
         response.status(400).send(error);
+      } else {
+        response.status(200).json(results.rows);
       }
-      response.status(200).json(results.rows);
     }
   );
 };
@@ -40,8 +42,22 @@ const CreateUser = (request, response) => {
     (error, results) => {
       if (error) {
         response.status(400).send(error);
+      } else {
+        response.status(201).send(`User added with ID: ${results.insertId}`);
       }
-      response.status(201).send(`User added with ID: ${results.insertId}`);
+    }
+  );
+};
+
+const CreateBooking = (request, response) => {
+  const { user_id, restaurant_id, date, time, guests } = request.body;
+  pool.query(
+    "INSERT INTO bookings (user_id, restaurant_id, date, time, guests) VALUES ($1, $2, $3, $4, $5)",
+    [user_id, restaurant_id, date, time, guests],
+    (error, result) => {
+      if (error) {
+        response.status(400).send(error);
+      }
     }
   );
 };
@@ -50,4 +66,5 @@ module.exports = {
   getUsers,
   GetUserById,
   CreateUser,
+  CreateBooking,
 };
