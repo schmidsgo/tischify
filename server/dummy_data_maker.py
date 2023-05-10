@@ -14,6 +14,8 @@ images = {
 
 capacity_symbols = ['◎', '○', '△']
 
+# TODO: add random data maker for Rating(stars: 1-5), price level(dollar: 1-3)
+
 dummy_data = []
 
 for i in range(50):
@@ -33,6 +35,8 @@ for i in range(50):
         'location': location,
         'image': image_url,
         'capacity': capacity,
+        # 'rating': random.randint(1, 5),
+        # 'price_level': random.randint(1, 3),
         'telefon': '123-456-789',
         'category': category
     }
