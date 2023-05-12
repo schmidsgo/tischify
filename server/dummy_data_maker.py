@@ -14,7 +14,7 @@ images = {
 
 capacity_symbols = ['◎', '○', '△']
 
-# TODO: add random data maker for Rating(stars: 1-5), price level(dollar: 1-3)
+# TODO: random data maker for Rating(stars: 1-5), price level(dollar: 1-3) hinzufügen
 
 dummy_data = []
 
