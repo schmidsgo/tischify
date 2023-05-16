@@ -1,4 +1,3 @@
-import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
@@ -44,6 +43,7 @@ export const useBookingStore = defineStore('booking', {
     showBookingModal: false,
     booking: {
       name: '',
+      email: '',
       people: 0,
       datetime: ''
     }
@@ -54,6 +54,7 @@ export const useBookingStore = defineStore('booking', {
         .post('http://localhost:3000/bookings', {
           id: id,
           name: this.booking.name,
+          email: this.booking.name,
           people: this.booking.people,
           datetime: this.booking.datetime
         })

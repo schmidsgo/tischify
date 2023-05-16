@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import axios from 'axios';
 import { ref } from 'vue';
-import { useBookingStore } from '../../stores/state';
+import { useAuthStore, useBookingStore } from '../../stores/state';
 import type { ItemType } from '../../types/types';
 
 defineProps<{ item: ItemType }>();
 
+const authStore = useAuthStore();
 const bookingStore = useBookingStore();
 
-const name = ref('');
+const name = authStore.user.name !== '' ? authStore.user.name : ref('');
+// const name = ref('');
+const email = ref('');
 const people = ref(0);
 const datetime = ref('');
 const isError = ref(false);
@@ -18,7 +21,8 @@ const book = async () => {
   try {
     isLoading.value = true;
     const response = await axios.post('http://localhost:3000/bookings', {
-      name: name.value,
+      name: name.valueOf,
+      email: email.value,
       people: people.value,
       datetime: datetime.value
     });
@@ -27,8 +31,6 @@ const book = async () => {
   } catch (error) {
     isError.value = true;
   } finally {
-    name.value = '';
-    datetime.value = '';
     isLoading.value = false;
   }
 };
@@ -69,6 +71,11 @@ const book = async () => {
               <v-text-field
                 placeholder="Name"
                 v-model="bookingStore.booking.name"
+                outlined
+              />
+              <v-text-field
+                placeholder="Email"
+                v-model="bookingStore.booking.email"
                 outlined
               />
               <v-text-field
