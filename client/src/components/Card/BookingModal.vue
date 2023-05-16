@@ -35,11 +35,7 @@ const book = async () => {
 </script>
 
 <template>
-  <v-dialog
-    v-model="bookingStore.showBookingModal"
-    activator="parent"
-    width="70%"
-  >
+  <v-dialog v-model="bookingStore.showBookingModal" persistent width="70%">
     <v-card class="pa-5">
       <v-row>
         <v-col cols="6" justify="start" class="bg-yellow">
