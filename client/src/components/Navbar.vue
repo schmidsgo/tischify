@@ -10,7 +10,7 @@ const authStore = useAuthStore();
       <img class="h-12 mr-4" src="/logo.svg" alt="Logo" />
     </v-col>
     <v-col
-      v-if="!authStore.user"
+      v-if="authStore.user.name === ''"
       cols="6"
       class="d-flex align-center justify-end"
     >
@@ -35,11 +35,7 @@ const authStore = useAuthStore();
         Registrieren
       </v-btn>
     </v-col>
-    <v-col
-      v-else-if="authStore.user"
-      cols="6"
-      class="d-flex align-center justify-end"
-    >
+    <v-col v-else cols="6" class="d-flex align-center justify-end">
       <v-icon icon="mdi-bell" class="mr-6" />
       <v-icon icon="mdi-account" class="mr-6" />
     </v-col>
