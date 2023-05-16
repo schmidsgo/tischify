@@ -2,7 +2,8 @@ import random
 import json
 import requests
 
-locations = ['Berlin', 'Hamburg', 'München', 'Köln', 'Frankfurt', 'Stuttgart', 'Düsseldorf', 'Dortmund', 'Essen', 'Leipzig', 'Bremen', 'Dresden', 'Hannover', 'Nürnberg', 'Duisburg', 'Bochum', 'Wuppertal', 'Bielefeld', 'Bonn', 'Münster']
+locations = ['Berlin', 'Hamburg', 'München', 'Köln', 'Frankfurt', 'Stuttgart', 'Düsseldorf',
+             'Dortmund', 'Essen', 'Leipzig', 'Bremen', 'Dresden', 'Hannover', 'Nürnberg', 'Duisburg', 'Bochum', 'Wuppertal', 'Bielefeld', 'Bonn', 'Münster']
 
 categories = ['restaurant', 'cafe', 'bar']
 
@@ -14,7 +15,7 @@ images = {
 
 capacity_symbols = ['◎', '○', '△']
 
-# TODO: random data maker for Rating(stars: 1-5), price level(dollar: 1-3) hinzufügen
+# TODO: random data maker for 'Rating'(stars: 1-5), 'price level'(dollar: 1-3), 'Adresse des Ladens', 'opening hours' hinzufügen
 
 dummy_data = []
 

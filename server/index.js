@@ -25,7 +25,7 @@ app.get("/users/:id", db.GetUserById);
 
 app.get("/restaurants", dummyData.getRestaurants);
 
-app.post("/users", db.CreateUser);
+app.post("/createUser", db.CreateUser);
 
 app.post("/bookings", db.CreateBooking);
 
