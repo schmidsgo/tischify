@@ -11,7 +11,10 @@ export const useAuthStore = defineStore('auth', {
   state: () => ({
     OpenLoginModal: false,
     currentLoginType: 'login',
-    user: null
+    user: {
+      name: '',
+      type: ''
+    }
   }),
   actions: {
     async login({ username, password, userType }: UserInfo) {
@@ -20,8 +23,8 @@ export const useAuthStore = defineStore('auth', {
         password,
         userType
       });
-      this.user = response.data.user;
-      console.log(this.user);
+      this.user.name = response.data.username;
+      console.log(this.user.name);
     },
     async signUp({ username, password, userType }: UserInfo) {
       const response = await axios.post('http://localhost:3000/createUser', {
@@ -29,11 +32,13 @@ export const useAuthStore = defineStore('auth', {
         password,
         userType
       });
-      this.user = response.data.user;
-      console.log(this.user);
+      this.user.name = response.data.username;
+      this.user.type = response.data.userType;
+      console.log(this.user.name, this.user.type);
     },
     logout() {
-      this.user = null;
+      this.user.name = '';
+      this.user.type = '';
     }
   }
 });
