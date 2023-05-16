@@ -38,13 +38,13 @@ export default {
     >
       <v-row justify="center">
         <v-col cols="7">
-          <h1 class="text-h3 text-white font-weight-bold">
+          <h1 class="text-h3 text-center text-white font-weight-bold">
             Jetzt einen Tisch buchen
           </h1>
         </v-col>
         <v-col cols="7">
           <v-form @submit.prevent>
-            <div class="d-flex align-start justify-end w-75">
+            <div class="d-flex align-start justify-end w-75 mx-auto">
               <v-text-field
                 clearable
                 placeholder="e.g. Restaurant1, Augsburg, Cafe"
@@ -56,6 +56,7 @@ export default {
               <v-btn
                 type="submit"
                 color="blue"
+                height="40px"
                 class="ml-2"
                 @click="submitSearch"
               >
