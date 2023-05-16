@@ -9,12 +9,16 @@ const authStore = useAuthStore();
     <v-col cols="6" class="d-flex justify-start">
       <img class="h-12 mr-4" src="/logo.svg" alt="Logo" />
     </v-col>
-    <v-col cols="6" class="d-flex justify-end">
+    <v-col
+      v-if="!authStore.user"
+      cols="6"
+      class="d-flex align-center justify-end"
+    >
       <v-btn
         class="mr-2 py-2 px-4 rounded font-weight-medium"
         variant="outlined"
         @click="
-          (authStore.OpenLoginModal = false),
+          (authStore.OpenLoginModal = true),
             (authStore.currentLoginType = 'login')
         "
       >
@@ -24,12 +28,20 @@ const authStore = useAuthStore();
         class="mr-2 py-2 px-4 rounded font-weight-medium"
         variant="outlined"
         @click="
-          (authStore.OpenLoginModal = false),
+          (authStore.OpenLoginModal = true),
             (authStore.currentLoginType = 'signUp')
         "
       >
         Registrieren
       </v-btn>
+    </v-col>
+    <v-col
+      v-else-if="authStore.user"
+      cols="6"
+      class="d-flex align-center justify-end"
+    >
+      <v-icon icon="mdi-bell" class="mr-6" />
+      <v-icon icon="mdi-account" class="mr-6" />
     </v-col>
   </div>
 </template>
