@@ -51,7 +51,7 @@ const signUp = async () => {
 </script>
 
 <template>
-  <v-dialog v-model="authStore.OpenLoginModal" activator="parent" width="50%">
+  <v-dialog v-model="authStore.OpenLoginModal" persistent width="50%">
     <v-window>
       <v-window-item v-if="authStore.currentLoginType === 'login'">
         <v-card class="pb-5">
@@ -63,7 +63,7 @@ const signUp = async () => {
           <div class="w-50 justify-center mx-auto">
             <v-card-text>
               <form @submit.prevent="login">
-                <v-radio-group v-model="userType" inline>
+                <v-radio-group v-model="userType" inline class="justify-center">
                   <v-radio
                     label="Kunde"
                     color="info"
@@ -154,7 +154,7 @@ const signUp = async () => {
           <div class="w-50 justify-center mx-auto">
             <v-card-text>
               <form @submit.prevent="signUp">
-                <v-radio-group v-model="userType" inline>
+                <v-radio-group v-model="userType" inline justify="center">
                   <v-radio
                     label="Kunde"
                     color="info"
