@@ -1,8 +1,45 @@
+import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
-export const useStore = defineStore({
-  id: 'booking',
+type UserInfo = {
+  username: string;
+  password: string;
+  userType: string;
+};
+
+export const useAuthStore = defineStore('auth', {
+  state: () => ({
+    OpenLoginModal: false,
+    currentLoginType: 'login',
+    user: null
+  }),
+  actions: {
+    async login({ username, password, userType }: UserInfo) {
+      const response = await axios.post('http://localhost:3000/login', {
+        username,
+        password,
+        userType
+      });
+      this.user = response.data.user;
+      console.log(this.user);
+    },
+    async signUp({ username, password, userType }: UserInfo) {
+      const response = await axios.post('http://localhost:3000/createUser', {
+        username,
+        password,
+        userType
+      });
+      this.user = response.data.user;
+      console.log(this.user);
+    },
+    logout() {
+      this.user = null;
+    }
+  }
+});
+
+export const useBookingStore = defineStore('booking', {
   state: () => ({
     showBookingModal: false,
     booking: {
