@@ -21,10 +21,10 @@
     "sass": "^1.62.1",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
-    "vue-tabler-icons": "^2.20.0",
-    "vuetify": "^3.2.2"
+    "vuetify": "^3.2.5"
   },
   "devDependencies": {
+    "@mdi/font": "^7.2.96",
     "@rushstack/eslint-patch": "^1.2.0",
     "@types/jsdom": "^21.1.0",
     "@types/node": "^18.16.3",
