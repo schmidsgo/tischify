@@ -42,17 +42,14 @@ const bookingStore = useBookingStore();
       >
         <!-- TODO: add opening hours -->
         8:00 - 18:00
-      </v-card-text>
-      <template v-slot:activator="{ props }">
         <v-btn
-          v-bind="props"
           @click="bookingStore.showBookingModal = true"
           variant="tonal"
           class="bg-blue hover:bg-blue-lighten-3 ml-3 px-2 py-2 rounded-xl focus:outline-none"
         >
           Book Now
         </v-btn>
-      </template>
+      </v-card-text>
       <v-card-actions class="mb-2">
         <v-btn color="pink-lighten-1" variant="flat">
           {{ item.capacity['18:00'] }} 18:00
