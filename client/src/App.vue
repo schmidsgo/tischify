@@ -6,6 +6,10 @@ import CardItem from './components/Card/CardItem.vue';
 // import SearchResult from './components/SearchResult.vue';
 import axios from 'axios';
 import type { ItemType } from './types/types';
+import { useAuthStore } from './stores/state';
+import LoginModal from './components/LoginModal.vue';
+
+const authStore = useAuthStore();
 
 const state = reactive({
   restaurants: [] as ItemType[]
@@ -20,6 +24,7 @@ axios.get('http://localhost:3000/restaurants').then(res => {
 const handleSearch = (query: string, type: string) => {
   searchQuery.value = query;
   searchType.value = type;
+  console.log(searchQuery.value, searchType.value);
 };
 
 const filteredItems = computed(() => {
@@ -59,11 +64,16 @@ const fourCafes = computed(() =>
     .filter(item => item.capacity['18:00'] === '\u25b3')
     .slice(0, 4)
 );
+console.log(authStore.user.name, authStore.user.type);
 </script>
 
 <template>
   <div class="bg-grey-lighten-5">
     <Navbar />
+    <LoginModal />
+    <!-- TODO: add userType condition windows -->
+    <!-- <v-window v-if="authStore.user.name, authStore.user.type === 'customer'" />
+        <v-window-item v-if=" -->
     <Searchbar v-model="searchQuery" @search="handleSearch" />
     <v-layout>
       <v-main>
@@ -80,7 +90,7 @@ const fourCafes = computed(() =>
           <v-row>
             <v-col cols="12" class="p-0">
               <div class="d-flex align-center">
-                <h2 class="text-h4 text-grey-darken-3 font-weight-bold bg-Blue">
+                <h2 class="text-h4 text-grey-darken-3 font-weight-bold">
                   Suchergebnisse:
                 </h2>
                 <v-btn
@@ -105,9 +115,7 @@ const fourCafes = computed(() =>
 
         <v-container class="d-flex justify-center align-center">
           <v-row>
-            <h2
-              class="text-h4 text-grey-darken-3 font-weight-bold mt-8 bg-Blue"
-            >
+            <h2 class="text-h4 text-grey-darken-3 font-weight-bold mt-8">
               Empfehlungen
             </h2>
             <v-divider
@@ -125,9 +133,7 @@ const fourCafes = computed(() =>
 
         <v-container class="d-flex justify-center align-center mt-8">
           <v-row>
-            <h2
-              class="text-h4 text-grey-darken-3 font-weight-bold pb-2 mt-4 text-Blue"
-            >
+            <h2 class="text-h4 text-grey-darken-3 font-weight-bold pb-2 mt-4">
               Im Trend
             </h2>
             <v-divider
