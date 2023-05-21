@@ -1,3 +1,6 @@
+const { log } = require("debug/src/browser");
+
+const jwt = require("jsonwebtoken");
 const Pool = require("pg").Pool;
 const pool = new Pool({
   user: "tischify",
@@ -6,7 +9,7 @@ const pool = new Pool({
   password: "tischify",
   port: 5432,
 });
-
+// #region Api Functions
 const getUsers = (request, response) => {
   pool.query("SELECT * FROM users", (error, results) => {
     if (error) {
@@ -28,22 +31,6 @@ const getUserById = (request, response) => {
         response.status(400).send(error);
       } else {
         response.status(200).json(results.rows);
-      }
-    }
-  );
-};
-
-const createUser = (request, response) => {
-  const { email, password, role } = request.body;
-
-  pool.query(
-    "INSERT INTO users (email, password, role) VALUES ($1, $2, $3)",
-    [email, password, role],
-    (error, results) => {
-      if (error) {
-        response.status(400).send(error);
-      } else {
-        response.status(201).send(`User added with ID: ${results.insertId}`);
       }
     }
   );
@@ -118,6 +105,38 @@ const register = (request, response) => {
     });
 };
 
+const login = (request, response) => {
+  loginInputValidation(request, response);
+  if (response.statusCode === 400) {
+    return;
+  }
+  const { username, password } = request.body;
+
+  //query for finding the entry in the table users where the username = username
+  pool
+    .query("SELECT * FROM users WHERE username = $1", [username])
+    .then((result) => {
+      if (result.rowCount === 0) {
+        response.status(401).send("Username does not exist.");
+        return;
+      }
+      const db_password = result.rows[0].password;
+      if (db_password !== password) {
+        response.status(401).send("Wrong password.");
+        return;
+      }
+      const user_id = result.rows[0].user_id;
+      const token = jwt.sign(
+        { id: user_id, username: username },
+        "yourSecretKey",
+        { expiresIn: "1h" }
+      );
+      response.status(200).json(token);
+    });
+};
+// #endregion Api Functions
+
+// #region Helper Functions
 const registerInputValidation = (request, response) => {
   const { username, password, role } = request.body;
 
@@ -147,9 +166,19 @@ const registerInputValidation = (request, response) => {
   }
 };
 
+const loginInputValidation = (request, response) => {
+  const { username, password } = request.body;
+  if (!username || !password) {
+    response.status(400).send("Missing fields.");
+    return;
+  }
+};
+// #endregion Helper Functions
+
 module.exports = {
   getUsers,
   getUserById,
   createBooking,
   register,
+  login,
 };

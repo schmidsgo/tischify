@@ -28,7 +28,7 @@ app.get("/restaurants", dummyData.getRestaurants);
 
 app.post("/bookings", db.createBooking);
 
-app.post("/login");
+app.post("/login", db.login);
 
 app.post("/register", db.register);
 
