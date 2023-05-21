@@ -63,7 +63,62 @@ const createBooking = (request, response) => {
 };
 
 const register = (request, response) => {
-  // Input validation
+  registerInputValidation(request, response);
+  if (response.statusCode === 400) {
+    return;
+  }
+  const { username, password, role } = request.body;
+
+  pool
+    .query("INSERT INTO users (username, password, role) VALUES ($1, $2, $3)", [
+      username,
+      password,
+      role,
+    ])
+    .then((result) => {
+      pool
+        .query("SELECT * FROM users WHERE username = $1", [username])
+        .then((result) => {
+          const user_id = result.rows[0].user_id;
+          if (role === "guest") {
+            pool
+              .query("INSERT INTO guests (user_id) VALUES ($1)", [user_id])
+              .then((result) => {
+                response.status(201).send(`Guest added`);
+              })
+              .catch((error) => {
+                response.status(400).send(error);
+              });
+          } else if (role === "restaurant") {
+            const { restaurant_name, address, phone, opening_hours } =
+              request.body;
+            pool
+              .query(
+                "INSERT INTO restaurants (user_id, name, address, phone_number, opening_hours) VALUES ($1, $2, $3, $4, $5)",
+                [user_id, restaurant_name, address, phone, opening_hours]
+              )
+              .then((result) => {
+                response.status(201).send(`Restaurant added`);
+              })
+              .catch((error) => {
+                response.status(400).send(error);
+              });
+          }
+        })
+        .catch((error) => {
+          response.status(400).send(error);
+        });
+    })
+    .catch((error) => {
+      if (error.detail.startsWith("Key (username)")) {
+        response.status(400).send("Username already exists.");
+      } else {
+        response.status(402).send(error);
+      }
+    });
+};
+
+const registerInputValidation = (request, response) => {
   const { username, password, role } = request.body;
 
   if (!username || !password || !role) {
@@ -90,54 +145,6 @@ const register = (request, response) => {
       return;
     }
   }
-
-  pool
-    .query("INSERT INTO users (username, password, role) VALUES ($1, $2, $3)", [
-      username,
-      password,
-      role,
-    ])
-    .then((result) => {
-      console.log(result);
-      pool
-        .query("SELECT * FROM users WHERE username = $1", [username])
-        .then((result) => {
-          const user_id = result.rows[0].user_id;
-          if (role === "guest") {
-            pool
-              .query("INSERT INTO guests (user_id) VALUES ($1)", [user_id])
-              .then((result) => {
-                response.status(201).send(`Guest added`);
-              })
-              .catch((error) => {
-                response.status(400).send(error);
-              });
-          } else if (role === "restaurant") {
-            pool
-              .query(
-                "INSERT INTO restaurants (user_id, restaurant_name, address, phone, opening_hours) VALUES ($1, $2, $3, $4, $5)",
-                [user_id, restaurant_name, address, phone, opening_hours]
-              )
-              .then((result) => {
-                response.status(201).send(`Restaurant added`);
-              })
-              .catch((error) => {
-                response.status(400).send(error);
-              });
-          }
-        })
-        .catch((error) => {
-          response.status(400).send(error);
-        });
-    })
-    .catch((error) => {
-      //if detail starts with "Key (username)= "
-      if (error.detail.startsWith("Key (username)")) {
-        response.status(400).send("Username already exists.");
-      } else {
-        response.status(402).send(error);
-      }
-    });
 };
 
 module.exports = {
