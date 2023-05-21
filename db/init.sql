@@ -1,26 +1,27 @@
 -- Erstellen der Benutzertabelle
 CREATE TABLE users (
-  username VARCHAR(255) PRIMARY KEY,
+  user_id SERIAL PRIMARY KEY,
+  username VARCHAR(255) UNIQUE NOT NULL,
   password VARCHAR(255) NOT NULL,
-  role VARCHAR(255) NOT NULL,
+  role VARCHAR(255) NOT NULL
 );
 
 -- Erstellen der Gästetabelle
 CREATE TABLE guests (
   guest_id SERIAL PRIMARY KEY,
-  username INTEGER NOT NULL,
-  FOREIGN KEY (username) REFERENCES users (username)
+  user_id INTEGER NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
 -- Erstellen der Restauranttabelle
 CREATE TABLE restaurants (
   restaurant_id SERIAL PRIMARY KEY,
-  username INTEGER NOT NULL,
+  user_id INTEGER NOT NULL,
   name VARCHAR(255) NOT NULL,
   address VARCHAR(255) NOT NULL,
   phone_number VARCHAR(255) NOT NULL,
   opening_hours VARCHAR(255) NOT NULL,
-  FOREIGN KEY (username) REFERENCES users (username)
+  FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
 -- -- Erstellen der Reservierungstabelle
