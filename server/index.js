@@ -21,13 +21,13 @@ app.get("/", (request, response) => {
 
 app.get("/users", db.getUsers);
 
-app.get("/users/:id", db.GetUserById);
+app.get("/users/:id", db.getUserById);
 
 app.get("/restaurants", dummyData.getRestaurants);
 
-app.post("/createUser", db.CreateUser);
+app.post("/createUser", db.createUser);
 
-app.post("/bookings", db.CreateBooking);
+app.post("/bookings", db.createBooking);
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);

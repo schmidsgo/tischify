@@ -17,7 +17,7 @@ const getUsers = (request, response) => {
   });
 };
 
-const GetUserById = (request, response) => {
+const getUserById = (request, response) => {
   const id = parseInt(request.params.id);
 
   pool.query(
@@ -33,7 +33,7 @@ const GetUserById = (request, response) => {
   );
 };
 
-const CreateUser = (request, response) => {
+const createUser = (request, response) => {
   const { email, password, role } = request.body;
 
   pool.query(
@@ -49,7 +49,7 @@ const CreateUser = (request, response) => {
   );
 };
 
-const CreateBooking = (request, response) => {
+const createBooking = (request, response) => {
   const { user_id, restaurant_id, date, time, guests } = request.body;
   pool.query(
     "INSERT INTO bookings (user_id, restaurant_id, date, time, guests) VALUES ($1, $2, $3, $4, $5)",
@@ -64,7 +64,7 @@ const CreateBooking = (request, response) => {
 
 module.exports = {
   getUsers,
-  GetUserById,
-  CreateUser,
-  CreateBooking,
+  getUserById,
+  createUser,
+  createBooking,
 };
