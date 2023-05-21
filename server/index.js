@@ -3,6 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const db = require("./queries");
 const dummyData = require("./dummyData.js");
+const authMiddleware = require("./authMiddleware.js");
 const app = express();
 const port = 3000;
 
@@ -25,9 +26,15 @@ app.get("/users/:id", db.getUserById);
 
 app.get("/restaurants", dummyData.getRestaurants);
 
-app.post("/createUser", db.createUser);
-
 app.post("/bookings", db.createBooking);
+
+app.post("/login");
+
+app.post("/register", db.register);
+
+app.get("/protected", authMiddleware, (req, res) => {
+  res.send("You are authenticated");
+});
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
