@@ -4,41 +4,43 @@ import axios from 'axios';
 type UserInfo = {
   username: string;
   password: string;
-  userType: string;
+  role: string;
 };
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     OpenLoginModal: false,
-    currentLoginType: 'login',
+    currentLoginType: 'login', // 'login' | 'register'
     user: {
       name: '',
-      type: ''
+      role: '' // 'guest' | 'restaurant'
     }
   }),
   actions: {
-    async login({ username, password, userType }: UserInfo) {
+    async register({ username, password, role }: UserInfo) {
+      const response = await axios.post('http://localhost:3000/register', {
+        username,
+        password,
+        role
+      });
+      this.user.name = username;
+      this.user.role = role;
+      console.log('user: ' + this.user.name, this.user.role);
+    },
+    async login({ username, password, role }: UserInfo) {
       const response = await axios.post('http://localhost:3000/login', {
         username,
         password,
-        userType
+        role
       });
-      this.user.name = response.data.username;
-      console.log(this.user.name);
-    },
-    async signUp({ username, password, userType }: UserInfo) {
-      const response = await axios.post('http://localhost:3000/createUser', {
-        username,
-        password,
-        userType
-      });
-      this.user.name = response.data.username;
-      this.user.type = response.data.userType;
-      console.log(this.user.name, this.user.type);
+      this.user.name = username;
+      this.user.role = role;
+      console.log('user: ' + this.user.name, this.user.role);
     },
     logout() {
       this.user.name = '';
-      this.user.type = '';
+      this.user.role = '';
+      console.log('user: ' + this.user.name, this.user.role);
     }
   }
 });

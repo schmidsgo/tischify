@@ -7,44 +7,42 @@ const authStore = useAuthStore();
 
 const username = ref('');
 const password = ref('');
-const userType = ref('customer');
+const role = ref('guest');
 const isError = ref(false);
 const isLoading = ref(false);
 
-const login = async () => {
+const register = async () => {
   try {
     isLoading.value = true;
-    const response = await axios.post('http://localhost:3000/login', {
-      userType: userType.value,
+    authStore.register({
+      role: role.value,
       username: username.value,
       password: password.value
     });
-    authStore.login(response.data);
     authStore.OpenLoginModal = false;
+    username.value = '';
+    password.value = '';
   } catch (error) {
     isError.value = true;
   } finally {
-    username.value = '';
-    password.value = '';
     isLoading.value = false;
   }
 };
 
-const signUp = async () => {
+const login = async () => {
   try {
     isLoading.value = true;
-    const response = await axios.post('http://localhost:3000/createUser', {
-      userType: userType.value,
+    authStore.login({
+      role: role.value,
       username: username.value,
       password: password.value
     });
-    authStore.signUp(response.data);
     authStore.OpenLoginModal = false;
+    username.value = '';
+    password.value = '';
   } catch (error) {
     isError.value = true;
   } finally {
-    username.value = '';
-    password.value = '';
     isLoading.value = false;
   }
 };
@@ -63,16 +61,16 @@ const signUp = async () => {
           <div class="w-50 justify-center mx-auto">
             <v-card-text>
               <form @submit.prevent="login">
-                <v-radio-group v-model="userType" inline class="justify-center">
+                <v-radio-group v-model="role" inline class="justify-center">
                   <v-radio
                     label="Kunde"
                     color="info"
-                    value="customer"
+                    value="guest"
                     size="x-small"
                     class="mr-4"
                   />
                   <v-radio
-                    label="Gewerbe"
+                    label="Mitarbeiter"
                     color="info"
                     value="restaurant"
                     size="x-small"
@@ -131,7 +129,7 @@ const signUp = async () => {
                           variant="text"
                           class="py-2 px-4"
                           prepend-icon="mdi-account-plus"
-                          @click="authStore.currentLoginType = 'signUp'"
+                          @click="authStore.currentLoginType = 'register'"
                         >
                           Registrieren
                         </v-btn>
@@ -144,7 +142,7 @@ const signUp = async () => {
           </div>
         </v-card>
       </v-window-item>
-      <v-window-item v-else-if="authStore.currentLoginType === 'signUp'">
+      <v-window-item v-else-if="authStore.currentLoginType === 'register'">
         <v-card class="pb-5">
           <v-card-title
             class="text-center text-h5 font-weight-bold text-Blue mb-5 bg-grey-lighten-2"
@@ -153,17 +151,17 @@ const signUp = async () => {
           </v-card-title>
           <div class="w-50 justify-center mx-auto">
             <v-card-text>
-              <form @submit.prevent="signUp">
-                <v-radio-group v-model="userType" inline justify="center">
+              <form @submit.prevent="register">
+                <v-radio-group v-model="role" inline justify="center">
                   <v-radio
                     label="Kunde"
                     color="info"
-                    value="customer"
+                    value="guest"
                     size="x-small"
                     class="mr-4"
                   />
                   <v-radio
-                    label="Gewerbe"
+                    label="Mitarbeiter"
                     color="info"
                     value="restaurant"
                     size="x-small"

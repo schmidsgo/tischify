@@ -64,15 +64,15 @@ const fourCafes = computed(() =>
     .filter(item => item.capacity['18:00'] === '\u25b3')
     .slice(0, 4)
 );
-console.log(authStore.user.name, authStore.user.type);
+console.log(authStore.user.name, authStore.user.role);
 </script>
 
 <template>
   <div class="bg-grey-lighten-5">
     <Navbar />
     <LoginModal />
-    <!-- TODO: add userType condition windows -->
-    <!-- <v-window v-if="authStore.user.name, authStore.user.type === 'customer'" />
+    <!-- TODO: add role condition windows -->
+    <!-- <v-window v-if="authStore.user.name, authStore.user.role === 'guest'" />
         <v-window-item v-if=" -->
     <Searchbar v-model="searchQuery" @search="handleSearch" />
     <v-layout>
