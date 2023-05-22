@@ -24,20 +24,18 @@ CREATE TABLE restaurants (
   FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
--- -- Erstellen der Reservierungstabelle
--- CREATE TABLE reservations (
---   reservation_id SERIAL PRIMARY KEY,
---   guest_id INTEGER NOT NULL,
---   restaurant_id INTEGER NOT NULL,
---   date DATE NOT NULL,
---   time TIME NOT NULL,
---   party_size INTEGER NOT NULL,
---   status VARCHAR(255) NOT NULL,
---   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
---   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
---   FOREIGN KEY (guest_id) REFERENCES guests (guest_id),
---   FOREIGN KEY (restaurant_id) REFERENCES restaurants (restaurant_id)
--- );
+-- Erstellen der Reservierungstabelle
+CREATE TABLE reservations (
+  reservation_id SERIAL PRIMARY KEY,
+  guest_id INTEGER NOT NULL,
+  restaurant_id INTEGER NOT NULL,
+  datetime TIMESTAMP NOT NULL,
+  party_size INTEGER NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (guest_id) REFERENCES guests (guest_id),
+  FOREIGN KEY (restaurant_id) REFERENCES restaurants (restaurant_id)
+);
 
 -- -- Erstellen der Verfügbarkeitstabelle für Restaurants
 -- CREATE TABLE restaurant_availabilities (
