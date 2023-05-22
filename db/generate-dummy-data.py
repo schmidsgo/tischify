@@ -1,8 +1,10 @@
 import random
+from datetime import datetime, timedelta
 
 users = []
 guests = []
 restaurants = []
+reservations = []
 
 possible_opening_hours = [
     '10:00-22:00',
@@ -49,6 +51,32 @@ for i in range(num_restaurants):
         }
     )
 
+for guest_id in range(1, num_guests+1):
+    # Generate random reservations for each guest
+    for _ in range(random.randint(1, 5)):
+        restaurant_id = random.randint(1, num_restaurants)
+        opening_hours = possible_opening_hours[(restaurant_id - 1) % len(possible_opening_hours)]
+        opening_time, closing_time = opening_hours.split('-')
+        opening_time = datetime.strptime(opening_time, '%H:%M')
+        closing_time = datetime.strptime(closing_time, '%H:%M')
+
+        # Generate a random datetime within the opening hours
+        datetime_format = '%Y-%m-%d %H:%M:%S'
+        min_datetime = datetime.now().replace(hour=opening_time.hour, minute=opening_time.minute, second=0, microsecond=0) + timedelta(days=1)
+        max_datetime = datetime.now().replace(hour=closing_time.hour, minute=closing_time.minute, second=0, microsecond=0) + timedelta(days=7)
+        reservation_datetime = random.choice([min_datetime + timedelta(minutes=30*i) for i in range(int((max_datetime-min_datetime).total_seconds() / 1800))])
+
+        # Generate random party size
+        party_size = random.randint(1, 10)
+
+        reservations.append({
+            'guest_id': guest_id,
+            'restaurant_id': restaurant_id,
+            'datetime': reservation_datetime.strftime(datetime_format),
+            'party_size': party_size
+        })
+
+
 with open('db/dummy-data.sql', 'w') as f:
     # Create users
     user_values = [(user['username'], user['password'], user['role']) for user in users]
@@ -66,4 +94,10 @@ with open('db/dummy-data.sql', 'w') as f:
     restaurant_values = [(restaurant['user_id'], restaurant['name'], restaurant['address'], restaurant['phone_number'], restaurant['opening_hours']) for restaurant in restaurants]
     f.write("INSERT INTO restaurants (user_id, name, address, phone_number, opening_hours) VALUES\n")
     f.write(",\n".join([f"({user_id}, '{name}', '{address}', '{phone_number}', '{opening_hours}')" for user_id, name, address, phone_number, opening_hours in restaurant_values]))
+    f.write(";\n")
+
+    # Create reservations
+    reservation_values = [(reservation['guest_id'], reservation['restaurant_id'], reservation['datetime'], reservation['party_size']) for reservation in reservations]
+    f.write("INSERT INTO reservations (guest_id, restaurant_id, datetime, party_size) VALUES\n")
+    f.write(",\n".join([f"({guest_id}, {restaurant_id}, '{reservation_datetime}', {party_size})" for guest_id, restaurant_id, reservation_datetime, party_size in reservation_values]))
     f.write(";\n")
