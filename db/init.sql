@@ -36,13 +36,3 @@ CREATE TABLE reservations (
   FOREIGN KEY (guest_id) REFERENCES guests (guest_id),
   FOREIGN KEY (restaurant_id) REFERENCES restaurants (restaurant_id)
 );
-
--- -- Erstellen der Verfügbarkeitstabelle für Restaurants
--- CREATE TABLE restaurant_availabilities (
---   availability_id SERIAL PRIMARY KEY,
---   restaurant_id INTEGER NOT NULL,
---   start_time TIME NOT NULL,
---   end_time TIME NOT NULL,
---   max_party_size INTEGER NOT NULL,
---   FOREIGN KEY (restaurant_id) REFERENCES restaurants (restaurant_id)
--- );
