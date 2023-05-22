@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Tischify",
-    "dateExported": "2023-05-21T15:44:51.068Z",
+    "dateExported": "2023-05-22T07:47:27.877Z",
     "version": "1.1",
     "folders": [
         {
@@ -72,6 +72,67 @@
                 "form": []
             },
             "tests": []
+        },
+        {
+            "_id": "251daae9-12a7-4c61-8bf4-3bcd6f3eedca",
+            "colId": "f9aebf31-d1d0-40a0-b745-2a6d539f4f46",
+            "containerId": "",
+            "name": "login",
+            "url": "localhost:3000/login",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-05-21T16:09:25.410Z",
+            "modified": "2023-05-22T06:47:33.562Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*",
+                    "isDisabled": true
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"Test7\",\n  \"password\": \"Test\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "410d5ea5-d680-4a57-92b0-bfe3b54b924f",
+            "colId": "f9aebf31-d1d0-40a0-b745-2a6d539f4f46",
+            "containerId": "",
+            "name": "protected",
+            "url": "localhost:3000/protected",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-05-21T16:19:21.324Z",
+            "modified": "2023-05-21T16:22:09.446Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*",
+                    "isDisabled": true
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "tests": []
         }
-    ]
+    ],
+    "settings": {
+        "auth": {
+            "type": "bearer",
+            "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIsInVzZXJuYW1lIjoiVGVzdDciLCJpYXQiOjE2ODQ3Mzk0OTYsImV4cCI6MTY4NDc0MzA5Nn0.EpRnolRuyMiEnCsqU2R1SWwTPvuxsdkDMJxVBGrJnBs"
+        }
+    }
 }
