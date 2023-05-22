@@ -184,7 +184,7 @@ const login = async () => {
                   v-if="role === 'restaurant'"
                   v-model="opening_hours"
                   label="Öffnungszeit"
-                  placeholder="z.B. 08:00 - 18:00"
+                  placeholder="z.B. 08:00-18:00"
                   required
                 />
                 <p v-if="authStore.isError" class="text-red ml-4">Error!</p>
