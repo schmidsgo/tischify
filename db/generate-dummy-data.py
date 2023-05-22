@@ -57,7 +57,7 @@ with open('db/dummy-data.sql', 'w') as f:
     f.write(";\n")
 
     # Create guests
-    guest_values = [(guest['user_id'],) for guest in guests]
+    guest_values = [guest['user_id'] for guest in guests]
     f.write("INSERT INTO guests (user_id) VALUES\n")
     f.write(",\n".join([f"({user_id})" for user_id in guest_values]))
     f.write(";\n")

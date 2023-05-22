@@ -105,11 +105,11 @@ INSERT INTO users (username, password, role) VALUES
 ('restaurant99', 'restaurant99', 'restaurant'),
 ('restaurant100', 'restaurant100', 'restaurant');
 INSERT INTO guests (user_id) VALUES
-((1,)),
-((2,)),
-((3,)),
-((4,)),
-((5,));
+(1),
+(2),
+(3),
+(4),
+(5);
 INSERT INTO restaurants (user_id, name, address, phone_number, opening_hours) VALUES
 (6, 'restaurant1', 'address1', 'phone-1', '10:00-22:00'),
 (7, 'restaurant2', 'address2', 'phone-2', '11:00-23:00'),
