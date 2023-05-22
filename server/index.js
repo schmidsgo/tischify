@@ -24,7 +24,9 @@ app.get("/users", db.getUsers);
 
 app.get("/users/:id", db.getUserById);
 
-app.get("/restaurants", dummyData.getRestaurants);
+app.get("/restaurants", db.getRestaurants);
+
+app.get("/restaurants/availabilitys", db.getRestaurantAvailabilitys);
 
 app.post("/bookings", db.createBooking);
 

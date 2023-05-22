@@ -37,16 +37,38 @@ const getUserById = (request, response) => {
 };
 
 const createBooking = (request, response) => {
-  const { user_id, restaurant_id, date, time, guests } = request.body;
-  pool.query(
-    "INSERT INTO bookings (user_id, restaurant_id, date, time, guests) VALUES ($1, $2, $3, $4, $5)",
-    [user_id, restaurant_id, date, time, guests],
-    (error, result) => {
-      if (error) {
-        response.status(400).send(error);
-      }
+  const user = request.user;
+  const { restaurant_id, date, time, number_of_people } = request.body;
+};
+
+const getRestaurants = (request, response) => {
+  pool.query("SELECT * FROM restaurants", (error, results) => {
+    if (error) {
+      response.status(400).send(error);
+    } else {
+      response.status(200).json(results.rows);
     }
-  );
+  });
+};
+
+const getRestaurantAvailabilitys = (request, response) => {
+  getRestaurantAvailabilitysInputValidation(request, response);
+  if (response.statusCode === 400) {
+    return;
+  }
+
+  const { restaurant_id, startDateTime, endDateTime } = request.body;
+  pool
+    .query(
+      "SELECT * FROM reservations WHERE restaurant_id = $1 And datetime > $2 And datetime < $3",
+      [restaurant_id, startDateTime, endDateTime]
+    )
+    .then((result) => {
+      response.status(200).json(result.rows);
+    })
+    .catch((error) => {
+      response.status(400).send(error);
+    });
 };
 
 const register = (request, response) => {
@@ -173,6 +195,21 @@ const loginInputValidation = (request, response) => {
     return;
   }
 };
+
+const getRestaurantAvailabilitysInputValidation = (request, response) => {
+  const { restaurant_id, startDateTime, endDateTime } = request.body;
+  if (!restaurant_id || !startDateTime || !endDateTime) {
+    response.status(400).send("Missing fields.");
+    return;
+  }
+  const regex = new RegExp("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$");
+  if (!regex.test(startDateTime) || !regex.test(endDateTime)) {
+    response
+      .status(400)
+      .send("Invalid date format. Must be YYYY-MM-DD HH:MM:SS");
+    return;
+  }
+};
 // #endregion Helper Functions
 
 module.exports = {
@@ -181,4 +218,6 @@ module.exports = {
   createBooking,
   register,
   login,
+  getRestaurantAvailabilitys,
+  getRestaurants,
 };
