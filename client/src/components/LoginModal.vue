@@ -1,50 +1,36 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useAuthStore } from '../stores/state';
-import axios from 'axios';
 
 const authStore = useAuthStore();
 
 const username = ref('');
 const password = ref('');
 const role = ref('guest');
-const isError = ref(false);
-const isLoading = ref(false);
+
+const restaurant_name = ref('');
+const address = ref('');
+const phone = ref('');
+const opening_hours = ref('');
 
 const register = async () => {
-  try {
-    isLoading.value = true;
-    authStore.register({
-      role: role.value,
-      username: username.value,
-      password: password.value
-    });
-    authStore.OpenLoginModal = false;
-    username.value = '';
-    password.value = '';
-  } catch (error) {
-    isError.value = true;
-  } finally {
-    isLoading.value = false;
-  }
+  authStore.register({
+    role: role.value,
+    username: username.value,
+    password: password.value,
+    restaurant_name: restaurant_name.value,
+    address: address.value,
+    phone: phone.value,
+    opening_hours: opening_hours.value
+  });
 };
 
 const login = async () => {
-  try {
-    isLoading.value = true;
-    authStore.login({
-      role: role.value,
-      username: username.value,
-      password: password.value
-    });
-    authStore.OpenLoginModal = false;
-    username.value = '';
-    password.value = '';
-  } catch (error) {
-    isError.value = true;
-  } finally {
-    isLoading.value = false;
-  }
+  authStore.login({
+    role: role.value,
+    username: username.value,
+    password: password.value
+  });
 };
 </script>
 
@@ -83,7 +69,9 @@ const login = async () => {
                   type="password"
                   required
                 />
-                <p v-if="isError" class="text-red ml-4">Nicht gefunden!</p>
+                <p v-if="authStore.isError" class="text-red ml-4">
+                  Nicht gefunden!
+                </p>
                 <v-card-actions>
                   <v-row justify="center" class="mt-3">
                     <v-btn
@@ -97,7 +85,7 @@ const login = async () => {
                       Abbrechen
                     </v-btn>
                     <v-btn
-                      v-if="!isLoading"
+                      v-if="!authStore.isLoading"
                       type="submit"
                       color="Blue"
                       variant="flat"
@@ -107,7 +95,7 @@ const login = async () => {
                       Einloggen
                     </v-btn>
                     <v-btn
-                      v-else-if="isLoading"
+                      v-else-if="authStore.isLoading"
                       color="Blue"
                       variant="flat"
                       class="p-2"
@@ -174,7 +162,32 @@ const login = async () => {
                   type="password"
                   required
                 />
-                <p v-if="isError" class="text-red ml-4">Error!</p>
+                <v-text-field
+                  v-if="role === 'restaurant'"
+                  v-model="restaurant_name"
+                  label="Name des Ladens"
+                  required
+                />
+                <v-text-field
+                  v-if="role === 'restaurant'"
+                  v-model="address"
+                  label="Adresse"
+                  required
+                />
+                <v-text-field
+                  v-if="role === 'restaurant'"
+                  v-model="phone"
+                  label="Telefon Nummer"
+                  required
+                />
+                <v-text-field
+                  v-if="role === 'restaurant'"
+                  v-model="opening_hours"
+                  label="Öffnungszeit"
+                  placeholder="z.B. 08:00 - 18:00"
+                  required
+                />
+                <p v-if="authStore.isError" class="text-red ml-4">Error!</p>
                 <v-card-actions>
                   <v-row class="mt-3">
                     <v-col cols="12">
@@ -189,7 +202,7 @@ const login = async () => {
                         Abbrechen
                       </v-btn>
                       <v-btn
-                        v-if="!isLoading"
+                        v-if="!authStore.isLoading"
                         type="submit"
                         color="Blue"
                         variant="flat"
@@ -199,7 +212,7 @@ const login = async () => {
                         Registrieren
                       </v-btn>
                       <v-btn
-                        v-else-if="isLoading"
+                        v-else-if="authStore.isLoading"
                         color="Blue"
                         variant="flat"
                         class="p-2"
