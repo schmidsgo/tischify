@@ -3,13 +3,15 @@ export type ItemType = {
   name: string;
   address: string;
   location: string;
-  image: string;
-  capacity: {
-    '18:00': string;
-    '18:30': string;
-    '19:00': string;
-  };
-  phone_number: string;
   category: string;
+  image: string;
+  // capacity: {
+  //   '18:00': string;
+  //   '18:30': string;
+  //   '19:00': string;
+  // };
+  rating: string;
+  price_level: string;
+  phone_number: string;
   opening_hours: string;
 };

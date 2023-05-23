@@ -61,7 +61,7 @@ const fourRests = computed(() =>
 
 const fourCafes = computed(() =>
   state.restaurants
-    .filter(item => item.capacity['18:00'] === '\u25b3')
+    .filter(item => item.opening_hours === '10:00-22:00')
     .slice(0, 4)
 );
 console.log(authStore.user.name, authStore.user.role);
@@ -72,8 +72,11 @@ console.log(authStore.user.name, authStore.user.role);
     <Navbar />
     <LoginModal />
     <!-- TODO: add role condition windows -->
-    <!-- <v-window v-if="authStore.user.name, authStore.user.role === 'guest'" />
-        <v-window-item v-if=" -->
+    <!-- <v-window />
+    <v-window-item
+      v-if="authStore.user.name !== '' && authStore.user.role === 'guest'"
+    >
+    </v-window-item> -->
     <Searchbar v-model="searchQuery" @search="handleSearch" />
     <v-layout>
       <v-main>
@@ -126,6 +129,16 @@ console.log(authStore.user.name, authStore.user.role);
             <v-row>
               <v-col cols="3" v-for="item in fourRests" :key="item.id">
                 <CardItem :item="item" />
+              </v-col>
+              <v-col cols="3" md="6">
+                <v-skeleton-loader
+                  class="mx-auto border"
+                  color="info"
+                  width="300"
+                  height="300"
+                  loading="false"
+                  type="card-avatar, actions"
+                />
               </v-col>
             </v-row>
           </v-row>

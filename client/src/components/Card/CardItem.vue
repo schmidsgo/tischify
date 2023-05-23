@@ -16,7 +16,8 @@ const bookingStore = useBookingStore();
       v-bind="props"
       class="mx-auto rounded-lg"
     >
-      <v-img class="align-end text-white" height="180" :src="item.image" cover>
+      <!-- FIXME: item.image -->
+      <v-img class="align-end text-white" height="180" src="rest1.jpeg" cover>
         <v-card-title class="text-h6 font-weight-bold">
           {{ item.name }}
         </v-card-title>
@@ -27,21 +28,21 @@ const bookingStore = useBookingStore();
         }}
       </v-card-text>
       <v-card-text class="pb-3">
-        <v-flex v-for="i in 5" :key="i" class="mr-2">
-          <!-- TODO: add rating -->
+        <v-flex v-for="i in item.rating" :key="i" class="mr-2">
           <v-icon icon="mdi-star" class="text-blue" />
         </v-flex>
-        <v-flex v-for="i in 2" :key="i">
-          <!-- TODO: add price level -->
-          <v-icon icon="mdi-currency-usd" class="text-blue" />
+        <v-flex v-for="i in item.price_level" :key="i">
+          <v-icon icon="mdi-currency-euro" class="text-blue" />
         </v-flex>
-        <v-icon icon="mdi-currency-usd" class="text-grey" />
+        <!-- TODO: fill with grey elements -->
+        <!-- <v-flex v-for="i in item.price_level" :key="i">
+          <v-icon icon="mdi-currency-euro" class="text-grey" />
+        </v-flex> -->
       </v-card-text>
       <v-card-text
         class="d-flex align-center justify-start text-h6 text-grey-darken-2 mr-2 py-1"
       >
-        <!-- TODO: add opening hours -->
-        8:00 - 18:00
+        {{ item.opening_hours }}
         <v-btn
           @click="bookingStore.showBookingModal = true"
           variant="tonal"
@@ -51,17 +52,10 @@ const bookingStore = useBookingStore();
         </v-btn>
       </v-card-text>
       <v-card-actions class="mb-2">
-        <v-btn color="pink-lighten-1" variant="flat">
-          {{ item.capacity['18:00'] }} 18:00
-        </v-btn>
-        <v-btn color="pink-lighten-1" variant="flat">
-          {{ item.capacity['18:30'] }} 18:30
-        </v-btn>
-        <v-btn color="pink-lighten-1" variant="flat">
-          {{ item.capacity['19:00'] }} 19:00
-        </v-btn>
+        <v-btn color="pink-lighten-1" variant="flat">○ 18:00 </v-btn>
+        <v-btn color="pink-lighten-1" variant="flat">△ 18:30 </v-btn>
+        <v-btn color="pink-lighten-1" variant="flat">◎ 19:00 </v-btn>
       </v-card-actions>
-      <!-- FIXME: -->
       <BookingModal :item="item" />
     </v-card>
   </v-hover>
