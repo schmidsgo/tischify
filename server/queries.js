@@ -51,8 +51,8 @@ const getRestaurants = (request, response) => {
   });
 };
 
-const getRestaurantAvailabilitys = (request, response) => {
-  getRestaurantAvailabilitysInputValidation(request, response);
+const getRestaurantAvailabilities = (request, response) => {
+  getRestaurantAvailabilitiesInputValidation(request, response);
   if (response.statusCode === 400) {
     return;
   }
@@ -196,17 +196,15 @@ const loginInputValidation = (request, response) => {
   }
 };
 
-const getRestaurantAvailabilitysInputValidation = (request, response) => {
+const getRestaurantAvailabilitiesInputValidation = (request, response) => {
   const { restaurant_id, startDateTime, endDateTime } = request.body;
   if (!restaurant_id || !startDateTime || !endDateTime) {
     response.status(400).send("Missing fields.");
     return;
   }
-  const regex = new RegExp("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$");
+  const regex = new RegExp("^\\d{2}.\\d{2}.\\d{4} \\d{2}:\\d{2}$");
   if (!regex.test(startDateTime) || !regex.test(endDateTime)) {
-    response
-      .status(400)
-      .send("Invalid date format. Must be YYYY-MM-DD HH:MM:SS");
+    response.status(400).send("Invalid date format. Must be DD.MM.YYYY HH:MM");
     return;
   }
 };
@@ -218,6 +216,6 @@ module.exports = {
   createBooking,
   register,
   login,
-  getRestaurantAvailabilitys,
+  getRestaurantAvailabilities,
   getRestaurants,
 };

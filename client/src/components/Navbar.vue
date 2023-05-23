@@ -7,7 +7,9 @@ const authStore = useAuthStore();
 <template>
   <div class="d-flex px-8 bg-grey-darken-4 w-full h-100">
     <v-col cols="6" class="d-flex justify-start">
-      <img class="h-12 mr-4" src="/logo.svg" alt="Logo" />
+      <router-link to="/">
+        <img class="h-12 mr-4" src="/logo.svg" alt="Logo" />
+      </router-link>
     </v-col>
     <v-col
       v-if="authStore.user.role === 'guest'"

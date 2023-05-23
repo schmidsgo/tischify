@@ -1,6 +1,7 @@
 export type ItemType = {
   id: string;
   name: string;
+  address: string;
   location: string;
   image: string;
   capacity: {
@@ -8,6 +9,7 @@ export type ItemType = {
     '18:30': string;
     '19:00': string;
   };
-  telefon: string;
+  phone_number: string;
   category: string;
+  opening_hours: string;
 };

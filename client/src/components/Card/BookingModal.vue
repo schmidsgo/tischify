@@ -10,7 +10,6 @@ const authStore = useAuthStore();
 const bookingStore = useBookingStore();
 
 const name = authStore.user.name !== '' ? authStore.user.name : ref('');
-// const name = ref('');
 const email = ref('');
 const people = ref(0);
 const datetime = ref('');

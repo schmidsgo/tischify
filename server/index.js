@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const db = require("./queries");
-const dummyData = require("./dummyData.js");
 const authMiddleware = require("./authMiddleware.js");
 const app = express();
 const port = 3000;
@@ -26,7 +25,7 @@ app.get("/users/:id", db.getUserById);
 
 app.get("/restaurants", db.getRestaurants);
 
-app.get("/restaurants/availabilitys", db.getRestaurantAvailabilitys);
+app.get("/restaurants/availabilitys", db.getRestaurantAvailabilities);
 
 app.post("/bookings", db.createBooking);
 
