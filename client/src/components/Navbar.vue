@@ -35,11 +35,11 @@ const authStore = useAuthStore();
                   <v-img
                     class="bg-grey-lighten-2 rounded-lg"
                     height="70"
-                    src="rest1.jpeg"
+                    src="restaurant.jpeg"
                     cover
                   />
                 </v-col>
-                <v-col cols="8">
+                <v-col cols="8" class="pl-0">
                   <v-card-title class="text-h6 font-weight-bold p-0">
                     Restaurant 12
                   </v-card-title>
@@ -55,11 +55,11 @@ const authStore = useAuthStore();
                   <v-img
                     class="bg-grey-lighten-2 rounded-lg"
                     height="70"
-                    src="cafe1.jpeg"
+                    src="cafe.jpeg"
                     cover
                   />
                 </v-col>
-                <v-col cols="8">
+                <v-col cols="8" class="pl-0">
                   <v-card-title class="text-h6 font-weight-bold p-0">
                     Cafe 9
                   </v-card-title>
