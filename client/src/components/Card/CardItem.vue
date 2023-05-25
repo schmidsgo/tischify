@@ -16,8 +16,12 @@ const bookingStore = useBookingStore();
       v-bind="props"
       class="mx-auto rounded-lg"
     >
-      <!-- FIXME: item.image -->
-      <v-img class="align-end text-white" height="180" src="rest1.jpeg" cover>
+      <v-img
+        class="align-end text-white"
+        height="180"
+        :src="`${item.category}.jpeg`"
+        cover
+      >
         <v-card-title class="text-h6 font-weight-bold">
           {{ item.name }}
         </v-card-title>
@@ -28,35 +32,60 @@ const bookingStore = useBookingStore();
         }}
       </v-card-text>
       <v-card-text class="pb-3">
-        <v-flex v-for="i in item.rating" :key="i" class="mr-2">
-          <v-icon icon="mdi-star" class="text-blue" />
-        </v-flex>
-        <v-flex v-for="i in item.price_level" :key="i">
-          <v-icon icon="mdi-currency-euro" class="text-blue" />
-        </v-flex>
-        <!-- TODO: fill with grey elements -->
-        <!-- <v-flex v-for="i in item.price_level" :key="i">
-          <v-icon icon="mdi-currency-euro" class="text-grey" />
-        </v-flex> -->
+        <v-row>
+          <v-col cols="7" class="mr-0">
+            <v-flex v-for="i in item.rating" :key="i">
+              <v-icon icon="mdi-star" class="text-blue" />
+            </v-flex>
+            <v-flex v-for="i in 5 - item.rating" :key="i">
+              <v-icon icon="mdi-star" class="text-grey" />
+            </v-flex>
+          </v-col>
+          <v-col cols="5">
+            <v-flex v-for="i in item.price_level" :key="i">
+              <v-icon icon="mdi-currency-eur" class="text-blue" />
+            </v-flex>
+            <v-flex v-for="i in 3 - item.price_level" :key="i">
+              <v-icon icon="mdi-currency-eur" class="text-grey" />
+            </v-flex>
+          </v-col>
+        </v-row>
       </v-card-text>
       <v-card-text
-        class="d-flex align-center justify-start text-h6 text-grey-darken-2 mr-2 py-1"
+        class="d-flex align-center justify-start text-h6 text-grey-darken-2 py-1"
       >
-        {{ item.opening_hours }}
-        <v-btn
-          @click="bookingStore.showBookingModal = true"
-          variant="tonal"
-          class="bg-blue hover:bg-blue-lighten-3 ml-3 px-2 py-2 rounded-xl focus:outline-none"
-        >
-          Book Now
-        </v-btn>
+        <v-row>
+          <v-col cols="7" class="my-2">
+            {{ item.opening_hours }}
+          </v-col>
+          <v-col cols="5">
+            <v-btn
+              @click="bookingStore.showBookingModal = true"
+              variant="tonal"
+              class="bg-blue hover:bg-blue-lighten-3 rounded-xl focus:outline-none"
+            >
+              Buchen
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-card-text>
-      <v-card-actions class="mb-2">
+      <v-card-actions class="mt-1 ml-1 mb-2">
         <v-btn color="pink-lighten-1" variant="flat">○ 18:00 </v-btn>
         <v-btn color="pink-lighten-1" variant="flat">△ 18:30 </v-btn>
         <v-btn color="pink-lighten-1" variant="flat">◎ 19:00 </v-btn>
       </v-card-actions>
       <BookingModal :item="item" />
+
+      <template v-slot:placeholder>
+        <v-sheet color="bg-grey-lighten-4" class="fill-height">
+          <v-skeleton-loader
+            class="mx-auto border"
+            max-width="200"
+            height="300"
+            type="image, article"
+          />
+        </v-sheet>
+      </template>
     </v-card>
   </v-hover>
 </template>
