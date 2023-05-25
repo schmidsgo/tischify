@@ -10,8 +10,8 @@ export type ItemType = {
   //   '18:30': string;
   //   '19:00': string;
   // };
-  rating: string;
-  price_level: string;
+  rating: number;
+  price_level: number;
   phone_number: string;
   opening_hours: string;
 };
