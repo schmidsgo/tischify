@@ -52,10 +52,14 @@ const bookingStore = useBookingStore();
         </v-row>
       </v-card-text>
       <v-card-text
-        class="d-flex align-center justify-start text-h6 text-grey-darken-2 py-1"
+        class="d-flex align-center justify-start text-h6 text-grey-darken-2 py-0"
       >
         <v-row>
-          <v-col cols="7" class="my-2">
+          <v-col
+            cols="7"
+            class="text-grey-darken-1 d-flex align-center mb-2 pr-0"
+          >
+            <v-icon icon="mdi-store" />
             {{ item.opening_hours }}
           </v-col>
           <v-col cols="5">

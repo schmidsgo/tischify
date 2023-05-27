@@ -1,5 +1,14 @@
+<script setup lang="ts">
+import type { ItemType } from '../types/types';
+defineProps<{
+  items: ItemType[];
+  item: ItemType;
+  searchQuery: String;
+  searchType: String;
+}>();
+</script>
+
 <template>
-  <!-- FIXME: -->
   <v-container
     v-if="searchQuery"
     class="d-flex justify-center align-center mt-4 p-0"
@@ -26,26 +35,3 @@
     </v-row>
   </v-container>
 </template>
-
-<script lang="ts">
-import CardItem from '../components/Card/CardItem.vue';
-import type { ItemType } from '../types';
-
-export default {
-  props: {
-    items: {
-      type: Array as () => ItemType[],
-      required: true
-    },
-    searchQuery: {
-      type: String,
-      required: true
-    },
-    searchType: {
-      type: String,
-      required: true
-    }
-  },
-  component: CardItem
-};
-</script>

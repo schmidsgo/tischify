@@ -10,7 +10,7 @@ const role = ref('guest');
 
 const restaurant_name = ref('');
 const address = ref('');
-const phone = ref('');
+const phone_number = ref('');
 const opening_hours = ref('');
 
 const register = async () => {
@@ -20,7 +20,7 @@ const register = async () => {
     password: password.value,
     restaurant_name: restaurant_name.value,
     address: address.value,
-    phone: phone.value,
+    phone_number: phone_number.value,
     opening_hours: opening_hours.value
   });
 };
@@ -176,7 +176,7 @@ const login = async () => {
                 />
                 <v-text-field
                   v-if="role === 'restaurant'"
-                  v-model="phone"
+                  v-model="phone_number"
                   label="Telefon Nummer"
                   required
                 />

@@ -59,9 +59,7 @@ const book = async () => {
             <v-card-text class="text-lg pa-0">
               {{ item.opening_hours }}
             </v-card-text>
-            <v-card-text
-              class="text-lg text-blue-darken-2 text-decoration-underline pa-0"
-            >
+            <v-card-text class="text-lg text-blue-darken-2 pa-0">
               <v-icon icon="mdi-phone" size="small" class="mr-2"></v-icon
               >{{ item.phone_number }}
             </v-card-text>

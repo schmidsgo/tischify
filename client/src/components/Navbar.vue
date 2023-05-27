@@ -94,8 +94,24 @@ const authStore = useAuthStore();
       cols="6"
       class="d-flex align-center justify-end"
     >
+      <!-- TODO: function? -->
       <v-btn icon="mdi-cog" variant="icon" class="mr-6" />
-      <v-btn icon="mdi-account" variant="icon" class="mr-6" />
+      <v-menu>
+        <template v-slot:activator="{ props }">
+          <v-btn
+            icon="mdi-account"
+            v-bind="props"
+            variant="icon"
+            class="mr-6"
+          />
+        </template>
+        <v-card min-width="120" class="mt-1">
+          <v-card-text>Hello, {{ authStore.user.name }}!</v-card-text>
+          <v-card-text @click="authStore.logout()" class="pt-0 text-Blue"
+            >ausloggen</v-card-text
+          >
+        </v-card>
+      </v-menu>
     </v-col>
     <v-col v-else cols="6" class="d-flex align-center justify-end">
       <v-btn

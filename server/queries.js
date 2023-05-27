@@ -99,12 +99,12 @@ const register = (request, response) => {
                 response.status(400).send(error);
               });
           } else if (role === "restaurant") {
-            const { restaurant_name, address, phone, opening_hours } =
+            const { restaurant_name, address, phone_number, opening_hours } =
               request.body;
             pool
               .query(
                 "INSERT INTO restaurants (user_id, name, address, phone_number, opening_hours) VALUES ($1, $2, $3, $4, $5)",
-                [user_id, restaurant_name, address, phone, opening_hours]
+                [user_id, restaurant_name, address, phone_number, opening_hours]
               )
               .then((result) => {
                 response.status(201).send(`Restaurant added`);
@@ -173,8 +173,9 @@ const registerInputValidation = (request, response) => {
   }
 
   if (role === "restaurant") {
-    const { restaurant_name, address, phone, opening_hours } = request.body;
-    if (!restaurant_name || !address || !phone || !opening_hours) {
+    const { restaurant_name, address, phone_number, opening_hours } =
+      request.body;
+    if (!restaurant_name || !address || !phone_number || !opening_hours) {
       response.status(400).send("Missing fields for new Restaurant.");
       return;
     }

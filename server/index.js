@@ -28,7 +28,7 @@ app.get("/restaurants", db.getRestaurants);
 app.get("/restaurants/availabilitys", db.getRestaurantAvailabilities);
 
 // TODO: add an endpoint for restaurant settings
-app.post("/settings", db.restaurantSettings);
+// app.post("/settings", db.restaurantSettings);
 
 app.post("/bookings", db.createBooking);
 
