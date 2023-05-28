@@ -117,7 +117,7 @@ const settings = async () => {
       <v-window-item v-if="authStore.user.role === 'restaurant'">
         <v-layout>
           <v-main>
-            <v-container>
+            <v-container class="h-screen mt-4">
               <v-row>
                 <v-col cols="12" class="pb-0">
                   <v-text class="text-h4 text-grey-darken-3 font-weight-bold">
@@ -131,57 +131,53 @@ const settings = async () => {
                 </v-col>
               </v-row>
               <v-divider class="my-4" />
-              <v-card class="pa-5">
-                <v-row>
-                  <v-col cols="6" justify="start" class="bg-yellow">
-                    <v-card-image>
-                      <v-img src="restaurant.jpeg" width="100%" />
-                    </v-card-image>
-                  </v-col>
-                  <v-col cols="6">
-                    <v-text class="text-h6 font-weight-semibold m-2">
-                      Bearbeitung:
-                      <span class="font-weight-bold">{{
-                        authStore.user.name
-                      }}</span>
-                    </v-text>
-                    <form @submit.prevent="settings" class="p-4">
-                      <v-text-field
-                        model-value="address-str.3"
-                        label="Adresse"
-                        required
-                        append-inner-icon="mdi-pencil"
-                      />
-                      <v-text-field
-                        model-value="0851/2629"
-                        label="Telefon Nummer"
-                        required
-                        append-inner-icon="mdi-pencil"
-                      />
-                      <v-text-field
-                        model-value="08:00-20:00"
-                        label="Öffnungszeit"
-                        required
-                        append-inner-icon="mdi-pencil"
-                      />
-                      <p v-if="settingStore.isError" class="text-red ml-4">
-                        Error!
-                      </p>
-                      <v-card-actions>
-                        <v-btn
-                          color="info"
-                          variant="flat"
-                          size="large"
-                          type="submit"
-                          text="settings"
-                          class="rounded-xl px-4"
-                          @click="settings"
-                        />
-                      </v-card-actions>
-                    </form>
-                  </v-col>
-                </v-row>
-              </v-card>
+              <v-row class="pa-4">
+                <v-col cols="6" justify="start" class="bg-yellow">
+                  <image>
+                    <v-img src="restaurant.jpeg" width="100%" />
+                  </image>
+                </v-col>
+                <v-col cols="6" class="px-8">
+                  <v-text class="text-h6 font-weight-semibold">
+                    Bearbeitung:
+                    <span class="font-weight-bold">{{
+                      authStore.user.name
+                    }}</span>
+                  </v-text>
+                  <form @submit.prevent="settings" class="mt-4 p-4">
+                    <v-text-field
+                      model-value="address-str.3"
+                      label="Adresse"
+                      required
+                      append-inner-icon="mdi-pencil"
+                    />
+                    <v-text-field
+                      model-value="0851/2629"
+                      label="Telefon Nummer"
+                      required
+                      append-inner-icon="mdi-pencil"
+                    />
+                    <v-text-field
+                      model-value="08:00-20:00"
+                      label="Öffnungszeit"
+                      required
+                      append-inner-icon="mdi-pencil"
+                    />
+                    <p v-if="settingStore.isError" class="text-red ml-4">
+                      Error!
+                    </p>
+                    <v-btn
+                      color="info"
+                      variant="flat"
+                      size="large"
+                      type="submit"
+                      text="submit"
+                      class="rounded-xl px-4"
+                      @click="settings"
+                    />
+                  </form>
+                </v-col>
+              </v-row>
             </v-container>
           </v-main>
         </v-layout>
