@@ -10,8 +10,10 @@ const role = ref('guest');
 
 const restaurant_name = ref('');
 const address = ref('');
+const city = ref('');
 const phone_number = ref('');
 const opening_hours = ref('');
+const capacity = ref(0);
 
 const register = async () => {
   authStore.register({
@@ -20,8 +22,10 @@ const register = async () => {
     password: password.value,
     restaurant_name: restaurant_name.value,
     address: address.value,
+    city: city.value,
     phone_number: phone_number.value,
-    opening_hours: opening_hours.value
+    opening_hours: opening_hours.value,
+    capacity: capacity.value
   });
 };
 
@@ -176,6 +180,12 @@ const login = async () => {
                 />
                 <v-text-field
                   v-if="role === 'restaurant'"
+                  v-model="city"
+                  label="Stadt"
+                  required
+                />
+                <v-text-field
+                  v-if="role === 'restaurant'"
                   v-model="phone_number"
                   label="Telefon Nummer"
                   required
@@ -185,6 +195,13 @@ const login = async () => {
                   v-model="opening_hours"
                   label="Öffnungszeit"
                   placeholder="z.B. 08:00-18:00"
+                  required
+                />
+                <v-text-field
+                  v-if="role === 'restaurant'"
+                  v-model="capacity"
+                  label="Kapazität"
+                  placeholder="z.B. 50"
                   required
                 />
                 <p v-if="authStore.isError" class="text-red ml-4">Error!</p>

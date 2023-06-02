@@ -2,7 +2,7 @@ export type ItemType = {
   id: string;
   name: string;
   address: string;
-  location: string;
+  city: string;
   category: string;
   image: string;
   // capacity: {

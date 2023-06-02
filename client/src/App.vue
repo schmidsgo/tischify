@@ -35,9 +35,9 @@ const filteredItems = computed(() => {
           item.name.toLowerCase().includes(searchQuery.value.toLowerCase())
         );
         break;
-      case 'location':
+      case 'city':
         items = items.filter(item =>
-          item.location.toLowerCase().includes(searchQuery.value.toLowerCase())
+          item.city.toLowerCase().includes(searchQuery.value.toLowerCase())
         );
         break;
       case 'category':
@@ -54,7 +54,7 @@ const filteredItems = computed(() => {
 });
 
 const fourRests = computed(() =>
-  state.restaurants.filter(item => item.location === 'Frankfurt').slice(0, 4)
+  state.restaurants.filter(item => item.city === 'Frankfurt').slice(0, 4)
 );
 
 const fourCafes = computed(() =>
@@ -69,7 +69,7 @@ const settingStore = useSettingsStore();
 
 const name = authStore.user.name;
 const address = ref('');
-const location = ref('');
+const city = ref('');
 const phone_number = ref('');
 const opening_hours = ref('');
 const people = ref(0);
@@ -83,7 +83,7 @@ const settings = async () => {
     // const response = await axios.post('http://localhost:3000/settings', {
     //   name: name.valueOf,
     //   address: address.value,
-    //   location: location.value,
+    //   city: city.value,
     //   phone_number: phone_number.value,
     //   opening_hours: opening_hours.value,
     //   people: people.value,
@@ -93,7 +93,7 @@ const settings = async () => {
     alert(
       name.valueOf +
         address.value +
-        location.value +
+        city.value +
         phone_number.value +
         opening_hours.value +
         people.value +
@@ -111,7 +111,6 @@ const settings = async () => {
   <div class="bg-grey-lighten-5">
     <Navbar />
     <LoginModal />
-    <!-- TODO: add role condition windows -->
     <v-window>
       <v-window-item v-if="authStore.user.role === 'restaurant'">
         <v-layout>
@@ -159,6 +158,12 @@ const settings = async () => {
                     <v-text-field
                       model-value="08:00-20:00"
                       label="Öffnungszeit"
+                      required
+                      append-inner-icon="mdi-pencil"
+                    />
+                    <v-text-field
+                      model-value="0"
+                      label="Kapazität"
                       required
                       append-inner-icon="mdi-pencil"
                     />
