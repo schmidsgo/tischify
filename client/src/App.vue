@@ -14,7 +14,7 @@ const state = reactive({
   restaurants: [] as ItemType[]
 });
 const searchQuery = ref('');
-const searchType = ref('name');
+const searchType = ref('');
 
 axios.get('http://localhost:3000/restaurants').then(res => {
   state.restaurants = res.data;
@@ -22,7 +22,7 @@ axios.get('http://localhost:3000/restaurants').then(res => {
 
 const handleSearch = (query: string, type: string) => {
   searchQuery.value = query;
-  searchType.value = type;
+  searchType.value = type.toLowerCase();
   console.log(searchQuery.value, searchType.value);
 };
 
@@ -31,9 +31,8 @@ const filteredItems = computed(() => {
   if (searchQuery.value) {
     switch (searchType.value) {
       case 'name':
-        const searchQueryValue = searchQuery.value || '';
         items = items.filter(item =>
-          item.name.toLowerCase().includes(searchQueryValue.toLowerCase())
+          item.name.toLowerCase().includes(searchQuery.value.toLowerCase())
         );
         break;
       case 'location':

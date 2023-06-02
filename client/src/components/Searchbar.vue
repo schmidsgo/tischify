@@ -1,4 +1,3 @@
-<!-- FIXME: -->
 <!-- <script setup lang="ts">
 const query = '';
 const sortBy = 'name'; //FIXME:
@@ -15,13 +14,18 @@ export default {
   data() {
     return {
       query: '',
-      sortBy: 'name'
+      sortBy: 'name',
+      items: [
+        { label: 'Name', value: 'name' },
+        { label: 'Stadt', value: 'location' },
+        { label: 'Typ', value: 'category' }
+      ]
     };
   },
   methods: {
     submitSearch() {
       this.$emit('search', this.query, this.sortBy);
-      console.log(this.query, this.sortBy);
+      console.log(this.query, this.sortBy.toLowerCase());
     }
   }
 };
@@ -44,14 +48,24 @@ export default {
         </v-col>
         <v-col cols="7">
           <v-form @submit.prevent>
-            <div class="d-flex align-start justify-end w-75 mx-auto">
+            <div class="d-flex align-start justify-end w-100 mx-auto">
               <v-text-field
+                v-model="query"
                 clearable
                 placeholder="e.g. Restaurant1, Augsburg, Cafe"
                 compact
                 variant="solo"
                 density="compact"
-                v-model="query"
+              />
+              <v-select
+                v-model="sortBy"
+                :items="items"
+                item-title="label"
+                item-value="value"
+                variant="filled"
+                density="compact"
+                hide-details="true"
+                class="bg-white mx-2 p-0 rounded-lg"
               />
               <v-btn
                 type="submit"
