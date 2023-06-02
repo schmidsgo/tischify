@@ -17,7 +17,7 @@ export default {
       sortBy: 'name',
       items: [
         { label: 'Name', value: 'name' },
-        { label: 'Stadt', value: 'location' },
+        { label: 'Stadt', value: 'city' },
         { label: 'Typ', value: 'category' }
       ]
     };

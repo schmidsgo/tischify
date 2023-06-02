@@ -27,9 +27,7 @@ const bookingStore = useBookingStore();
         </v-card-title>
       </v-img>
       <v-card-text class="text-subtitle-1 text-blue pt-4 pb-0">
-        #{{ item.category }} <span class="text-grey">in</span> #{{
-          item.location
-        }}
+        #{{ item.category }} <span class="text-grey">in</span> #{{ item.city }}
       </v-card-text>
       <v-card-text class="pb-3">
         <v-row>
