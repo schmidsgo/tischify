@@ -5,6 +5,7 @@ type UserInfo = {
   username: string;
   password: string;
   role: string;
+  restaurant_name?: string;
   address?: string;
   opening_hours?: string;
   phone_number?: string;
@@ -26,6 +27,7 @@ export const useAuthStore = defineStore('auth', {
     user: {
       name: '',
       role: '', // 'guest' or 'restaurant',
+      restaurant_name: '',
       address: '',
       phone_number: '',
       opening_hours: ''
@@ -38,8 +40,9 @@ export const useAuthStore = defineStore('auth', {
       username,
       password,
       role,
-      phone_number,
+      restaurant_name,
       address,
+      phone_number,
       opening_hours
     }: UserInfo) {
       try {
@@ -48,12 +51,14 @@ export const useAuthStore = defineStore('auth', {
           username,
           password,
           role,
+          restaurant_name,
           address,
           phone_number,
           opening_hours
         });
         this.user.name = username;
         this.user.role = role;
+        this.user.restaurant_name = '' ?? restaurant_name;
         this.user.address = '' ?? address;
         this.user.phone_number = '' ?? phone_number;
         this.user.opening_hours = '' ?? opening_hours;
