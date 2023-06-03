@@ -7,17 +7,10 @@ type UserInfo = {
   role: string;
   restaurant_name?: string;
   address?: string;
+  city?: string;
   opening_hours?: string;
   phone_number?: string;
-};
-
-type RestaurantInfo = {
-  name: string;
-  address: string;
-  phone_number: string;
-  opening_hours: string;
-  people: number;
-  datetime: string;
+  capacity?: number;
 };
 
 export const useAuthStore = defineStore('auth', {
@@ -29,8 +22,10 @@ export const useAuthStore = defineStore('auth', {
       role: '', // 'guest' or 'restaurant',
       restaurant_name: '',
       address: '',
+      city: '',
       phone_number: '',
-      opening_hours: ''
+      opening_hours: '',
+      capacity: 0
     },
     isError: false,
     isLoading: false
@@ -42,8 +37,10 @@ export const useAuthStore = defineStore('auth', {
       role,
       restaurant_name,
       address,
+      city,
       phone_number,
-      opening_hours
+      opening_hours,
+      capacity
     }: UserInfo) {
       try {
         this.isLoading = true;
@@ -53,15 +50,19 @@ export const useAuthStore = defineStore('auth', {
           role,
           restaurant_name,
           address,
+          city,
           phone_number,
-          opening_hours
+          opening_hours,
+          capacity
         });
         this.user.name = username;
         this.user.role = role;
         this.user.restaurant_name = '' ?? restaurant_name;
         this.user.address = '' ?? address;
+        this.user.city = '' ?? city;
         this.user.phone_number = '' ?? phone_number;
         this.user.opening_hours = '' ?? opening_hours;
+        this.user.capacity = 0 ?? capacity;
         console.log('user: ' + this.user.name, this.user.role);
         this.isLoading = false;
         this.OpenLoginModal = false;
@@ -96,38 +97,36 @@ export const useAuthStore = defineStore('auth', {
 export const useSettingsStore = defineStore('setting', {
   state: () => ({
     restaurant: {
-      name: '',
+      username: '',
       address: '',
-      location: '',
+      city: '',
       category: '',
       phone_number: '',
-      opening_hours: ''
+      opening_hours: '',
+      capacity: 0
     },
-    people: 0,
-    datetime: '',
     isError: false,
     isLoading: false
   }),
   actions: {
     submitSetting({
-      name,
+      username,
       address,
+      city,
       phone_number,
       opening_hours,
-      people,
-      datetime
-    }: RestaurantInfo) {
+      capacity
+    }: UserInfo) {
       try {
         this.isLoading = true;
         return axios
           .post('http://localhost:3000/settings', {
-            name: this.restaurant.name,
+            username: this.restaurant.username,
             address: this.restaurant.address,
-            location: this.restaurant.location,
+            city: this.restaurant.city,
             phone_number: this.restaurant.phone_number,
             opening_hours: this.restaurant.opening_hours,
-            people: this.people,
-            datetime: this.datetime
+            capacity: this.restaurant.capacity
           })
           .then(res => {
             console.log(res.status);

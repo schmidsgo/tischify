@@ -8,7 +8,7 @@ import 'vuetify/styles';
 import { createVuetify, type ThemeDefinition } from 'vuetify';
 import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
-import { aliases, mdi } from 'vuetify/lib/iconsets/mdi';
+import { aliases, mdi } from 'vuetify/iconsets/mdi';
 import '@mdi/font/css/materialdesignicons.css';
 
 const myCustomLightTheme: ThemeDefinition = {

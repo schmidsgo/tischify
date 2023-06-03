@@ -53,7 +53,7 @@ const book = async () => {
             <v-divider thickness="2" class="border-opacity-75 mt-1 w-50" />
           </v-card-title>
           <v-card-text class="text-lg mt-2 pa-0">
-            {{ item.address }}, 86150, {{ item.location }}
+            {{ item.address }}, 86150, {{ item.city }}
           </v-card-text>
           <div class="d-flex align-center justify-start w-50 mt-2">
             <v-card-text class="text-lg pa-0">
