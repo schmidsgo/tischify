@@ -19,8 +19,10 @@ CREATE TABLE restaurants (
   user_id INTEGER NOT NULL,
   name VARCHAR(255) NOT NULL,
   address VARCHAR(255) NOT NULL,
+  city VARCHAR(255) NOT NULL,
   phone_number VARCHAR(255) NOT NULL,
   opening_hours VARCHAR(255) NOT NULL,
+  capacity INTEGER,
   FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
