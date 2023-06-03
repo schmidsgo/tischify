@@ -23,6 +23,9 @@ CREATE TABLE restaurants (
   phone_number VARCHAR(255) NOT NULL,
   opening_hours VARCHAR(255) NOT NULL,
   capacity INTEGER,
+  category VARCHAR(255),
+  rating INTEGER,
+  price_level INTEGER,
   FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
