@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Tischify",
-    "dateExported": "2023-06-04T09:33:05.121Z",
+    "dateExported": "2023-06-04T17:18:15.332Z",
     "version": "1.1",
     "folders": [
         {
@@ -10,6 +10,13 @@
             "containerId": "",
             "created": "2023-05-21T13:50:16.320Z",
             "sortNum": 10000
+        },
+        {
+            "_id": "dc5c0d3a-4076-4d53-b95a-1531b6225733",
+            "name": "Restaurant",
+            "containerId": "",
+            "created": "2023-06-04T17:05:30.242Z",
+            "sortNum": 20000
         }
     ],
     "requests": [
@@ -39,6 +46,25 @@
             "body": {
                 "type": "json",
                 "raw": "{\n  \"username\": \"Test10\",\n  \"password\": \"Test\",\n  \"role\": \"guest\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "0998ad1d-5a5c-4ae8-8376-5b5b4c073f8b",
+            "colId": "f9aebf31-d1d0-40a0-b745-2a6d539f4f46",
+            "containerId": "dc5c0d3a-4076-4d53-b95a-1531b6225733",
+            "name": "get_avalibilities",
+            "url": "localhost:3000/restaurants/availabilitys",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-06-04T08:45:23.757Z",
+            "modified": "2023-06-04T17:05:33.433Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"restaurant_id\": 1,\n  \"startDateTime\": \"05.06.2023 08:00\",\n  \"endDateTime\": \"05.06.2023 20:00\",\n  \"party_size\": 3\n}\n",
                 "form": []
             },
             "tests": []
@@ -104,6 +130,36 @@
             "tests": []
         },
         {
+            "_id": "a654b3ed-6a00-42c4-8f16-c65c0b4c23b6",
+            "colId": "f9aebf31-d1d0-40a0-b745-2a6d539f4f46",
+            "containerId": "dc5c0d3a-4076-4d53-b95a-1531b6225733",
+            "name": "update_restaurant_settings",
+            "url": "localhost:3000/restaurants/settings/1",
+            "method": "PUT",
+            "sortNum": 20000,
+            "created": "2023-06-04T17:04:14.555Z",
+            "modified": "2023-06-04T17:09:58.134Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*",
+                    "isDisabled": true
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"New Name\",\n  \"address\": \"New Address\",\n  \"phone_number\": \"New Phone Number\",\n  \"capacity\": 100\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
             "_id": "410d5ea5-d680-4a57-92b0-bfe3b54b924f",
             "colId": "f9aebf31-d1d0-40a0-b745-2a6d539f4f46",
             "containerId": "",
@@ -129,22 +185,53 @@
             "tests": []
         },
         {
-            "_id": "0998ad1d-5a5c-4ae8-8376-5b5b4c073f8b",
+            "_id": "ffe33e87-8759-46a6-a9eb-7439da9c25da",
             "colId": "f9aebf31-d1d0-40a0-b745-2a6d539f4f46",
-            "containerId": "",
-            "name": "get_avalibilities",
-            "url": "localhost:3000/restaurants/availabilitys",
+            "containerId": "dc5c0d3a-4076-4d53-b95a-1531b6225733",
+            "name": "get_restaurant_with_id",
+            "url": "localhost:3000/restaurants/1",
             "method": "GET",
-            "sortNum": 40000,
-            "created": "2023-06-04T08:45:23.757Z",
-            "modified": "2023-06-04T09:30:50.120Z",
-            "headers": [],
+            "sortNum": 60000,
+            "created": "2023-06-04T17:06:35.548Z",
+            "modified": "2023-06-04T17:16:24.231Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*",
+                    "isDisabled": true
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
             "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"restaurant_id\": 1,\n  \"startDateTime\": \"05.06.2023 08:00\",\n  \"endDateTime\": \"05.06.2023 20:00\",\n  \"party_size\": 3\n}\n",
-                "form": []
-            },
+            "tests": []
+        },
+        {
+            "_id": "561522a3-407a-42dd-924d-cd42f4c51bca",
+            "colId": "f9aebf31-d1d0-40a0-b745-2a6d539f4f46",
+            "containerId": "dc5c0d3a-4076-4d53-b95a-1531b6225733",
+            "name": "get_all_restaurants",
+            "url": "localhost:3000/restaurants",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2023-06-04T17:16:38.756Z",
+            "modified": "2023-06-04T17:16:55.507Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*",
+                    "isDisabled": true
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
             "tests": []
         }
     ],
