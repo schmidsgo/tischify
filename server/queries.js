@@ -150,6 +150,7 @@ const updateRestaurantSettings = (request, response) => {
     return;
   }
 
+  //query von chatGPT 3.5
   pool.query(
     `UPDATE restaurants SET ${Object.keys(updatedData)
       .map((field, index) => `${field} = $${index + 1}`)
