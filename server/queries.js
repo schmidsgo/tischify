@@ -42,13 +42,33 @@ const createBooking = (request, response) => {
 };
 
 const getRestaurants = (request, response) => {
-  pool.query("SELECT * FROM restaurants", (error, results) => {
-    if (error) {
-      response.status(400).send(error);
-    } else {
-      response.status(200).json(results.rows);
-    }
-  });
+  const { id } = request.params;
+
+  if (id) {
+    pool.query(
+      "SELECT * FROM restaurants WHERE restaurant_id = $1",
+      [id],
+      (error, result) => {
+        if (error) {
+          response.status(400).send(error);
+        } else {
+          if (result.rows.length === 0) {
+            response.status(404).send(`Restaurant with ID ${id} not found.`);
+          } else {
+            response.status(200).json(result.rows[0]);
+          }
+        }
+      }
+    );
+  } else {
+    pool.query("SELECT * FROM restaurants", (error, results) => {
+      if (error) {
+        response.status(400).send(error);
+      } else {
+        response.status(200).json(results.rows);
+      }
+    });
+  }
 };
 
 const getRestaurantAvailabilities = (request, response) => {
