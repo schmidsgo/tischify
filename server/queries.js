@@ -95,6 +95,62 @@ const getRestaurantAvailabilities = (request, response) => {
     });
 };
 
+const updateRestaurantSettings = (request, response) => {
+  const { id } = request.params;
+  const {
+    name,
+    address,
+    city,
+    phone_number,
+    opening_hours,
+    capacity,
+    category,
+    rating,
+    price_level,
+  } = request.body;
+
+  const allowedFields = [
+    "name",
+    "address",
+    "city",
+    "phone_number",
+    "opening_hours",
+    "capacity",
+    "category",
+    "rating",
+    "price_level",
+  ];
+
+  const updatedData = Object.entries(request.body)
+    .filter(([key]) => allowedFields.includes(key))
+    .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
+
+  if (Object.keys(updatedData).length === 0) {
+    response.status(400).send("No valid fields to update.");
+    return;
+  }
+
+  pool.query(
+    `UPDATE restaurants SET ${Object.keys(updatedData)
+      .map((field, index) => `${field} = $${index + 1}`)
+      .join(", ")} WHERE restaurant_id = $${
+      Object.keys(updatedData).length + 1
+    }`,
+    [...Object.values(updatedData), id],
+    (error) => {
+      if (error) {
+        response.status(400).send(error);
+      } else {
+        response
+          .status(200)
+          .send(
+            `Restaurant settings updated successfully for restaurant with ID ${id}`
+          );
+      }
+    }
+  );
+};
+
 const register = (request, response) => {
   registerInputValidation(request, response);
   if (response.statusCode === 400) {
@@ -296,4 +352,5 @@ module.exports = {
   login,
   getRestaurantAvailabilities,
   getRestaurants,
+  updateRestaurantSettings,
 };
