@@ -35,7 +35,7 @@ const authStore = useAuthStore();
                   <v-img
                     class="bg-grey-lighten-2 rounded-lg"
                     height="70"
-                    src="restaurant.jpeg"
+                    src="rest1.jpeg"
                     cover
                   />
                 </v-col>
@@ -55,7 +55,7 @@ const authStore = useAuthStore();
                   <v-img
                     class="bg-grey-lighten-2 rounded-lg"
                     height="70"
-                    src="cafe.jpeg"
+                    src="cafe1.jpeg"
                     cover
                   />
                 </v-col>
