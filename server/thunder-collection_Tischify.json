@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Tischify",
-    "dateExported": "2023-05-22T07:47:27.877Z",
+    "dateExported": "2023-06-04T09:33:05.121Z",
     "version": "1.1",
     "folders": [
         {
@@ -126,6 +126,25 @@
                 }
             ],
             "params": [],
+            "tests": []
+        },
+        {
+            "_id": "0998ad1d-5a5c-4ae8-8376-5b5b4c073f8b",
+            "colId": "f9aebf31-d1d0-40a0-b745-2a6d539f4f46",
+            "containerId": "",
+            "name": "get_avalibilities",
+            "url": "localhost:3000/restaurants/availabilitys",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-06-04T08:45:23.757Z",
+            "modified": "2023-06-04T09:30:50.120Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"restaurant_id\": 1,\n  \"startDateTime\": \"05.06.2023 08:00\",\n  \"endDateTime\": \"05.06.2023 20:00\",\n  \"party_size\": 3\n}\n",
+                "form": []
+            },
             "tests": []
         }
     ],
