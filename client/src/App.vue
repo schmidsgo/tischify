@@ -132,7 +132,7 @@ const settings = async () => {
               <v-row class="pa-4">
                 <v-col cols="6" justify="start" class="bg-yellow">
                   <image>
-                    <v-img src="restaurant.jpeg" width="100%" />
+                    <v-img src="rest1.jpeg" width="100%" />
                   </image>
                 </v-col>
                 <v-col cols="6" class="px-8">

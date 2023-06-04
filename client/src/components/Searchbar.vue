@@ -34,7 +34,7 @@ export default {
 <template>
   <div>
     <v-img
-      src="bar.jpeg"
+      src="bar1.jpeg"
       gradient="to bottom, rgba(0,0,0,.5), rgba(0,0,0,.5)"
       height="50vh"
       cover
