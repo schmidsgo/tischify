@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue';
 import axios from 'axios';
+import { Carousel, Pagination, Slide } from 'vue3-carousel';
+import 'vue3-carousel/dist/carousel.css';
 import type { ItemType } from './types/types';
 import { useAuthStore, useSettingsStore } from './stores/state';
 import Navbar from './components/Navbar.vue';
@@ -54,7 +56,7 @@ const filteredItems = computed(() => {
 });
 
 const fourRests = computed(() =>
-  state.restaurants.filter(item => item.city === 'Frankfurt').slice(0, 4)
+  state.restaurants.filter(item => item.category === 'restaurant').slice(0, 10)
 );
 
 const fourCafes = computed(() =>
@@ -114,7 +116,7 @@ const settings = async () => {
     <v-window>
       <v-window-item v-if="authStore.user.role === 'restaurant'">
         <v-layout>
-          <v-main>
+          <v-main class="sm:p-0 px-4">
             <v-container class="h-screen mt-4">
               <v-row>
                 <v-col cols="12" class="pb-0">
@@ -190,7 +192,7 @@ const settings = async () => {
       <v-window-item v-else>
         <Searchbar v-model="searchQuery" @search="handleSearch" />
         <v-layout>
-          <v-main>
+          <v-main class="sm:p-0 px-4">
             <!-- FIXME: -->
             <!-- <SearchResult
           :items="filteredItems"
@@ -199,10 +201,10 @@ const settings = async () => {
         /> -->
             <v-container
               v-if="searchQuery"
-              class="d-flex justify-center align-center mt-8 px-0"
+              class="d-flex justify-center align-center mt-8 p-0"
             >
               <v-row>
-                <v-col cols="12" class="p-0">
+                <v-col cols="12">
                   <div class="d-flex align-center">
                     <h2 class="text-h4 text-grey-darken-3 font-weight-bold">
                       Suchergebnisse:
@@ -221,9 +223,27 @@ const settings = async () => {
                     class="border-opacity-75 my-4"
                   />
                 </v-col>
-                <v-col cols="3" v-for="item in filteredItems" :key="item.id">
-                  <CardItem :item="item" />
-                </v-col>
+                <v-row>
+                  <v-col sm:cols="3">
+                    <Carousel
+                      :itemsToShow="3.4"
+                      :wrapAround="true"
+                      :transition="600"
+                      :autoplay="5000"
+                    >
+                      >
+                      <Slide
+                        v-for="item in filteredItems"
+                        :key="item.restaurant_id"
+                      >
+                        <CardItem :item="item" />
+                      </Slide>
+                      <template #addons>
+                        <Pagination />
+                      </template>
+                    </Carousel>
+                  </v-col>
+                </v-row>
               </v-row>
             </v-container>
 
@@ -238,8 +258,26 @@ const settings = async () => {
                   class="border-opacity-75 my-4"
                 />
                 <v-row>
-                  <v-col cols="3" v-for="item in fourRests" :key="item.id">
-                    <CardItem :item="item" />
+                  <v-col sm:cols="3">
+                    <Carousel
+                      :itemsToShow="3.4"
+                      :wrapAround="true"
+                      :transition="600"
+                      :autoplay="5000"
+                    >
+                      >
+                      <Slide
+                        v-for="item in fourRests"
+                        :key="item.restaurant_id"
+                      >
+                        <div class="carousel__item">
+                          <CardItem :item="item" />
+                        </div>
+                      </Slide>
+                      <template #addons>
+                        <Pagination />
+                      </template>
+                    </Carousel>
                   </v-col>
                 </v-row>
               </v-row>
@@ -258,8 +296,26 @@ const settings = async () => {
                   class="border-opacity-75 my-4"
                 />
                 <v-row>
-                  <v-col cols="3" v-for="item in fourCafes" :key="item.id">
-                    <CardItem :item="item" />
+                  <v-col sm:cols="3">
+                    <Carousel
+                      :itemsToShow="3.4"
+                      :wrapAround="true"
+                      :transition="600"
+                      :autoplay="5000"
+                    >
+                      >
+                      <Slide
+                        v-for="item in fourCafes"
+                        :key="item.restaurant_id"
+                      >
+                        <div class="carousel__item">
+                          <CardItem :item="item" />
+                        </div>
+                      </Slide>
+                      <template #addons>
+                        <Pagination />
+                      </template>
+                    </Carousel>
                   </v-col>
                 </v-row>
               </v-row>
@@ -270,3 +326,45 @@ const settings = async () => {
     </v-window>
   </div>
 </template>
+
+<style scoped>
+/* .carousel__slide {
+  padding: 5px;
+}
+
+.carousel__viewport {
+  perspective: 1000px;
+} */
+
+.carousel__track {
+  transform-style: preserve-3d;
+}
+
+.carousel__slide--sliding {
+  transition: 0.5s;
+}
+
+.carousel__slide {
+  opacity: 0.7;
+  transform: rotateY(-20deg) scale(1);
+}
+
+.carousel__slide--active ~ .carousel__slide {
+  transform: rotateY(20deg) scale(1);
+}
+
+.carousel__slide--prev {
+  opacity: 0.85;
+  transform: rotateY(-10deg) scale(1);
+}
+
+.carousel__slide--next {
+  opacity: 0.85;
+  transform: rotateY(10deg) scale(1);
+}
+
+.carousel__slide--active {
+  opacity: 1;
+  transform: rotateY(0) scale(1.1);
+}
+</style>
