@@ -192,7 +192,7 @@ const settings = async () => {
       <v-window-item v-else>
         <Searchbar v-model="searchQuery" @search="handleSearch" />
         <v-layout>
-          <v-main class="sm:p-0 px-4">
+          <v-main class="mb-5 sm:p-0 px-4">
             <!-- FIXME: -->
             <!-- <SearchResult
           :items="filteredItems"
@@ -347,6 +347,7 @@ const settings = async () => {
 .carousel__slide {
   opacity: 0.7;
   transform: rotateY(-20deg) scale(1);
+  margin: 24px 0;
 }
 
 .carousel__slide--active ~ .carousel__slide {
