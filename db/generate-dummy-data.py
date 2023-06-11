@@ -76,7 +76,7 @@ for guest_id in range(1, num_guests+1):
         closing_time = datetime.strptime(closing_time, '%H:%M')
 
         # Generate a random datetime within the opening hours
-        datetime_format = '%d.%m.%y %H:%M'
+        datetime_format = '%Y-%m-%d %H:%M:%S'
         min_datetime = datetime.now().replace(hour=opening_time.hour,
                                               minute=opening_time.minute, second=0, microsecond=0) + timedelta(days=1)
         max_datetime = datetime.now().replace(hour=closing_time.hour,
@@ -95,7 +95,7 @@ for guest_id in range(1, num_guests+1):
         })
 
 
-with open('dummy-data.sql', 'w') as f:
+with open('db/dummy-data.sql', 'w') as f:
     # Create users
     user_values = [(user['username'], user['password'], user['role'])
                    for user in users]
