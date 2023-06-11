@@ -18,7 +18,11 @@ CREATE TABLE restaurants (
   restaurant_id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
   name VARCHAR(255) NOT NULL,
+  location VARCHAR(255) NOT NULL,
+  category VARCHAR(255) NOT NULL,
   address VARCHAR(255) NOT NULL,
+  rating INTEGER NOT NULL,
+  price_level INTEGER NOT NULL,
   phone_number VARCHAR(255) NOT NULL,
   opening_hours VARCHAR(255) NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (user_id)
