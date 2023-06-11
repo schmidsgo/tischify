@@ -49,6 +49,7 @@ for i in range(num_restaurants):
     price_level = random.randint(1, 3)
     phone1 = random.randint(1, 999)
     phone2 = random.randint(1, 9999)
+    capacity = random.randint(1, 40)
     restaurants.append(
         {
             'user_id': i + 1 + num_guests,
@@ -60,6 +61,7 @@ for i in range(num_restaurants):
             'price_level': price_level,
             'phone_number': f'0{phone1}/{phone2}',
             'opening_hours': possible_opening_hours[i % len(possible_opening_hours)],
+            'capacity': capacity
         }
     )
 
@@ -110,10 +112,10 @@ with open('db/dummy-data.sql', 'w') as f:
 
     # Create restaurants
     restaurant_values = [(restaurant['user_id'], restaurant['name'], restaurant['location'], restaurant['category'], restaurant['address'], restaurant['rating'], restaurant['price_level'],
-                          restaurant['phone_number'], restaurant['opening_hours']) for restaurant in restaurants]
-    f.write("INSERT INTO restaurants (user_id, name, location, category, address, rating, price_level, phone_number, opening_hours) VALUES\n")
-    f.write(",\n".join([f"({user_id}, '{name}', '{location}', '{category}', '{address}', '{rating}', '{price_level}', '{phone_number}', '{opening_hours}')" for user_id,
-            name, location, category, address, rating, price_level, phone_number, opening_hours in restaurant_values]))
+                          restaurant['phone_number'], restaurant['opening_hours'], restaurant['capacity']) for restaurant in restaurants]
+    f.write("INSERT INTO restaurants (user_id, name, city, category, address, rating, price_level, phone_number, opening_hours, capacity) VALUES\n")
+    f.write(",\n".join([f"({user_id}, '{name}', '{location}', '{category}', '{address}', '{rating}', '{price_level}', '{phone_number}', '{opening_hours}', '{capacity}')" for user_id,
+            name, location, category, address, rating, price_level, phone_number, opening_hours, capacity in restaurant_values]))
     f.write(";\n")
 
     # Create reservations

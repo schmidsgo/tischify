@@ -36,21 +36,34 @@ const book = async () => {
 </script>
 
 <template>
-  <v-dialog v-model="bookingStore.showBookingModal" persistent width="70%">
+  <v-dialog
+    v-model="bookingStore.showBookingModal"
+    persistent
+    width="70%"
+    scrim="grey-darken-4"
+  >
     <v-card class="pa-5">
       <v-row>
         <v-col cols="6" justify="start" class="bg-yellow">
           <v-card-image>
-            <v-img :src="item.image" width="100%" />
+            <v-img :src="`${item.category}.jpeg`" width="100%" />
           </v-card-image>
-          <v-card-title class="text-lg font-weight-bold my-2 pa-0">
+          <v-card-title class="text-lg font-weight-bold mt-4 mb-2 pa-0">
             {{ item.name }}
             <v-divider thickness="2" class="border-opacity-75 mt-1 w-50" />
           </v-card-title>
-          <v-card-text class="text-lg pa-0">
-            <!-- {{ item.address }} -->
-            Address-str.14 86156 Augsburg
+          <v-card-text class="text-lg mt-2 pa-0">
+            {{ item.address }}, 86150, {{ item.city }}
           </v-card-text>
+          <div class="d-flex align-center justify-start w-50 mt-2">
+            <v-card-text class="text-lg pa-0">
+              {{ item.opening_hours }}
+            </v-card-text>
+            <v-card-text class="text-lg text-blue-darken-2 pa-0">
+              <v-icon icon="mdi-phone" size="small" class="mr-2"></v-icon
+              >{{ item.phone_number }}
+            </v-card-text>
+          </div>
         </v-col>
         <v-col cols="6">
           <div class="d-flex align-center justify-center px-1">
@@ -71,16 +84,19 @@ const book = async () => {
                 placeholder="Name"
                 v-model="bookingStore.booking.name"
                 outlined
+                type="text"
               />
               <v-text-field
                 placeholder="Email"
                 v-model="bookingStore.booking.email"
                 outlined
+                type="email"
               />
               <v-text-field
                 placeholder="Personen"
                 v-model="bookingStore.booking.people"
                 outlined
+                type="number"
               />
               <v-text-field
                 placeholder="Datum und Uhrzeit"

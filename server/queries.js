@@ -42,13 +42,33 @@ const createBooking = (request, response) => {
 };
 
 const getRestaurants = (request, response) => {
-  pool.query("SELECT * FROM restaurants", (error, results) => {
-    if (error) {
-      response.status(400).send(error);
-    } else {
-      response.status(200).json(results.rows);
-    }
-  });
+  const { id } = request.params;
+
+  if (id) {
+    pool.query(
+      "SELECT * FROM restaurants WHERE restaurant_id = $1",
+      [id],
+      (error, result) => {
+        if (error) {
+          response.status(400).send(error);
+        } else {
+          if (result.rows.length === 0) {
+            response.status(404).send(`Restaurant with ID ${id} not found.`);
+          } else {
+            response.status(200).json(result.rows[0]);
+          }
+        }
+      }
+    );
+  } else {
+    pool.query("SELECT * FROM restaurants", (error, results) => {
+      if (error) {
+        response.status(400).send(error);
+      } else {
+        response.status(200).json(results.rows);
+      }
+    });
+  }
 };
 
 const getRestaurantAvailabilities = (request, response) => {
@@ -57,18 +77,99 @@ const getRestaurantAvailabilities = (request, response) => {
     return;
   }
 
-  const { restaurant_id, startDateTime, endDateTime } = request.body;
+  const { restaurant_id, startDateTime, endDateTime, party_size } =
+    request.body;
+  const defaultPartySize = party_size || 2;
+
   pool
     .query(
-      "SELECT * FROM reservations WHERE restaurant_id = $1 And datetime > $2 And datetime < $3",
+      "SELECT * FROM reservations WHERE restaurant_id = $1 AND datetime > $2 AND datetime < $3",
       [restaurant_id, startDateTime, endDateTime]
     )
     .then((result) => {
-      response.status(200).json(result.rows);
+      const bookings = result.rows;
+      pool
+        .query("SELECT capacity FROM restaurants WHERE restaurant_id = $1", [
+          restaurant_id,
+        ])
+        .then((result) => {
+          const capacity = result.rows[0].capacity;
+          const quaterhourcapacity = calculateQuaterHourCapacity(
+            bookings,
+            startDateTime,
+            endDateTime,
+            capacity
+          );
+          const availabilities = calculateRestaurantAvailabilities(
+            quaterhourcapacity,
+            defaultPartySize
+          );
+          response.status(200).json(availabilities);
+        })
+        .catch((error) => {
+          response.status(400).send(error);
+        });
     })
     .catch((error) => {
       response.status(400).send(error);
     });
+};
+
+const updateRestaurantSettings = (request, response) => {
+  const { id } = request.params;
+  const {
+    name,
+    address,
+    city,
+    phone_number,
+    opening_hours,
+    capacity,
+    category,
+    rating,
+    price_level,
+  } = request.body;
+
+  const allowedFields = [
+    "name",
+    "address",
+    "city",
+    "phone_number",
+    "opening_hours",
+    "capacity",
+    "category",
+    "rating",
+    "price_level",
+  ];
+
+  const updatedData = Object.entries(request.body)
+    .filter(([key]) => allowedFields.includes(key))
+    .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
+
+  if (Object.keys(updatedData).length === 0) {
+    response.status(400).send("No valid fields to update.");
+    return;
+  }
+
+  //query von chatGPT 3.5
+  pool.query(
+    `UPDATE restaurants SET ${Object.keys(updatedData)
+      .map((field, index) => `${field} = $${index + 1}`)
+      .join(", ")} WHERE restaurant_id = $${
+      Object.keys(updatedData).length + 1
+    }`,
+    [...Object.values(updatedData), id],
+    (error) => {
+      if (error) {
+        response.status(400).send(error);
+      } else {
+        response
+          .status(200)
+          .send(
+            `Restaurant settings updated successfully for restaurant with ID ${id}`
+          );
+      }
+    }
+  );
 };
 
 const register = (request, response) => {
@@ -99,12 +200,12 @@ const register = (request, response) => {
                 response.status(400).send(error);
               });
           } else if (role === "restaurant") {
-            const { restaurant_name, address, phone, opening_hours } =
+            const { restaurant_name, address, phone_number, opening_hours } =
               request.body;
             pool
               .query(
                 "INSERT INTO restaurants (user_id, name, address, phone_number, opening_hours) VALUES ($1, $2, $3, $4, $5)",
-                [user_id, restaurant_name, address, phone, opening_hours]
+                [user_id, restaurant_name, address, phone_number, opening_hours]
               )
               .then((result) => {
                 response.status(201).send(`Restaurant added`);
@@ -173,8 +274,9 @@ const registerInputValidation = (request, response) => {
   }
 
   if (role === "restaurant") {
-    const { restaurant_name, address, phone, opening_hours } = request.body;
-    if (!restaurant_name || !address || !phone || !opening_hours) {
+    const { restaurant_name, address, phone_number, opening_hours } =
+      request.body;
+    if (!restaurant_name || !address || !phone_number || !opening_hours) {
       response.status(400).send("Missing fields for new Restaurant.");
       return;
     }
@@ -208,6 +310,59 @@ const getRestaurantAvailabilitiesInputValidation = (request, response) => {
     return;
   }
 };
+
+function calculateQuaterHourCapacity(
+  bookings,
+  startDateTime,
+  endDateTime,
+  capacity
+) {
+  startDateTime = new Date(startDateTime);
+  endDateTime = new Date(endDateTime);
+  const quaterhourcapacity = [];
+  const quaterhour = 15 * 60 * 1000;
+  const quaterhourstart = startDateTime.getTime();
+  const quaterhourend = endDateTime.getTime();
+  const quaterhourlength = quaterhourend - quaterhourstart;
+  const quaterhourcount = quaterhourlength / quaterhour;
+  for (let i = 0; i < quaterhourcount; i++) {
+    const timeslot = {
+      capacity: capacity,
+      datetime: new Date(quaterhourstart + i * quaterhour),
+    };
+    quaterhourcapacity.push(timeslot);
+  }
+  for (let i = 0; i < bookings.length; i++) {
+    const bookingstart = new Date(bookings[i].datetime).getTime();
+    const bookinglength = 1000 * 60 * 90; // 90 minutes
+    const bookingcount = bookinglength / quaterhour;
+    const bookingstartindex = (bookingstart - quaterhourstart) / quaterhour;
+    for (let j = 0; j < bookingcount; j++) {
+      quaterhourcapacity[bookingstartindex + j].capacity -=
+        bookings[i].party_size;
+    }
+  }
+  return quaterhourcapacity;
+}
+
+function calculateRestaurantAvailabilities(quaterhourcapacity, party_size) {
+  const validStartingTimes = [];
+
+  for (let i = 0; i < quaterhourcapacity.length; i++) {
+    const timeslot = quaterhourcapacity[i];
+    const nextSlots = quaterhourcapacity.slice(i + 1, i + 7);
+    if (
+      timeslot.capacity >= party_size &&
+      nextSlots.every((slot) => slot.capacity >= party_size) &&
+      nextSlots.length >= 6
+    ) {
+      validStartingTimes.push(timeslot.datetime);
+    }
+  }
+
+  return validStartingTimes;
+}
+
 // #endregion Helper Functions
 
 module.exports = {
@@ -218,4 +373,5 @@ module.exports = {
   login,
   getRestaurantAvailabilities,
   getRestaurants,
+  updateRestaurantSettings,
 };

@@ -1,7 +1,11 @@
-DO $$ DECLARE
-    r RECORD;
+DO $$
+DECLARE
+    table_name TEXT;
 BEGIN
-    FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
-        EXECUTE 'DROP TABLE IF EXISTS ' || quote_ident(r.tablename) || ' CASCADE';
+    -- Get all table names
+    FOR table_name IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
+        -- Build and execute the drop table statement
+        EXECUTE 'DROP TABLE IF EXISTS ' || table_name || ' CASCADE';
+        RAISE NOTICE 'Dropped table: %', table_name;
     END LOOP;
 END $$;
