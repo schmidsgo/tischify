@@ -97,13 +97,13 @@ const authStore = useAuthStore();
             class="mr-6"
           />
         </template>
-        <v-card min-width="120" class="mt-1 pa-2">
+        <v-card min-width="120" class="text-center">
           <v-card-text class="text-subtitle-1"
             >Hello, {{ authStore.user.name }}!</v-card-text
           >
           <v-btn
             @click="authStore.logout()"
-            class="text-subtitle-2 text-Blue mb-2"
+            class="text-subtitle-2 text-Blue mb-4"
             variant="tonal"
             >ausloggen</v-btn
           >
@@ -116,7 +116,47 @@ const authStore = useAuthStore();
       class="d-flex align-center justify-end"
     >
       <!-- TODO: function? -->
-      <v-btn icon="mdi-cog" variant="icon" class="mr-6" />
+      <v-menu>
+        <template v-slot:activator="{ props }">
+          <v-btn icon="mdi-bell" v-bind="props" variant="icon" class="mr-3" />
+        </template>
+        <v-card min-width="120" min-height="180" class="mt-1 text-left">
+          <v-card-text class="text-subtitle-1">Neue Buchungen:</v-card-text>
+          <v-divider />
+          <v-list>
+            <v-list-item>
+              <v-row align="center">
+                <v-col cols="9">
+                  <v-card-text class="text-subtitle-2 ma-0 pa-0">
+                    4 Pers., 18:30 Uhr
+                  </v-card-text>
+                </v-col>
+                <v-col cols="2">
+                  <v-icon
+                    icon="mdi-check-circle-outline"
+                    color="grey-lighten-1"
+                  />
+                </v-col>
+              </v-row>
+            </v-list-item>
+            <v-list-item>
+              <v-row align="center">
+                <v-col cols="9">
+                  <v-card-text class="text-subtitle-2 ma-0 pa-0">
+                    2 Pers., 20:00 Uhr
+                  </v-card-text>
+                </v-col>
+                <v-col cols="2">
+                  <v-icon
+                    icon="mdi-check-circle-outline"
+                    color="grey-lighten-1"
+                  />
+                </v-col>
+              </v-row>
+            </v-list-item>
+          </v-list>
+        </v-card>
+      </v-menu>
       <v-menu>
         <template v-slot:activator="{ props }">
           <v-btn
@@ -126,10 +166,15 @@ const authStore = useAuthStore();
             class="mr-6"
           />
         </template>
-        <v-card min-width="120" class="mt-1">
-          <v-card-text>Hello, {{ authStore.user.name }}!</v-card-text>
-          <v-card-text @click="authStore.logout()" class="pt-0 text-Blue"
-            >ausloggen</v-card-text
+        <v-card min-width="120" class="mt-1 text-center">
+          <v-card-text class="text-subtitle-1"
+            >Hello, {{ authStore.user.name }}!</v-card-text
+          >
+          <v-btn
+            @click="authStore.logout()"
+            class="text-subtitle-2 text-Blue mb-4"
+            variant="tonal"
+            >ausloggen</v-btn
           >
         </v-card>
       </v-menu>
