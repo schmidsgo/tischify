@@ -42,18 +42,20 @@ const createBooking = (request, response) => {
 };
 
 const getRestaurants = (request, response) => {
-  const { id } = request.params;
+  const { restaurant_id } = request.params;
 
-  if (id) {
+  if (restaurant_id) {
     pool.query(
       "SELECT * FROM restaurants WHERE restaurant_id = $1",
-      [id],
+      [restaurant_id],
       (error, result) => {
         if (error) {
           response.status(400).send(error);
         } else {
           if (result.rows.length === 0) {
-            response.status(404).send(`Restaurant with ID ${id} not found.`);
+            response
+              .status(404)
+              .send(`Restaurant with ID ${restaurant_id} not found.`);
           } else {
             response.status(200).json(result.rows[0]);
           }
@@ -200,12 +202,26 @@ const register = (request, response) => {
                 response.status(400).send(error);
               });
           } else if (role === "restaurant") {
-            const { restaurant_name, address, phone_number, opening_hours } =
-              request.body;
+            const {
+              username,
+              address,
+              city,
+              phone_number,
+              opening_hours,
+              capacity,
+            } = request.body;
             pool
               .query(
-                "INSERT INTO restaurants (user_id, name, address, phone_number, opening_hours) VALUES ($1, $2, $3, $4, $5)",
-                [user_id, restaurant_name, address, phone_number, opening_hours]
+                "INSERT INTO restaurants (user_id, username, address, city, phone_number, opening_hours, capacity) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+                [
+                  user_id,
+                  username,
+                  address,
+                  city,
+                  phone_number,
+                  opening_hours,
+                  capacity,
+                ]
               )
               .then((result) => {
                 response.status(201).send(`Restaurant added`);
