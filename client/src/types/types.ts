@@ -1,5 +1,5 @@
 export type ItemType = {
-  id: string;
+  restaurant_id: string;
   name: string;
   address: string;
   city: string;
