@@ -75,7 +75,7 @@ onMounted(async () => {
                 required
                 append-inner-icon="mdi-pencil"
               />
-              <p>city: {{ city }}</p>
+              <!-- <p>city: {{ city }}</p> -->
               <v-text-field
                 v-model="city"
                 :placeholder="city"
