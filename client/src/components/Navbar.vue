@@ -26,12 +26,14 @@ const authStore = useAuthStore();
           />
         </template>
         <v-card min-width="360" class="mt-1">
-          <v-card-title>Deine Buchungen</v-card-title>
+          <v-card-title class="text-subtitle-1 font-weight-medium"
+            >Deine Buchungen</v-card-title
+          >
           <v-divider />
           <v-list>
             <v-list-item>
               <v-row align="center">
-                <v-col cols="4">
+                <v-col cols="3">
                   <v-img
                     class="bg-grey-lighten-2 rounded-lg"
                     height="70"
@@ -39,7 +41,7 @@ const authStore = useAuthStore();
                     cover
                   />
                 </v-col>
-                <v-col cols="8" class="pl-0">
+                <v-col cols="7" class="pl-0">
                   <v-card-title class="text-h6 font-weight-bold p-0">
                     Restaurant 12
                   </v-card-title>
@@ -47,11 +49,18 @@ const authStore = useAuthStore();
                     22.05.23 18:00 2 Pers.
                   </v-card-text>
                 </v-col>
+                <v-col cols="2">
+                  <v-icon
+                    icon="mdi-trash-can"
+                    color="red-lighten-2"
+                    size="large"
+                  />
+                </v-col>
               </v-row>
             </v-list-item>
             <v-list-item>
               <v-row align="center">
-                <v-col cols="4">
+                <v-col cols="3">
                   <v-img
                     class="bg-grey-lighten-2 rounded-lg"
                     height="70"
@@ -59,13 +68,20 @@ const authStore = useAuthStore();
                     cover
                   />
                 </v-col>
-                <v-col cols="8" class="pl-0">
+                <v-col cols="7" class="pl-0">
                   <v-card-title class="text-h6 font-weight-bold p-0">
                     Cafe 9
                   </v-card-title>
                   <v-card-text class="text-subtitle-1 p-0">
                     14.08.23 10:00 4 Pers.
                   </v-card-text>
+                </v-col>
+                <v-col cols="2">
+                  <v-icon
+                    icon="mdi-trash-can"
+                    color="red-lighten-2"
+                    size="large"
+                  />
                 </v-col>
               </v-row>
             </v-list-item>
@@ -81,10 +97,15 @@ const authStore = useAuthStore();
             class="mr-6"
           />
         </template>
-        <v-card min-width="120" class="mt-1">
-          <v-card-text>Hello, {{ authStore.user.name }}!</v-card-text>
-          <v-card-text @click="authStore.logout()" class="pt-0 text-Blue"
-            >ausloggen</v-card-text
+        <v-card min-width="120" class="mt-1 pa-2">
+          <v-card-text class="text-subtitle-1"
+            >Hello, {{ authStore.user.name }}!</v-card-text
+          >
+          <v-btn
+            @click="authStore.logout()"
+            class="text-subtitle-2 text-Blue mb-2"
+            variant="tonal"
+            >ausloggen</v-btn
           >
         </v-card>
       </v-menu>
