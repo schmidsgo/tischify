@@ -2,22 +2,36 @@
 import { useBookingStore } from '../../stores/state';
 import type { ItemType } from '../../types/types';
 import BookingModal from './BookingModal.vue';
+import { useAuthStore } from '../../stores/state';
+import { ref } from 'vue';
 
 defineProps<{ item: ItemType }>();
 
+const authStore = useAuthStore();
 const bookingStore = useBookingStore();
+
+const selectedItemId = ref('');
+
+// const selectedItem = computed(() => {
+//   if (selectedItemId.value) {
+//     return state.restaurants.find(
+//       item => item.restaurant_id === selectedItemId.value
+//     );
+//   }
+//   return null;
+// });
 </script>
 
 <template>
   <v-hover v-slot="{ isHovering, props }">
     <v-card
-      :elevation="isHovering ? 10 : 2"
+      :elevation="isHovering ? 10 : 4"
       :class="{ 'on-hover': isHovering, 'cursor-pointer': isHovering }"
       v-bind="props"
-      class="mx-auto rounded-lg"
+      class="mx-auto rounded-lg text-left"
     >
       <v-img
-        class="align-end text-white"
+        class="bg-grey-lighten-1 align-end text-white"
         height="180"
         :src="`${item.category}.jpeg`"
         cover
@@ -62,7 +76,12 @@ const bookingStore = useBookingStore();
           </v-col>
           <v-col cols="5">
             <v-btn
-              @click="bookingStore.showBookingModal = true"
+              @click="
+                authStore.user.name === ''
+                  ? (authStore.OpenLoginModal = true)
+                  : ((selectedItemId = item.restaurant_id),
+                    bookingStore.openModal(selectedItemId))
+              "
               variant="tonal"
               class="bg-blue hover:bg-blue-lighten-3 rounded-xl focus:outline-none"
             >
@@ -76,8 +95,8 @@ const bookingStore = useBookingStore();
         <v-btn color="pink-lighten-1" variant="flat">△ 18:30 </v-btn>
         <v-btn color="pink-lighten-1" variant="flat">◎ 19:00 </v-btn>
       </v-card-actions>
-      <BookingModal :item="item" />
-
+      <BookingModal :item="item" :itemId="selectedItemId" />
+      <!-- FIXME: skelton CardItems -->
       <template v-slot:placeholder>
         <v-sheet color="bg-grey-lighten-4" class="fill-height">
           <v-skeleton-loader
