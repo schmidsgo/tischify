@@ -202,20 +202,15 @@ const register = (request, response) => {
                 response.status(400).send(error);
               });
           } else if (role === "restaurant") {
-            const {
-              username,
-              address,
-              city,
-              phone_number,
-              opening_hours,
-              capacity,
-            } = request.body;
+            const { address, city, phone_number, opening_hours, capacity } =
+              request.body;
             pool
               .query(
-                "INSERT INTO restaurants (user_id, username, address, city, phone_number, opening_hours, capacity) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+                "INSERT INTO restaurants (user_id, username, password, address, city, phone_number, opening_hours, capacity) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
                 [
                   user_id,
                   username,
+                  password,
                   address,
                   city,
                   phone_number,
@@ -290,10 +285,17 @@ const registerInputValidation = (request, response) => {
   }
 
   if (role === "restaurant") {
-    const { restaurant_name, address, phone_number, opening_hours } =
+    const { address, city, phone_number, opening_hours, capacity } =
       request.body;
-    if (!restaurant_name || !address || !phone_number || !opening_hours) {
+    if (!city || !address || !phone_number || !opening_hours || !capacity) {
       response.status(400).send("Missing fields for new Restaurant.");
+      return;
+    }
+    const phoneRegex = new RegExp("^d{8}$");
+    if (!phoneRegex.test(phone_number)) {
+      response
+        .status(400)
+        .send("Invalid phone number. Must be 00000000(8 digits).");
       return;
     }
     const regex = new RegExp(
