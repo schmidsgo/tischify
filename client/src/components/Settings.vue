@@ -69,6 +69,13 @@ onMounted(async () => {
             </v-text>
             <form @submit.prevent="settings" class="mt-4 p-4">
               <v-text-field
+                v-model="name"
+                :placeholder="name"
+                label="restaurant name"
+                required
+                append-inner-icon="mdi-pencil"
+              />
+              <v-text-field
                 v-model="address"
                 :placeholder="address"
                 label="Adresse"

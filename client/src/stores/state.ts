@@ -125,6 +125,12 @@ export const useAuthStore = defineStore('auth', {
 
 export const useSettingsStore = defineStore('setting', {
   state: () => ({
+    username: '',
+    address: '',
+    city: '',
+    phone_number: '',
+    opening_hours: '',
+    capacity: 0,
     isError: false,
     isLoading: false
   }),
@@ -135,18 +141,19 @@ export const useSettingsStore = defineStore('setting', {
       city,
       phone_number,
       opening_hours,
-      capacity
+      capacity,
+      restaurant_id
     }: UserInfo) {
       try {
         this.isLoading = true;
         return axios
           .post(`http://localhost:3000/restaurants/settings/${restaurant_id}`, {
-            username: this.restaurant.username,
-            address: this.restaurant.address,
-            city: this.restaurant.city,
-            phone_number: this.restaurant.phone_number,
-            opening_hours: this.restaurant.opening_hours,
-            capacity: this.restaurant.capacity
+            username: this.username,
+            address: this.address,
+            city: this.city,
+            phone_number: this.phone_number,
+            opening_hours: this.opening_hours,
+            capacity: this.capacity
           })
           .then(res => {
             console.log(res.status);
