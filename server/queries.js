@@ -182,21 +182,23 @@ const register = (request, response) => {
   const { username, password, role } = request.body;
 
   pool
-    .query("INSERT INTO users (username, password, role) VALUES ($1, $2, $3)", [
-      username,
-      password,
-      role,
-    ])
+    .query(
+      "INSERT INTO users (username, password, role) VALUES ($1, $2, $3) RETURNING user_id, restaurant_id'",
+      [username, password, role]
+    )
     .then((result) => {
       pool
         .query("SELECT * FROM users WHERE username = $1", [username])
         .then((result) => {
-          const user_id = result.rows[0].user_id;
+          const { user_id, restaurant_id } = result.rows[0];
           if (role === "guest") {
             pool
               .query("INSERT INTO guests (user_id) VALUES ($1)", [user_id])
               .then((result) => {
-                response.status(201).send(`Guest added`);
+                response
+                  .status(201)
+                  .json({ user_id, restaurant_id })
+                  .send(`Guest added`);
               })
               .catch((error) => {
                 response.status(400).send(error);
@@ -259,7 +261,9 @@ const login = (request, response) => {
         response.status(401).send("Wrong password.");
         return;
       }
-      const user_id = result.rows[0].user_id;
+      const { user_id, restaurant_id } = result.rows[0];
+      // response.status(200).json({ user_id, restaurant_id });
+
       const token = jwt.sign(
         { id: user_id, username: username },
         "yourSecretKey",
