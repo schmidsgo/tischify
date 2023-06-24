@@ -180,65 +180,40 @@ const register = (request, response) => {
     return;
   }
   const { username, password, role } = request.body;
-
-  pool
-    .query(
-      "INSERT INTO users (username, password, role) VALUES ($1, $2, $3) RETURNING user_id, restaurant_id'",
-      [username, password, role]
-    )
-    .then((result) => {
-      pool
-        .query("SELECT * FROM users WHERE username = $1", [username])
-        .then((result) => {
-          const { user_id, restaurant_id } = result.rows[0];
-          if (role === "guest") {
-            pool
-              .query("INSERT INTO guests (user_id) VALUES ($1)", [user_id])
-              .then((result) => {
-                response
-                  .status(201)
-                  .json({ user_id, restaurant_id })
-                  .send(`Guest added`);
-              })
-              .catch((error) => {
-                response.status(400).send(error);
-              });
-          } else if (role === "restaurant") {
-            const { address, city, phone_number, opening_hours, capacity } =
-              request.body;
-            pool
-              .query(
-                "INSERT INTO restaurants (user_id, username, password, address, city, phone_number, opening_hours, capacity) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
-                [
-                  user_id,
-                  username,
-                  password,
-                  address,
-                  city,
-                  phone_number,
-                  opening_hours,
-                  capacity,
-                ]
-              )
-              .then((result) => {
-                response.status(201).send(`Restaurant added`);
-              })
-              .catch((error) => {
-                response.status(400).send(error);
-              });
-          }
-        })
-        .catch((error) => {
-          response.status(400).send(error);
-        });
-    })
-    .catch((error) => {
-      if (error.detail.startsWith("Key (username)")) {
-        response.status(400).send("Username already exists.");
-      } else {
-        response.status(402).send(error);
-      }
-    });
+  if (role === "guest") {
+    pool
+      .query("SELECT register_user($1, $2, $3, null, null, null, null, null)", [
+        username,
+        password,
+        role,
+      ])
+      .then((result) => {
+        response.status(201).send(`Guest added`);
+      })
+      .catch((error) => {
+        response.status(400).send(error.detail);
+      });
+  } else if (role === "restaurant") {
+    const { address, city, phone_number, opening_hours, capacity } =
+      request.body;
+    pool
+      .query("SELECT register_user($1, $2, $3, $4, $5, $6, $7, $8)", [
+        username,
+        password,
+        role,
+        address,
+        city,
+        phone_number,
+        opening_hours,
+        capacity,
+      ])
+      .then((result) => {
+        response.status(201).send(`Restaurant added`);
+      })
+      .catch((error) => {
+        response.status(400).send(error.detail);
+      });
+  }
 };
 
 const login = (request, response) => {
@@ -295,7 +270,7 @@ const registerInputValidation = (request, response) => {
       response.status(400).send("Missing fields for new Restaurant.");
       return;
     }
-    const phoneRegex = new RegExp("^d{8}$");
+    const phoneRegex = new RegExp("^\\d{8}$");
     if (!phoneRegex.test(phone_number)) {
       response
         .status(400)
