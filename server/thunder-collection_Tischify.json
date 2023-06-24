@@ -1,35 +1,35 @@
 {
     "client": "Thunder Client",
     "collectionName": "Tischify",
-    "dateExported": "2023-06-04T17:39:05.145Z",
+    "dateExported": "2023-06-24T15:24:48.747Z",
     "version": "1.1",
     "folders": [
         {
-            "_id": "f0a75d6c-59b9-41cb-a1d1-03b85b34ce53",
+            "_id": "fdf8f5ca-a68b-4031-85c1-b8c2d203d4c7",
             "name": "Register",
             "containerId": "",
-            "created": "2023-05-21T13:50:16.320Z",
+            "created": "2023-05-22T13:18:21.826Z",
             "sortNum": 10000
         },
         {
-            "_id": "dc5c0d3a-4076-4d53-b95a-1531b6225733",
-            "name": "Restaurant",
+            "_id": "07a5b36b-45ec-4b0a-9441-4d8f2a66e097",
+            "name": "restaurant",
             "containerId": "",
-            "created": "2023-06-04T17:05:30.242Z",
+            "created": "2023-05-22T13:18:40.970Z",
             "sortNum": 20000
         }
     ],
     "requests": [
         {
-            "_id": "2efb5173-0772-444a-b5ea-de1f92a7a66e",
-            "colId": "f9aebf31-d1d0-40a0-b745-2a6d539f4f46",
-            "containerId": "f0a75d6c-59b9-41cb-a1d1-03b85b34ce53",
+            "_id": "9325c143-4c7f-418c-b57d-03ad501aedfe",
+            "colId": "dfff5e83-bb81-4979-8475-969b32db341a",
+            "containerId": "fdf8f5ca-a68b-4031-85c1-b8c2d203d4c7",
             "name": "Register Guest",
             "url": "localhost:3000/register",
             "method": "POST",
             "sortNum": 10000,
-            "created": "2023-05-21T13:50:07.925Z",
-            "modified": "2023-05-21T15:35:57.675Z",
+            "created": "2023-05-22T13:18:21.826Z",
+            "modified": "2023-06-24T15:08:42.617Z",
             "headers": [
                 {
                     "name": "Accept",
@@ -45,40 +45,21 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"username\": \"Test10\",\n  \"password\": \"Test\",\n  \"role\": \"guest\"\n}",
+                "raw": "{\n  \"username\": \"Test104564\",\n  \"password\": \"Test\",\n  \"role\": \"guest\"\n}",
                 "form": []
             },
             "tests": []
         },
         {
-            "_id": "0998ad1d-5a5c-4ae8-8376-5b5b4c073f8b",
-            "colId": "f9aebf31-d1d0-40a0-b745-2a6d539f4f46",
-            "containerId": "dc5c0d3a-4076-4d53-b95a-1531b6225733",
-            "name": "get_avalibilities",
-            "url": "localhost:3000/restaurants/availabilitys",
-            "method": "GET",
-            "sortNum": 10000,
-            "created": "2023-06-04T08:45:23.757Z",
-            "modified": "2023-06-04T17:05:33.433Z",
-            "headers": [],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"restaurant_id\": 1,\n  \"startDateTime\": \"05.06.2023 08:00\",\n  \"endDateTime\": \"05.06.2023 20:00\",\n  \"party_size\": 3\n}\n",
-                "form": []
-            },
-            "tests": []
-        },
-        {
-            "_id": "31e53894-b832-41a9-aa71-f959f015260f",
-            "colId": "f9aebf31-d1d0-40a0-b745-2a6d539f4f46",
-            "containerId": "f0a75d6c-59b9-41cb-a1d1-03b85b34ce53",
+            "_id": "4885acb4-1932-4665-b23d-bd9d605dc6b7",
+            "colId": "dfff5e83-bb81-4979-8475-969b32db341a",
+            "containerId": "fdf8f5ca-a68b-4031-85c1-b8c2d203d4c7",
             "name": "Register Restaurant",
             "url": "localhost:3000/register",
             "method": "POST",
             "sortNum": 20000,
-            "created": "2023-05-21T13:51:15.104Z",
-            "modified": "2023-05-21T15:43:41.272Z",
+            "created": "2023-05-22T13:18:21.828Z",
+            "modified": "2023-06-24T15:03:34.469Z",
             "headers": [
                 {
                     "name": "Accept",
@@ -94,21 +75,21 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"username\": \"Test73\",\n  \"password\": \"Test\",\n  \"role\": \"restaurant\",\n  \"restaurant_name\": \"Test Restauant\", \n  \"address\": \"Beispielstraße 45\", \n  \"phone\": \"123456789\",\n  \"opening_hours\": \"08:00-20:00\"\n}",
+                "raw": "{\n  \"username\": \"Test72343\",\n  \"password\": \"Test\",\n  \"role\": \"restaurant\",\n  \"restaurant_name\": \"Test Restauant\", \n  \"city\": \"Stadt\",\n  \"address\": \"Beispielstraße 45\", \n  \"phone_number\": \"12345678\",\n  \"opening_hours\": \"08:00-20:00\",\n  \"capacity\": 20\n}",
                 "form": []
             },
             "tests": []
         },
         {
-            "_id": "251daae9-12a7-4c61-8bf4-3bcd6f3eedca",
-            "colId": "f9aebf31-d1d0-40a0-b745-2a6d539f4f46",
+            "_id": "1b5277ab-bd41-4fbf-82b0-b1f10d350cce",
+            "colId": "dfff5e83-bb81-4979-8475-969b32db341a",
             "containerId": "",
             "name": "login",
             "url": "localhost:3000/login",
             "method": "POST",
             "sortNum": 20000,
-            "created": "2023-05-21T16:09:25.410Z",
-            "modified": "2023-05-22T06:47:33.562Z",
+            "created": "2023-05-22T13:18:21.829Z",
+            "modified": "2023-06-24T15:24:26.877Z",
             "headers": [
                 {
                     "name": "Accept",
@@ -124,51 +105,21 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"username\": \"Test7\",\n  \"password\": \"Test\"\n}",
+                "raw": "{\n  \"username\": \"Test72343\",\n  \"password\": \"Test\"\n}",
                 "form": []
             },
             "tests": []
         },
         {
-            "_id": "a654b3ed-6a00-42c4-8f16-c65c0b4c23b6",
-            "colId": "f9aebf31-d1d0-40a0-b745-2a6d539f4f46",
-            "containerId": "dc5c0d3a-4076-4d53-b95a-1531b6225733",
-            "name": "update_restaurant_settings",
-            "url": "localhost:3000/restaurants/settings/1",
-            "method": "PUT",
-            "sortNum": 20000,
-            "created": "2023-06-04T17:04:14.555Z",
-            "modified": "2023-06-04T17:09:58.134Z",
-            "headers": [
-                {
-                    "name": "Accept",
-                    "value": "*/*",
-                    "isDisabled": true
-                },
-                {
-                    "name": "User-Agent",
-                    "value": "Thunder Client (https://www.thunderclient.com)",
-                    "isDisabled": true
-                }
-            ],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"name\": \"New Name\",\n  \"address\": \"New Address\",\n  \"phone_number\": \"New Phone Number\",\n  \"capacity\": 100\n}",
-                "form": []
-            },
-            "tests": []
-        },
-        {
-            "_id": "410d5ea5-d680-4a57-92b0-bfe3b54b924f",
-            "colId": "f9aebf31-d1d0-40a0-b745-2a6d539f4f46",
+            "_id": "639a35dd-c16c-4eac-8286-decf613ee19f",
+            "colId": "dfff5e83-bb81-4979-8475-969b32db341a",
             "containerId": "",
             "name": "protected",
             "url": "localhost:3000/protected",
             "method": "GET",
             "sortNum": 30000,
-            "created": "2023-05-21T16:19:21.324Z",
-            "modified": "2023-05-21T16:22:09.446Z",
+            "created": "2023-05-22T13:18:21.830Z",
+            "modified": "2023-05-22T13:18:21.830Z",
             "headers": [
                 {
                     "name": "Accept",
@@ -185,40 +136,29 @@
             "tests": []
         },
         {
-            "_id": "ffe33e87-8759-46a6-a9eb-7439da9c25da",
-            "colId": "f9aebf31-d1d0-40a0-b745-2a6d539f4f46",
-            "containerId": "dc5c0d3a-4076-4d53-b95a-1531b6225733",
-            "name": "get_restaurant_with_id",
-            "url": "localhost:3000/restaurants/1",
-            "method": "GET",
-            "sortNum": 60000,
-            "created": "2023-06-04T17:06:35.548Z",
-            "modified": "2023-06-04T17:16:24.231Z",
-            "headers": [
-                {
-                    "name": "Accept",
-                    "value": "*/*",
-                    "isDisabled": true
-                },
-                {
-                    "name": "User-Agent",
-                    "value": "Thunder Client (https://www.thunderclient.com)",
-                    "isDisabled": true
-                }
-            ],
-            "params": [],
-            "tests": []
-        },
-        {
-            "_id": "561522a3-407a-42dd-924d-cd42f4c51bca",
-            "colId": "f9aebf31-d1d0-40a0-b745-2a6d539f4f46",
-            "containerId": "dc5c0d3a-4076-4d53-b95a-1531b6225733",
-            "name": "get_all_restaurants",
+            "_id": "0bf53ddf-22a4-4ae3-9bb2-bd1623146c91",
+            "colId": "dfff5e83-bb81-4979-8475-969b32db341a",
+            "containerId": "07a5b36b-45ec-4b0a-9441-4d8f2a66e097",
+            "name": "getRestaurants",
             "url": "localhost:3000/restaurants",
             "method": "GET",
-            "sortNum": 70000,
-            "created": "2023-06-04T17:16:38.756Z",
-            "modified": "2023-06-04T17:16:55.507Z",
+            "sortNum": 50000,
+            "created": "2023-05-22T13:18:50.330Z",
+            "modified": "2023-05-22T13:19:04.781Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "da0149d5-8a75-4590-97e4-0c9385e7bbec",
+            "colId": "dfff5e83-bb81-4979-8475-969b32db341a",
+            "containerId": "07a5b36b-45ec-4b0a-9441-4d8f2a66e097",
+            "name": "getRestaurantAvailabilitys",
+            "url": "localhost:3000/restaurants/availabilitys",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2023-05-22T13:19:39.626Z",
+            "modified": "2023-05-22T17:05:05.486Z",
             "headers": [
                 {
                     "name": "Accept",
@@ -232,6 +172,11 @@
                 }
             ],
             "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"restaurant_id\": \"4\",\n  \"startDateTime\": \"2023-05-23 11:00:00\",\n  \"endDateTime\": \"2023-05-28 21:00:00\"\n}",
+                "form": []
+            },
             "tests": []
         }
     ],
@@ -239,7 +184,6 @@
         "auth": {
             "type": "bearer",
             "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIsInVzZXJuYW1lIjoiVGVzdDciLCJpYXQiOjE2ODQ3Mzk0OTYsImV4cCI6MTY4NDc0MzA5Nn0.EpRnolRuyMiEnCsqU2R1SWwTPvuxsdkDMJxVBGrJnBs"
-        },
-        "docs": "## API Documentation\n\n### Get Information\n\n- **Endpoint**: `/`\n- **Method**: GET\n- **Description**: Get information about the Node.js, Express, and Postgres API.\n\n### Get Users\n\n- **Endpoint**: `/users`\n- **Method**: GET\n- **Description**: Get a list of all users.\n\n### Get User by ID\n\n- **Endpoint**: `/users/:id`\n- **Method**: GET\n- **Description**: Get a specific user by their ID.\n\n#### Parameters\n\n- `id` (integer) - The ID of the user.\n\n### Get Restaurants\n\n- **Endpoint**: `/restaurants`\n- **Method**: GET\n- **Description**: Get a list of all restaurants.\n\n#### Parameters\n\n- `id` (integer, optional) - The ID of a specific restaurant. If provided, returns only the restaurant with the given ID.\n\n### Get Restaurant Availabilities\n\n- **Endpoint**: `/restaurants/availabilitys`\n- **Method**: GET\n- **Description**: Get the availabilities of restaurants within a specified time range.\n\n#### Parameters (in Request Body)\n\n- `restaurant_id` (integer) - The ID of the restaurant.\n- `startDateTime` (string) - The start date and time of the time range in the format \"DD.MM.YYYY HH:MM\".\n- `endDateTime` (string) - The end date and time of the time range in the format \"DD.MM.YYYY HH:MM\".\n- `party_size` (integer, optional) - The number of people in the party. Defaults to 2 if not specified.\n\n### Update Restaurant Settings\n\n- **Endpoint**: `/restaurant/settings/:id`\n- **Method**: PUT\n- **Description**: Update the settings of a specific restaurant.\n\n#### Parameters\n\n- `id` (integer) - The ID of the restaurant to update.\n\n#### Request Body\n\n- `name` (string, optional) - The new name of the restaurant.\n- `address` (string, optional) - The new address of the restaurant.\n- `city` (string, optional) - The new city of the restaurant.\n- `phone_number` (string, optional) - The new phone number of the restaurant.\n- `opening_hours` (string, optional) - The new opening hours of the restaurant.\n- `capacity` (integer, optional) - The new capacity of the restaurant.\n- `category` (string, optional) - The new category of the restaurant.\n- `rating` (integer, optional) - The new rating of the restaurant.\n- `price_level` (integer, optional) - The new price level of the restaurant.\n\n### Create Booking\n\n- **Endpoint**: `/bookings`\n- **Method**: POST\n- **Description**: Create a new booking.\n\n#### Request Body\n\n- `restaurant_id` (integer) - The ID of the restaurant for the booking.\n- `date` (string) - The date of the booking.\n- `time` (string) - The time of the booking.\n- `number_of_people` (integer) - The number of people for the booking.\n\n### Login\n\n- **Endpoint**: `/login`\n- **Method**: POST\n- **Description**: Authenticate a user and generate a token.\n\n#### Request Body\n\n- `username` (string) - The username of the user.\n- `password` (string) - The password of the user.\n\n### Register\n\n- **Endpoint**: `/register`\n- **Method**: POST\n- **Description**: Register a new user.\n\n#### Request Body\n\n- `username` (string) - The username of the user.\n- `password` (string) - The password of the user.\n- `role` (string) - The role of the user (\"guest\" or \"restaurant\").\n- `restaurant_name` (string, required for \"restaurant\" role) - The name of the restaurant.\n- `address` (string, required for \"restaurant\" role) - The address of the restaurant.\n- `phone_number` (string, required for \"restaurant\" role) - The phone number of the restaurant.\n- `opening_hours` (string, required for \"restaurant\" role) - The opening hours of the restaurant.\n\n### Get Protected Resource\n\n- **Endpoint**: `/protected`\n- **Method**: GET\n- **Description**: Get a protected resource that requires authentication.\n\n#### Request Headers\n\n- `Authorization` (string) - A valid JWT token.\n"
+        }
     }
 }

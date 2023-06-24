@@ -225,19 +225,13 @@ const login = (request, response) => {
 
   //query for finding the entry in the table users where the username = username
   pool
-    .query("SELECT * FROM users WHERE username = $1", [username])
+    .query("SELECT login_user($1, $2)", [username, password])
     .then((result) => {
-      if (result.rowCount === 0) {
-        response.status(401).send("Username does not exist.");
+      const user_id = result.rows[0].login_user;
+      if (!user_id) {
+        response.status(401).send("Invalid username or password.");
         return;
       }
-      const db_password = result.rows[0].password;
-      if (db_password !== password) {
-        response.status(401).send("Wrong password.");
-        return;
-      }
-      const { user_id, restaurant_id } = result.rows[0];
-      // response.status(200).json({ user_id, restaurant_id });
 
       const token = jwt.sign(
         { id: user_id, username: username },
@@ -245,6 +239,9 @@ const login = (request, response) => {
         { expiresIn: "1h" }
       );
       response.status(200).json(token);
+    })
+    .catch((error) => {
+      response.status(400).send(error.detail);
     });
 };
 // #endregion Api Functions
