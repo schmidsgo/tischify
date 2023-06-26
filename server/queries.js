@@ -118,7 +118,7 @@ const getRestaurantAvailabilities = (request, response) => {
 };
 
 const updateRestaurantSettings = (request, response) => {
-  const { id } = request.user.restaurant_id;
+  const id = request.user.restaurant_id;
   const {
     name,
     address,
@@ -174,7 +174,10 @@ const updateRestaurantSettings = (request, response) => {
   );
 };
 
-// const getRestaurantSettings = (request, response) => {};
+const getRestaurantSettings = (request, response) => {
+  request.params.restaurant_id = request.user.restaurant_id;
+  getRestaurants(request, response);
+};
 
 const register = (request, response) => {
   registerInputValidation(request, response);
@@ -392,4 +395,5 @@ module.exports = {
   getRestaurantAvailabilities,
   getRestaurants,
   updateRestaurantSettings,
+  getRestaurantSettings,
 };
