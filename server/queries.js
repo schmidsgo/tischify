@@ -118,7 +118,7 @@ const getRestaurantAvailabilities = (request, response) => {
 };
 
 const updateRestaurantSettings = (request, response) => {
-  const { id } = request.params;
+  const { id } = request.user.restaurant_id;
   const {
     name,
     address,
@@ -174,6 +174,8 @@ const updateRestaurantSettings = (request, response) => {
   );
 };
 
+// const getRestaurantSettings = (request, response) => {};
+
 const register = (request, response) => {
   registerInputValidation(request, response);
   if (response.statusCode === 400) {
@@ -227,17 +229,39 @@ const login = (request, response) => {
   pool
     .query("SELECT login_user($1, $2)", [username, password])
     .then((result) => {
-      const user_id = result.rows[0].login_user;
-      if (!user_id) {
+      const loginResult = result.rows[0].login_user;
+      if (!loginResult) {
         response.status(401).send("Invalid username or password.");
         return;
       }
 
-      const token = jwt.sign(
-        { id: user_id, username: username },
-        "yourSecretKey",
-        { expiresIn: "1h" }
-      );
+      const trimmedstring = loginResult.substring(1, loginResult.length - 1);
+      const [user_id, id, role] = trimmedstring.split(",");
+
+      var token;
+      if (role === "guest") {
+        token = jwt.sign(
+          {
+            user_id: user_id,
+            guest_id: id,
+            username: username,
+            role: role,
+          },
+          "yourSecretKey",
+          { expiresIn: "1h" }
+        );
+      } else if (role === "restaurant") {
+        token = jwt.sign(
+          {
+            user_id: user_id,
+            restaurant_id: id,
+            username: username,
+            role: role,
+          },
+          "yourSecretKey",
+          { expiresIn: "1h" }
+        );
+      }
       response.status(200).json(token);
     })
     .catch((error) => {

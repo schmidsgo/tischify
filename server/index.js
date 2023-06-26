@@ -27,7 +27,9 @@ app.get("/restaurants/:restaurant_id?", db.getRestaurants);
 
 app.get("/restaurants/availabilities", db.getRestaurantAvailabilities);
 
-app.put("/restaurants/settings/:restaurant_id", db.updateRestaurantSettings);
+app.put("/restaurants/settings/", authMiddleware, db.updateRestaurantSettings);
+
+// app.get("/restaurant/settings/", authMiddleware, db.getRestaurantSettings);
 
 app.post("/bookings", db.createBooking);
 
