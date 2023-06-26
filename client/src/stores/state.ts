@@ -88,6 +88,9 @@ export const useAuthStore = defineStore('auth', {
           password,
           role
         });
+        //TODO: So bekommst du den token vom login. Du musst den nur so speichern, dass du ihn später wieder verwenden kannst.
+        //https://stackoverflow.com/questions/40988238/sending-the-bearer-token-with-axios Hier siehst du wie du den token später verwendest
+        const test = res.data;
         this.user.name = username;
         this.user.role = role;
         console.log(this.user.name, this.user.restaurant_id);
