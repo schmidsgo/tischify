@@ -83,14 +83,22 @@ export const useAuthStore = defineStore('auth', {
     async login({ username, password, role }: UserInfo) {
       try {
         this.isLoading = true;
-        const res = await axios.post('http://localhost:3000/login', {
-          username,
-          password,
-          role
-        });
+        const res = await axios
+          .post('http://localhost:3000/login', {
+            username,
+            password,
+            role
+          })
+          .then(res => {
+            localStorage.setItem('jwt', res.data.token);
+            setAuthHeader(res.data.token);
+          })
+          .catch(err => console.log(err));
         //TODO: So bekommst du den token vom login. Du musst den nur so speichern, dass du ihn später wieder verwenden kannst.
         //https://stackoverflow.com/questions/40988238/sending-the-bearer-token-with-axios Hier siehst du wie du den token später verwendest
-        const test = res.data;
+        // const { token, user } = res.data;
+        // return { token, user };
+
         this.user.name = username;
         this.user.role = role;
         console.log(this.user.name, this.user.restaurant_id);
@@ -159,6 +167,15 @@ export const useSettingsStore = defineStore('setting', {
             capacity: this.capacity
           })
           .then(res => {
+            const instance = axios.create({
+              baseURL: 'http://localhost:3000/',
+              timeout: 1000,
+              headers: { Authorization: 'Bearer ' + token }
+            });
+
+            instance.get('/path').then(response => {
+              return response.data;
+            });
             console.log(res.status);
           });
       } catch (error) {

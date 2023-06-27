@@ -10,6 +10,24 @@ import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
 import '@mdi/font/css/materialdesignicons.css';
+import axios from 'axios';
+import setAuthHeader from './utils/setAuthHeader';
+
+// axios.interceptors.request.use(
+//   async config => {
+//     const token = await localStorage.getItem('jwt');
+//     if (token) config.headers['Authorization'] = `Bearer ${token}`;
+//     return config;
+//   },
+//   error => {
+//     return Promise.reject(error);
+//   }
+// );
+if (localStorage.jwt) {
+  setAuthHeader(localStorage.jwt);
+} else {
+  setAuthHeader(false);
+}
 
 const myCustomLightTheme: ThemeDefinition = {
   dark: false,
