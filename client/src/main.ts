@@ -10,6 +10,13 @@ import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
 import '@mdi/font/css/materialdesignicons.css';
+import setAuthHeader from './utils/setAuthHeader';
+
+if (localStorage.jwt) {
+  setAuthHeader(localStorage.jwt);
+} else {
+  setAuthHeader('');
+}
 
 const myCustomLightTheme: ThemeDefinition = {
   dark: false,

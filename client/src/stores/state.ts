@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
+import setAuthHeader from '@/utils/setAuthHeader';
 
 type UserInfo = {
   username: string;
@@ -83,14 +84,21 @@ export const useAuthStore = defineStore('auth', {
     async login({ username, password, role }: UserInfo) {
       try {
         this.isLoading = true;
-        const res = await axios.post('http://localhost:3000/login', {
-          username,
-          password,
-          role
-        });
-        //TODO: So bekommst du den token vom login. Du musst den nur so speichern, dass du ihn später wieder verwenden kannst.
-        //https://stackoverflow.com/questions/40988238/sending-the-bearer-token-with-axios Hier siehst du wie du den token später verwendest
-        const test = res.data;
+        axios
+          .post('http://localhost:3000/login', {
+            username,
+            password,
+            role
+          })
+          .then(res => {
+            localStorage.setItem('jwt', res.data);
+            setAuthHeader(res.data);
+            console.log('token: ' + res.data);
+          })
+          .catch(err => {
+            console.log(err.response);
+          });
+
         this.user.name = username;
         this.user.role = role;
         console.log(this.user.name, this.user.restaurant_id);
@@ -105,20 +113,21 @@ export const useAuthStore = defineStore('auth', {
       this.user.role = '';
       console.log('user: ' + this.user.name, this.user.role);
     },
-    async getRestaurant(restaurant_id: string) {
+    async getRestaurant() {
       try {
-        console.log('this.restaurant: ' + restaurant_id);
         const res = await axios.get(
-          `http://localhost:3000/restaurants/:${restaurant_id}`
+          // `http://localhost:3000/restaurants/:${restaurant_id}`
+          'http://localhost:3000/restaurants'
         );
-        this.user.restaurant_id = res.data[restaurant_id].restaurant_id;
-        this.user.address = res.data[restaurant_id + 2].address;
-        this.user.city = res.data[restaurant_id + 2].city;
-        this.user.phone_number = res.data[restaurant_id + 2].phone_number;
-        this.user.opening_hours = res.data[restaurant_id + 2].opening_hours;
-        this.user.capacity = res.data[restaurant_id + 2].capacity;
-        capacity: 0;
-        console.log(res.data[restaurant_id + 2]);
+        console.log('test: ' + res);
+        // this.user.restaurant_id = res.data[restaurant_id].restaurant_id;
+        // this.user.address = res.data[restaurant_id + 2].address;
+        // this.user.city = res.data[restaurant_id + 2].city;
+        // this.user.phone_number = res.data[restaurant_id + 2].phone_number;
+        // this.user.opening_hours = res.data[restaurant_id + 2].opening_hours;
+        // this.user.capacity = res.data[restaurant_id + 2].capacity;
+        // capacity: 0;
+        // console.log(res.data[restaurant_id + 2]);
       } catch (err) {
         console.log(err);
       }
@@ -149,18 +158,29 @@ export const useSettingsStore = defineStore('setting', {
     }: UserInfo) {
       try {
         this.isLoading = true;
-        return axios
-          .post(`http://localhost:3000/restaurants/settings/${restaurant_id}`, {
+        return axios.put(
+          `http://localhost:3000/restaurants/settings/${restaurant_id}`,
+          {
             username: this.username,
             address: this.address,
             city: this.city,
             phone_number: this.phone_number,
             opening_hours: this.opening_hours,
             capacity: this.capacity
-          })
-          .then(res => {
-            console.log(res.status);
-          });
+          }
+        );
+        // .then(res => {
+        //   const instance = axios.create({
+        //     baseURL: 'http://localhost:3000/',
+        //     timeout: 1000,
+        //     headers: { Authorization: 'Bearer ' + token }
+        //   });
+
+        //   instance.get('/path').then(response => {
+        //     return response.data;
+        //   });
+        //   console.log(res.status);
+        // });
       } catch (error) {
         this.isError = true;
       }
