@@ -115,10 +115,7 @@ export const useAuthStore = defineStore('auth', {
     },
     async getRestaurant() {
       try {
-        const res = await axios.get(
-          // `http://localhost:3000/restaurants/:${restaurant_id}`
-          'http://localhost:3000/restaurants'
-        );
+        const res = await axios.get('http://localhost:3000/restaurants');
         console.log('test: ' + res);
         // this.user.restaurant_id = res.data[restaurant_id].restaurant_id;
         // this.user.address = res.data[restaurant_id + 2].address;
@@ -130,56 +127,6 @@ export const useAuthStore = defineStore('auth', {
         // console.log(res.data[restaurant_id + 2]);
       } catch (err) {
         console.log(err);
-      }
-    }
-  }
-});
-
-export const useSettingsStore = defineStore('setting', {
-  state: () => ({
-    username: '',
-    address: '',
-    city: '',
-    phone_number: '',
-    opening_hours: '',
-    capacity: 0,
-    isError: false,
-    isLoading: false
-  }),
-  actions: {
-    submitSetting({
-      username,
-      address,
-      city,
-      phone_number,
-      opening_hours,
-      capacity,
-      restaurant_id
-    }: UserInfo) {
-      try {
-        this.isLoading = true;
-        return axios.put(`http://localhost:3000/restaurants/settings`, {
-          username: this.username,
-          address: this.address,
-          city: this.city,
-          phone_number: this.phone_number,
-          opening_hours: this.opening_hours,
-          capacity: this.capacity
-        });
-        // .then(res => {
-        //   const instance = axios.create({
-        //     baseURL: 'http://localhost:3000/',
-        //     timeout: 1000,
-        //     headers: { Authorization: 'Bearer ' + token }
-        //   });
-
-        //   instance.get('/path').then(response => {
-        //     return response.data;
-        //   });
-        //   console.log(res.status);
-        // });
-      } catch (error) {
-        this.isError = true;
       }
     }
   }
@@ -198,9 +145,6 @@ export const useBookingStore = defineStore('booking', {
     isError: false,
     isLoading: false
   }),
-  // getters: {
-  //   isModalOpen: state => state.showBookingModal
-  // },
   actions: {
     openModal(restaurant: any) {
       this.showBookingModal = true;

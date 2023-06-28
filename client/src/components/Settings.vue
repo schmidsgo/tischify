@@ -1,25 +1,23 @@
 <script setup lang="ts">
-import { useAuthStore, useSettingsStore } from '../stores/state';
-import { onMounted, ref, computed } from 'vue';
+import { useAuthStore } from '../stores/state';
+import { onMounted, ref } from 'vue';
 import axios from 'axios';
 
 const authStore = useAuthStore();
-// const settingStore = useSettingsStore();
 
 const name = authStore.user.name;
-const restaurant_id = authStore.user.restaurant_id;
+// const restaurant_id = authStore.user.restaurant_id;
 const address = ref(authStore.user?.address ?? '');
 const city = ref(authStore.user?.city ?? '');
 const phone_number = ref(authStore.user?.phone_number ?? '');
 const opening_hours = ref(authStore.user?.opening_hours ?? '');
 const capacity = ref(authStore.user?.capacity ?? 0);
 
-// const isError = computed(() => settingStore.isError);
-// const isLoading = computed(() => settingStore.isLoading);
+// TODO: add error handling, loading state
 
 const settings = async () => {
   console.log('Start of settings');
-  const response = await axios
+  await axios
     .put('http://localhost:3000/restaurants/settings', {
       name: name.valueOf,
       address: address.value,
@@ -30,7 +28,6 @@ const settings = async () => {
     })
     .then(response => {
       console.log(response);
-      // settingStore.submitSetting(response.data);
     })
     .catch(error => {
       console.log(error);
@@ -38,7 +35,7 @@ const settings = async () => {
 };
 
 onMounted(async () => {
-  await authStore.getRestaurant(restaurant_id);
+  await authStore.getRestaurant();
 });
 </script>
 
