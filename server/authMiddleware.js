@@ -2,7 +2,8 @@ const jwt = require("jsonwebtoken");
 
 function authMiddleware(request, response, next) {
   //Get token and cut out "Bearer "
-  const token = request.headers["authorization"];
+  const token = request.headers.authorization.split(" ")[1];
+
   console.log("token" + token);
 
   if (!token) {

@@ -18,21 +18,23 @@ const isError = computed(() => settingStore.isError);
 const isLoading = computed(() => settingStore.isLoading);
 
 const settings = async () => {
-  const response = await axios.post('http://localhost:3000/settings', {
-    name: name.valueOf,
-    address: address.value,
-    city: city.value,
-    phone_number: phone_number.value,
-    opening_hours: opening_hours.value,
-    capacity: capacity.value
-  });
-  settingStore.submitSetting(response.data);
+  console.log('Start of settings');
+  const response = await axios
+    .put('http://localhost:3000/restaurants/settings', {
+      name: name.valueOf,
+      address: address.value,
+      city: city.value,
+      phone_number: phone_number.value,
+      opening_hours: opening_hours.value,
+      capacity: capacity.value
+    })
+    .then(response => {
+      settingStore.submitSetting(response.data);
+    })
+    .catch(error => {
+      console.log(error);
+    });
 };
-console.log(
-  'name: ' + name,
-  'restaurant_id: ' + restaurant_id,
-  'address: ' + address
-);
 
 onMounted(async () => {
   await authStore.getRestaurant(restaurant_id);

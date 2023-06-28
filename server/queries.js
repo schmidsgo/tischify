@@ -228,7 +228,6 @@ const login = (request, response) => {
   }
   const { username, password } = request.body;
 
-  //query for finding the entry in the table users where the username = username
   pool
     .query("SELECT login_user($1, $2)", [username, password])
     .then((result) => {
