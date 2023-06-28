@@ -2,7 +2,8 @@ const jwt = require("jsonwebtoken");
 
 function authMiddleware(request, response, next) {
   //Get token and cut out "Bearer "
-  const token = request.headers.authorization.split(" ")[1];
+  const token = request.headers["authorization"];
+  console.log("token" + token);
 
   if (!token) {
     return response
@@ -12,7 +13,7 @@ function authMiddleware(request, response, next) {
 
   try {
     const decoded = jwt.verify(token, "yourSecretKey");
-    console.log(decoded);
+    console.log("decoded: " + decoded);
     request.user = decoded;
     next();
   } catch (ex) {

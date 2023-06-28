@@ -1,13 +1,10 @@
 import axios from 'axios';
 
-const setAuthHeader = async token => {
+const setAuthHeader = (token: string) => {
   if (token) {
-    // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    axios.defaults.headers = {
-      Authorization: 'Bearer ' + token
-    };
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   } else {
-    delete axios.defaults.headers.Authorization;
+    delete axios.defaults.headers.common['Authorization'];
   }
 };
 
