@@ -4,7 +4,7 @@ import { onMounted, ref, computed } from 'vue';
 import axios from 'axios';
 
 const authStore = useAuthStore();
-const settingStore = useSettingsStore();
+// const settingStore = useSettingsStore();
 
 const name = authStore.user.name;
 const restaurant_id = authStore.user.restaurant_id;
@@ -14,8 +14,8 @@ const phone_number = ref(authStore.user?.phone_number ?? '');
 const opening_hours = ref(authStore.user?.opening_hours ?? '');
 const capacity = ref(authStore.user?.capacity ?? 0);
 
-const isError = computed(() => settingStore.isError);
-const isLoading = computed(() => settingStore.isLoading);
+// const isError = computed(() => settingStore.isError);
+// const isLoading = computed(() => settingStore.isLoading);
 
 const settings = async () => {
   console.log('Start of settings');
@@ -29,7 +29,8 @@ const settings = async () => {
       capacity: capacity.value
     })
     .then(response => {
-      settingStore.submitSetting(response.data);
+      console.log(response);
+      // settingStore.submitSetting(response.data);
     })
     .catch(error => {
       console.log(error);
@@ -113,7 +114,7 @@ onMounted(async () => {
                 required
                 append-inner-icon="mdi-pencil"
               />
-              <p v-if="settingStore.isError" class="text-red ml-4">Error!</p>
+              <!-- <p v-if="settingStore.isError" class="text-red ml-4">Error!</p> -->
               <v-btn
                 color="info"
                 variant="flat"

@@ -158,17 +158,14 @@ export const useSettingsStore = defineStore('setting', {
     }: UserInfo) {
       try {
         this.isLoading = true;
-        return axios.put(
-          `http://localhost:3000/restaurants/settings/${restaurant_id}`,
-          {
-            username: this.username,
-            address: this.address,
-            city: this.city,
-            phone_number: this.phone_number,
-            opening_hours: this.opening_hours,
-            capacity: this.capacity
-          }
-        );
+        return axios.put(`http://localhost:3000/restaurants/settings`, {
+          username: this.username,
+          address: this.address,
+          city: this.city,
+          phone_number: this.phone_number,
+          opening_hours: this.opening_hours,
+          capacity: this.capacity
+        });
         // .then(res => {
         //   const instance = axios.create({
         //     baseURL: 'http://localhost:3000/',
