@@ -1,20 +1,25 @@
 <script setup lang="ts">
 import { useAuthStore } from '../stores/state';
-import { onMounted, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import axios from 'axios';
+import type { ItemType } from '../types/types';
 
 const authStore = useAuthStore();
 
 const restaurant_name = authStore.user.restaurant_name;
-const address = ref(authStore.user?.address ?? '');
-const city = ref(authStore.user?.city ?? '');
-const phone_number = ref(authStore.user?.phone_number ?? '');
-const opening_hours = ref(authStore.user?.opening_hours ?? '');
-const capacity = ref(authStore.user?.capacity ?? 0);
+const address = ref(authStore.user.address);
+const city = ref(authStore.user.city);
+const phone_number = ref(authStore.user.phone_number);
+const opening_hours = ref(authStore.user.opening_hours);
+const capacity = ref(authStore.user.capacity);
 
 const isError = ref(false);
 const errText = ref('');
 const isLoading = ref(false);
+
+const state = reactive({
+  item: [] as ItemType[]
+});
 
 const settings = async () => {
   console.log('Start of settings');
@@ -41,7 +46,10 @@ const settings = async () => {
 };
 
 onMounted(async () => {
-  await authStore.getRestaurant();
+  await axios.get('http://localhost:3000/restaurants/settings/').then(res => {
+    state.item = res.data;
+    console.log('restaurant: ' + state.item);
+  });
 });
 </script>
 
