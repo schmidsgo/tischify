@@ -22,7 +22,6 @@ const state = reactive({
 });
 
 const settings = async () => {
-  console.log('Start of settings');
   isLoading.value = true;
   await axios
     .put('http://localhost:3000/restaurants/settings', {
@@ -34,11 +33,9 @@ const settings = async () => {
       capacity: capacity.value
     })
     .then(response => {
-      console.log(response);
       isLoading.value = false;
     })
     .catch(error => {
-      console.log(error);
       isError.value = true;
       errText.value = error.response.data.message;
       isLoading.value = false;
@@ -48,7 +45,6 @@ const settings = async () => {
 onMounted(async () => {
   await axios.get('http://localhost:3000/restaurants/settings/').then(res => {
     state.item = res.data;
-    console.log('restaurant: ' + state.item);
   });
 });
 </script>

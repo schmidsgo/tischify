@@ -98,11 +98,8 @@ export const useAuthStore = defineStore('auth', {
             localStorage.setItem('jwt', res.data.token);
             this.user.role = res.data.role;
             setAuthHeader(res.data);
-            console.log('token: ' + res.data);
           })
-          .catch(err => {
-            console.log(err.response);
-          });
+          .catch(err => {});
 
         this.user.name = username;
         console.log(this.user.name, this.user.restaurant_id);
@@ -144,12 +141,8 @@ export const useBookingStore = defineStore('booking', {
   }),
   actions: {
     openModal(restaurant: any) {
-      console.log('Start of openModal');
       this.selectedItemRestaurantId = restaurant.restaurant_id;
       this.showBookingModal = true;
-      console.log(this.selectedItemRestaurantId);
-      console.log(this.showBookingModal);
-      console.log('End of openModal');
     },
     closeModal() {
       this.showBookingModal = false;

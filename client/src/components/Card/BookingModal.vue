@@ -5,8 +5,6 @@ import type { ItemType } from '../../types/types';
 import axios from 'axios';
 
 const props = defineProps<{ item: ItemType; itemId: string }>();
-console.log('Initilized BookingModal.vue');
-console.log(props.item);
 
 const authStore = useAuthStore();
 const bookingStore = useBookingStore();
@@ -20,7 +18,7 @@ const isError = ref(false);
 const errText = ref('');
 const isLoading = ref(false);
 
-const visibil = computed(() => {
+const visible = computed(() => {
   return (
     props.item.restaurant_id === bookingStore.selectedItemRestaurantId &&
     bookingStore.showBookingModal
@@ -56,7 +54,7 @@ const closeModal = () => {
 </script>
 
 <template>
-  <v-dialog v-model="visibil" width="70%" scrim="grey-darken-4">
+  <v-dialog v-model="visible" width="70%" scrim="grey-darken-4">
     <v-card class="pa-5">
       <v-row>
         <v-col cols="6" justify="start" class="bg-yellow">

@@ -26,7 +26,6 @@ onMounted(async () => {
   isLoading.value = true;
   await axios.get('http://localhost:3000/restaurants').then(res => {
     state.restaurants = res.data;
-    console.log('restaurant: ' + state.restaurants);
     isLoading.value = false;
   });
 });
@@ -34,7 +33,6 @@ onMounted(async () => {
 const handleSearch = (query: string, type: string) => {
   searchQuery.value = query;
   searchType.value = type.toLowerCase();
-  console.log(searchQuery.value, searchType.value);
 };
 
 const filteredItems = computed(() => {
@@ -73,8 +71,6 @@ const fourCafes = computed(() =>
     .filter(item => item.opening_hours === '10:00-22:00')
     .slice(0, 4)
 );
-
-console.log(authStore.user.name, authStore.user.role);
 
 // const selectedItemId = ref<string | null>(null);
 </script>
@@ -151,7 +147,7 @@ console.log(authStore.user.name, authStore.user.role);
                 <v-row>
                   <v-col sm:cols="3">
                     <Carousel
-                      :itemsToShow="3.5"
+                      :itemsToShow="2.7"
                       :wrapAround="true"
                       :transition="600"
                     >
@@ -198,7 +194,7 @@ console.log(authStore.user.name, authStore.user.role);
                 <v-row>
                   <v-col sm:cols="3">
                     <Carousel
-                      :itemsToShow="3.7"
+                      :itemsToShow="2.8"
                       :wrapAround="true"
                       :transition="600"
                     >
@@ -206,6 +202,14 @@ console.log(authStore.user.name, authStore.user.role);
                         v-for="item in fourCafes"
                         :key="item.restaurant_id"
                       >
+                        <div v-if="isLoading">
+                          <v-skeleton-loader
+                            class="mx-auto border"
+                            max-width="200"
+                            height="300"
+                            type="image, article"
+                          />
+                        </div>
                         <div class="carousel__item">
                           <CardItem :item="item" />
                         </div>
