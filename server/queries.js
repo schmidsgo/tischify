@@ -264,7 +264,11 @@ const login = (request, response) => {
           { expiresIn: "1h" }
         );
       }
-      response.status(200).json(token);
+      const responseObject = {
+        token: token,
+        role: role,
+      };
+      response.status(200).json(responseObject);
     })
     .catch((error) => {
       response.status(400).send(error.detail);
