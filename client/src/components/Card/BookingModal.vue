@@ -16,7 +16,7 @@ const bookingStore = useBookingStore();
 const item = computed(() => {
   if (props.item.restaurant_id === props.itemId)
     return { ...props.item, restaurant_id: props.itemId };
-  return null;
+  return props.item;
 });
 
 // watch(restaurant_id, id => {
@@ -33,6 +33,19 @@ const datetime = ref('');
 const isError = ref(false);
 const errText = ref('');
 const isLoading = ref(false);
+
+const isItemValid = computed(() => {
+  console.log(item.value);
+  return (
+    item.value &&
+    item.value.category &&
+    item.value.name &&
+    item.value.address &&
+    item.value.city &&
+    item.value.opening_hours &&
+    item.value.phone_number
+  );
+});
 
 const book = async () => {
   console.log('Start of booking');
@@ -58,6 +71,10 @@ const book = async () => {
       isLoading.value = false;
     });
 };
+
+const closeModal = () => {
+  bookingStore.closeModal();
+};
 </script>
 
 <template>
@@ -67,7 +84,7 @@ const book = async () => {
     scrim="grey-darken-4"
   >
     <v-card class="pa-5">
-      <v-row>
+      <v-row v-if="isItemValid">
         <v-col cols="6" justify="start" class="bg-yellow">
           <v-card-image>
             <v-img
@@ -103,7 +120,7 @@ const book = async () => {
               <!-- FIXME -->
               <v-btn
                 icon="mdi-close"
-                @click="bookingStore.closeModal"
+                @click="closeModal"
                 class="bg-grey-lighten-3 text-blue rounded-circle pa-0"
               />
             </v-card-actions>

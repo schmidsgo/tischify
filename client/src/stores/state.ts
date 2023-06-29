@@ -146,12 +146,12 @@ export const useBookingStore = defineStore('booking', {
     openModal(restaurant: any) {
       this.showBookingModal = true;
       this.selectedItem = restaurant;
+    },
+    closeModal() {
       console.log(
         'showBookingModal: ' + this.showBookingModal,
         ', selectedItem: ' + this.selectedItem
       );
-    },
-    closeModal() {
       this.showBookingModal = false;
       this.selectedItem = null;
       console.log(
