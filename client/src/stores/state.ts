@@ -5,7 +5,7 @@ import setAuthHeader from '@/utils/setAuthHeader';
 type UserInfo = {
   username: string;
   password: string;
-  role: string;
+  role?: string;
   restaurant_id?: string;
   restaurant_name?: string;
   address?: string;
@@ -67,7 +67,7 @@ export const useAuthStore = defineStore('auth', {
           capacity
         });
         this.user.name = username;
-        this.user.role = role;
+        this.user.role = '' ?? role;
         this.user.restaurant_name = '' ?? restaurant_name;
         this.user.address = '' ?? address;
         this.user.city = '' ?? city;
@@ -86,17 +86,17 @@ export const useAuthStore = defineStore('auth', {
         this.isError = true;
       }
     },
-    async login({ username, password, role }: UserInfo) {
+    async login({ username, password }: UserInfo) {
       try {
         this.isLoading = true;
         axios
           .post('http://localhost:3000/login', {
             username,
-            password,
-            role
+            password
           })
           .then(res => {
-            localStorage.setItem('jwt', res.data);
+            localStorage.setItem('jwt', res.data.token);
+            this.user.role = res.data.role;
             setAuthHeader(res.data);
             console.log('token: ' + res.data);
           })
@@ -105,7 +105,6 @@ export const useAuthStore = defineStore('auth', {
           });
 
         this.user.name = username;
-        this.user.role = role;
         console.log(this.user.name, this.user.restaurant_id);
         this.isLoading = false;
         this.OpenLoginModal = false;

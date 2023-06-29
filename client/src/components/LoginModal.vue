@@ -29,7 +29,6 @@ const register = async () => {
 
 const login = async () => {
   await authStore.login({
-    role: role.value,
     username: username.value,
     password: password.value
   });
@@ -56,25 +55,6 @@ const login = async () => {
                 variant="tonal"
               />
               <form @submit.prevent="login">
-                <v-radio-group
-                  v-model="role"
-                  inline
-                  class="justify-center mt-5"
-                >
-                  <v-radio
-                    label="Kunde"
-                    color="info"
-                    value="guest"
-                    size="x-small"
-                    class="mr-4"
-                  />
-                  <v-radio
-                    label="Mitarbeiter"
-                    color="info"
-                    value="restaurant"
-                    size="x-small"
-                  />
-                </v-radio-group>
                 <v-text-field v-model="username" label="Nutzername" required />
                 <v-text-field
                   v-model="password"
