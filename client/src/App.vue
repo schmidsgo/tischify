@@ -12,7 +12,7 @@ import LoginModal from './components/LoginModal.vue';
 import Settings from './components/Settings.vue';
 
 const authStore = useAuthStore();
-const bookStore = useBookingStore();
+// const bookStore = useBookingStore();
 
 const state = reactive({
   restaurants: [] as ItemType[]
@@ -69,7 +69,7 @@ const fourCafes = computed(() =>
 
 console.log(authStore.user.name, authStore.user.role);
 
-const selectedItemId = ref<string | null>(null);
+// const selectedItemId = ref<string | null>(null);
 </script>
 
 <template>
@@ -206,11 +206,6 @@ const selectedItemId = ref<string | null>(null);
 </template>
 
 <style scoped>
-/* FIXME: */
-.carousel__icon {
-  fill: yellow;
-}
-
 .carousel__track {
   transform-style: preserve-3d;
 }
