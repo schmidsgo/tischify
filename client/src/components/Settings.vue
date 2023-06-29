@@ -118,15 +118,30 @@ onMounted(async () => {
                 append-inner-icon="mdi-pencil"
               />
               <p v-if="isError" class="text-red ml-4">{{ errText }}</p>
-              <v-btn
-                color="info"
-                variant="flat"
-                size="large"
-                type="submit"
-                text="submit"
-                class="rounded-xl px-4"
-                @click="settings"
-              />
+              <v-card-actions class="justify-end">
+                <v-btn
+                  v-if="!isLoading"
+                  color="info"
+                  variant="flat"
+                  size="large"
+                  type="submit"
+                  text="buchen"
+                  class="rounded-xl px-4"
+                  @click="settings"
+                />
+                <v-btn
+                  v-else-if="isLoading"
+                  color="info"
+                  variant="flat"
+                  size="large"
+                  type="submit"
+                  text="buchen"
+                  class="rounded-xl px-4"
+                  disabled
+                >
+                  <v-progress-circular color="Blue" size="25" indeterminate />
+                </v-btn>
+              </v-card-actions>
             </form>
           </v-col>
         </v-row>

@@ -141,15 +141,7 @@ export const useAuthStore = defineStore('auth', {
 export const useBookingStore = defineStore('booking', {
   state: () => ({
     showBookingModal: false,
-    selectedItem: null,
-    booking: {
-      name: '',
-      email: '',
-      people: 0,
-      datetime: ''
-    },
-    isError: false,
-    isLoading: false
+    selectedItem: null
   }),
   actions: {
     openModal(restaurant: any) {
@@ -167,34 +159,6 @@ export const useBookingStore = defineStore('booking', {
         'showBookingModal: ' + this.showBookingModal,
         ', selectedItem: ' + this.selectedItem
       );
-    },
-    async submitBooking({
-      restaurant_id, //?
-      name,
-      email,
-      people,
-      datetime
-    }: BookingInfo) {
-      try {
-        this.isLoading = true;
-        const res = await axios.post('http://localhost:3000/bookings', {
-          restaurant_id: restaurant_id, //?
-          name: this.booking.name,
-          email: this.booking.name,
-          people: this.booking.people,
-          datetime: this.booking.datetime
-        });
-        this.booking.name = name;
-        this.booking.email = email;
-        this.booking.people = people;
-        this.booking.datetime = datetime;
-        this.showBookingModal = false;
-        console.log(res.status);
-        this.isLoading = false;
-      } catch (err) {
-        this.isError = true;
-        console.log(err);
-      }
     }
   }
 });
