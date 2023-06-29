@@ -91,6 +91,7 @@ const selectedItemId = ref('');
         </v-row>
       </v-card-text>
       <v-card-actions class="mt-1 ml-1 mb-2">
+        <!-- TODO: add switch cases for availabilities symbols -->
         <v-btn color="pink-lighten-1" variant="flat">○ 18:00 </v-btn>
         <v-btn color="pink-lighten-1" variant="flat">△ 18:30 </v-btn>
         <v-btn color="pink-lighten-1" variant="flat">◎ 19:00 </v-btn>
