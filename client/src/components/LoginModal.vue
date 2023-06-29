@@ -46,10 +46,21 @@ const login = async () => {
           >
             Anmelden
           </v-card-title>
-          <div class="w-50 justify-center mx-auto">
+          <div class="w-75 justify-center mx-auto">
             <v-card-text>
+              <v-alert
+                icon="mdi-lightbulb-on-10"
+                title="Bist du zum Testen hier?"
+                text="Es gibt z.B. Nutzername: 'Test73' und Passwort: 'Test' für beiden Rollen."
+                type="info"
+                variant="tonal"
+              />
               <form @submit.prevent="login">
-                <v-radio-group v-model="role" inline class="justify-center">
+                <v-radio-group
+                  v-model="role"
+                  inline
+                  class="justify-center mt-5"
+                >
                   <v-radio
                     label="Kunde"
                     color="info"
