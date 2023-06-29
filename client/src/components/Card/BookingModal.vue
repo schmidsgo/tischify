@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useAuthStore, useBookingStore } from '../../stores/state';
 import type { ItemType } from '../../types/types';
+import axios from 'axios';
 
 const props = defineProps<{ item: ItemType; itemId: string }>();
 
 const authStore = useAuthStore();
 const bookingStore = useBookingStore();
 
-const store = reactive({
-  item: {} as ItemType
-});
+// const store = reactive({
+//   item: {} as ItemType
+// });
 
 const item = computed(() => {
   if (props.item.restaurant_id === props.itemId)
@@ -29,14 +30,33 @@ const email = ref('');
 const people = ref(0);
 const datetime = ref('');
 
+const isError = ref(false);
+const errText = ref('');
+const isLoading = ref(false);
+
 const book = async () => {
-  await bookingStore.submitBooking({
-    restaurant_id: store.item.restaurant_id,
-    name: name.value,
-    email: email.value,
-    people: people.value,
-    datetime: datetime.value
-  });
+  console.log('Start of booking');
+  isLoading.value = true;
+  await axios
+    .put('http://localhost:3000/restaurants/settings', {
+      name: name.valueOf,
+      email: email.value,
+      people: people.value,
+      datetime: datetime.value
+    })
+    .then(response => {
+      console.log(response);
+      if (response.status === 200) {
+        isLoading.value = false;
+        bookingStore.showBookingModal = false;
+      }
+    })
+    .catch(error => {
+      console.log(error);
+      isError.value = true;
+      errText.value = error.response.data.message;
+      isLoading.value = false;
+    });
 };
 </script>
 
@@ -92,36 +112,36 @@ const book = async () => {
             <form @submit.prevent="book">
               <v-text-field
                 placeholder="Name"
-                v-model="bookingStore.booking.name"
+                v-model="name"
                 outlined
                 type="text"
                 required
               />
               <v-text-field
                 placeholder="Email"
-                v-model="bookingStore.booking.email"
+                v-model="email"
                 outlined
                 type="email"
                 required
               />
               <v-text-field
                 placeholder="Personen"
-                v-model="bookingStore.booking.people"
+                v-model="people"
                 outlined
                 type="number"
                 required
               />
               <v-text-field
                 placeholder="Datum und Uhrzeit"
-                v-model="bookingStore.booking.datetime"
+                v-model="datetime"
                 type="datetime-local"
                 outlined
                 required
               />
-              <p v-if="authStore.isError" class="text-red ml-4">Error!</p>
+              <p v-if="isError" class="text-red ml-4">{{ errText }}</p>
               <v-card-actions class="justify-end">
                 <v-btn
-                  v-if="!authStore.isLoading"
+                  v-if="!isLoading"
                   color="info"
                   variant="flat"
                   size="large"
@@ -131,7 +151,7 @@ const book = async () => {
                   buchen
                 </v-btn>
                 <v-btn
-                  v-else-if="authStore.isLoading"
+                  v-else-if="isLoading"
                   color="Blue"
                   variant="flat"
                   class="p-2"

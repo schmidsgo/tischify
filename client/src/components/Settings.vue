@@ -5,21 +5,23 @@ import axios from 'axios';
 
 const authStore = useAuthStore();
 
-const name = authStore.user.name;
-// const restaurant_id = authStore.user.restaurant_id;
+const restaurant_name = authStore.user.restaurant_name;
 const address = ref(authStore.user?.address ?? '');
 const city = ref(authStore.user?.city ?? '');
 const phone_number = ref(authStore.user?.phone_number ?? '');
 const opening_hours = ref(authStore.user?.opening_hours ?? '');
 const capacity = ref(authStore.user?.capacity ?? 0);
 
-// TODO: add error handling, loading state
+const isError = ref(false);
+const errText = ref('');
+const isLoading = ref(false);
 
 const settings = async () => {
   console.log('Start of settings');
+  isLoading.value = true;
   await axios
     .put('http://localhost:3000/restaurants/settings', {
-      name: name.valueOf,
+      restaurant_name: restaurant_name.valueOf,
       address: address.value,
       city: city.value,
       phone_number: phone_number.value,
@@ -28,9 +30,13 @@ const settings = async () => {
     })
     .then(response => {
       console.log(response);
+      isLoading.value = false;
     })
     .catch(error => {
       console.log(error);
+      isError.value = true;
+      errText.value = error.response.data.message;
+      isLoading.value = false;
     });
 };
 
@@ -46,7 +52,7 @@ onMounted(async () => {
         <v-row>
           <v-col cols="12" class="pb-0">
             <v-text class="text-h4 text-grey-darken-3 font-weight-bold">
-              Willkommen {{ name }}!
+              Willkommen {{ authStore.user.name }}!
             </v-text>
           </v-col>
           <v-col>
@@ -65,12 +71,12 @@ onMounted(async () => {
           <v-col cols="6" class="px-8">
             <v-text class="text-h6 font-weight-semibold">
               Bearbeitung:
-              <span class="font-weight-bold">{{ name }}</span>
+              <span class="font-weight-bold">{{ restaurant_name }}</span>
             </v-text>
             <form @submit.prevent="settings" class="mt-4 p-4">
               <v-text-field
-                v-model="name"
-                :placeholder="name"
+                v-model="restaurant_name"
+                :placeholder="restaurant_name"
                 label="restaurant name"
                 required
                 append-inner-icon="mdi-pencil"
@@ -111,16 +117,31 @@ onMounted(async () => {
                 required
                 append-inner-icon="mdi-pencil"
               />
-              <!-- <p v-if="settingStore.isError" class="text-red ml-4">Error!</p> -->
-              <v-btn
-                color="info"
-                variant="flat"
-                size="large"
-                type="submit"
-                text="submit"
-                class="rounded-xl px-4"
-                @click="settings"
-              />
+              <p v-if="isError" class="text-red ml-4">{{ errText }}</p>
+              <v-card-actions class="justify-end">
+                <v-btn
+                  v-if="!isLoading"
+                  color="info"
+                  variant="flat"
+                  size="large"
+                  type="submit"
+                  text="buchen"
+                  class="rounded-xl px-4"
+                  @click="settings"
+                />
+                <v-btn
+                  v-else-if="isLoading"
+                  color="info"
+                  variant="flat"
+                  size="large"
+                  type="submit"
+                  text="buchen"
+                  class="rounded-xl px-4"
+                  disabled
+                >
+                  <v-progress-circular color="Blue" size="25" indeterminate />
+                </v-btn>
+              </v-card-actions>
             </form>
           </v-col>
         </v-row>
