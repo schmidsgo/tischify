@@ -50,10 +50,14 @@ const login = async () => {
               <v-alert
                 icon="mdi-lightbulb-on-10"
                 title="Bist du zum Testen hier?"
-                text="Es gibt z.B. Nutzername: 'Test73' und Passwort: 'Test' für beiden Rollen."
                 type="info"
                 variant="tonal"
-              />
+              >
+                <p>Es gibt z.B. Nutzername:</p>
+                <p>'Test73' und Passwort: 'Test' als Restaurant.</p>
+                <p>Nutzername: 'Test104564' und Passwort: 'Test' als Gast.</p>
+              </v-alert>
+
               <form @submit.prevent="login">
                 <v-text-field v-model="username" label="Nutzername" required />
                 <v-text-field
