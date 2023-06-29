@@ -80,7 +80,7 @@ const selectedItemId = ref('');
                 authStore.user.name === ''
                   ? (authStore.OpenLoginModal = true)
                   : ((selectedItemId = item.restaurant_id),
-                    bookingStore.openModal(selectedItemId))
+                    bookingStore.openModal(item))
               "
               variant="tonal"
               class="bg-blue hover:bg-blue-lighten-3 rounded-xl focus:outline-none"

@@ -140,24 +140,20 @@ export const useAuthStore = defineStore('auth', {
 export const useBookingStore = defineStore('booking', {
   state: () => ({
     showBookingModal: false,
-    selectedItem: null
+    selectedItemRestaurantId: null
   }),
   actions: {
     openModal(restaurant: any) {
+      console.log('Start of openModal');
+      this.selectedItemRestaurantId = restaurant.restaurant_id;
       this.showBookingModal = true;
-      this.selectedItem = restaurant;
+      console.log(this.selectedItemRestaurantId);
+      console.log(this.showBookingModal);
+      console.log('End of openModal');
     },
     closeModal() {
-      console.log(
-        'showBookingModal: ' + this.showBookingModal,
-        ', selectedItem: ' + this.selectedItem
-      );
       this.showBookingModal = false;
-      this.selectedItem = null;
-      console.log(
-        'showBookingModal: ' + this.showBookingModal,
-        ', selectedItem: ' + this.selectedItem
-      );
+      this.selectedItemRestaurantId = null;
     }
   }
 });

@@ -5,25 +5,11 @@ import type { ItemType } from '../../types/types';
 import axios from 'axios';
 
 const props = defineProps<{ item: ItemType; itemId: string }>();
+console.log('Initilized BookingModal.vue');
+console.log(props.item);
 
 const authStore = useAuthStore();
 const bookingStore = useBookingStore();
-
-// const store = reactive({
-//   item: {} as ItemType
-// });
-
-const item = computed(() => {
-  if (props.item.restaurant_id === props.itemId)
-    return { ...props.item, restaurant_id: props.itemId };
-  return props.item;
-});
-
-// watch(restaurant_id, id => {
-//   if (id) {
-//     bookingStore.closeModal();
-//   }
-// });
 
 const name = authStore.user.name !== '' ? authStore.user.name : ref('');
 const email = ref('');
@@ -34,21 +20,15 @@ const isError = ref(false);
 const errText = ref('');
 const isLoading = ref(false);
 
-const isItemValid = computed(() => {
-  console.log(item.value);
+const visibil = computed(() => {
   return (
-    item.value &&
-    item.value.category &&
-    item.value.name &&
-    item.value.address &&
-    item.value.city &&
-    item.value.opening_hours &&
-    item.value.phone_number
+    props.item.restaurant_id === bookingStore.selectedItemRestaurantId &&
+    bookingStore.showBookingModal
   );
+  return null;
 });
 
 const book = async () => {
-  console.log('Start of booking');
   isLoading.value = true;
   await axios
     .put('http://localhost:3000/restaurants/settings', {
@@ -58,14 +38,12 @@ const book = async () => {
       datetime: datetime.value
     })
     .then(response => {
-      console.log(response);
       if (response.status === 200) {
         isLoading.value = false;
         bookingStore.showBookingModal = false;
       }
     })
     .catch(error => {
-      console.log(error);
       isError.value = true;
       errText.value = error.response.data.message;
       isLoading.value = false;
@@ -78,13 +56,9 @@ const closeModal = () => {
 </script>
 
 <template>
-  <v-dialog
-    v-model="bookingStore.showBookingModal"
-    width="70%"
-    scrim="grey-darken-4"
-  >
+  <v-dialog v-model="visibil" width="70%" scrim="grey-darken-4">
     <v-card class="pa-5">
-      <v-row v-if="isItemValid">
+      <v-row>
         <v-col cols="6" justify="start" class="bg-yellow">
           <v-card-image>
             <v-img
