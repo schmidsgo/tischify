@@ -1,14 +1,3 @@
-<!-- <script setup lang="ts">
-const query = '';
-const sortBy = 'name'; //FIXME:
-
-const emit = defineEmits(['search']);
-
-const submitSearch = () => {
-  emit('search', { query, sortBy });
-};
-</script> -->
-
 <script lang="ts">
 export default {
   data() {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import axios from 'axios';
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Pagination, Navigation, Slide } from 'vue3-carousel';
@@ -20,8 +20,15 @@ const state = reactive({
 const searchQuery = ref('');
 const searchType = ref('');
 
-axios.get('http://localhost:3000/restaurants').then(res => {
-  state.restaurants = res.data;
+const isLoading = ref(true);
+
+onMounted(async () => {
+  isLoading.value = true;
+  await axios.get('http://localhost:3000/restaurants').then(res => {
+    state.restaurants = res.data;
+    console.log('restaurant: ' + state.restaurants);
+    isLoading.value = false;
+  });
 });
 
 const handleSearch = (query: string, type: string) => {
@@ -85,12 +92,6 @@ console.log(authStore.user.name, authStore.user.role);
         <Searchbar v-model="searchQuery" @search="handleSearch" />
         <v-layout>
           <v-main class="sm:p-0 px-4">
-            <!-- FIXME: -->
-            <!-- <SearchResult
-          :items="filteredItems"
-          :searchQuery="searchQuery"
-          :searchType="searchType"
-        /> -->
             <v-container
               v-if="searchQuery"
               class="d-flex justify-center align-center mt-8 p-0"
@@ -121,7 +122,17 @@ console.log(authStore.user.name, authStore.user.role);
                     v-for="item in filteredItems"
                     :key="item.restaurant_id"
                   >
-                    <CardItem :item="item" />
+                    <div v-if="isLoading">
+                      <v-skeleton-loader
+                        class="mx-auto border"
+                        max-width="200"
+                        height="300"
+                        type="image, article"
+                      />
+                    </div>
+                    <div v-else>
+                      <CardItem :item="item" />
+                    </div>
                   </v-col>
                 </v-row>
               </v-row>
@@ -149,7 +160,17 @@ console.log(authStore.user.name, authStore.user.role);
                         :key="item.restaurant_id"
                       >
                         <div class="carousel__item">
-                          <CardItem :item="item" />
+                          <div v-if="isLoading">
+                            <v-skeleton-loader
+                              class="mx-auto border"
+                              max-width="200"
+                              height="300"
+                              type="image, article"
+                            />
+                          </div>
+                          <div v-else>
+                            <CardItem :item="item" />
+                          </div>
                         </div>
                       </Slide>
                       <template #addons>

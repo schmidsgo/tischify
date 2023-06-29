@@ -96,17 +96,6 @@ const selectedItemId = ref('');
         <v-btn color="pink-lighten-1" variant="flat">◎ 19:00 </v-btn>
       </v-card-actions>
       <BookingModal :item="item" :itemId="selectedItemId" />
-      <!-- FIXME: skelton CardItems -->
-      <template v-slot:placeholder>
-        <v-sheet color="bg-grey-lighten-4" class="fill-height">
-          <v-skeleton-loader
-            class="mx-auto border"
-            max-width="200"
-            height="300"
-            type="image, article"
-          />
-        </v-sheet>
-      </template>
     </v-card>
   </v-hover>
 </template>
