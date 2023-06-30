@@ -36,7 +36,8 @@ export const useAuthStore = defineStore('auth', {
       city: '',
       phone_number: '',
       opening_hours: '',
-      capacity: 0
+      capacity: 0,
+      bookings: []
     },
     isError: false,
     isLoading: false
@@ -108,6 +109,16 @@ export const useAuthStore = defineStore('auth', {
       } catch (error) {
         this.isError = true;
       }
+    },
+    async getBookings() {
+      axios
+        .get('http://localhost:3000/guests/bookings')
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
     logout() {
       this.user.name = '';

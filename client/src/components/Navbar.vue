@@ -1,7 +1,40 @@
 <script setup lang="ts">
+import axios from 'axios';
 import { useAuthStore } from '../stores/state';
 
 const authStore = useAuthStore();
+
+const items = [
+  {
+    bookingId: 1,
+    title: 'Restaurant 1',
+    imageSrc: 'restaurant.jpeg',
+    date: '10.10.2023',
+    time: '12:00',
+    guests: 2
+  },
+  {
+    bookingId: 2,
+    title: 'Restaurant 2',
+    imageSrc: 'restaurant.jpeg',
+    date: '10.10.2023',
+    time: '12:00',
+    guests: 2
+  }
+];
+
+const getBookings = () => {
+  axios
+    .get('http://localhost:3000/guests/bookings')
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+};
+
+getBookings();
 </script>
 
 <template>
@@ -31,22 +64,22 @@ const authStore = useAuthStore();
           >
           <v-divider />
           <v-list>
-            <v-list-item>
+            <v-list-item v-for="(item, index) in items" :key="item.bookingId">
               <v-row align="center">
                 <v-col cols="3">
                   <v-img
                     class="bg-grey-lighten-2 rounded-lg"
                     height="70"
-                    src="restaurant.jpeg"
+                    :src="item.imageSrc"
                     cover
                   />
                 </v-col>
                 <v-col cols="7" class="pl-0">
                   <v-card-title class="text-h6 font-weight-bold p-0">
-                    Restaurant 12
+                    {{ item.title }}
                   </v-card-title>
                   <v-card-text class="text-subtitle-1 p-0">
-                    22.05.23 18:00 2 Pers.
+                    {{ item.date }} | {{ item.time }} | {{ item.guests }} Pers.
                   </v-card-text>
                 </v-col>
                 <v-col cols="2">
@@ -57,33 +90,8 @@ const authStore = useAuthStore();
                   />
                 </v-col>
               </v-row>
-            </v-list-item>
-            <v-list-item>
-              <v-row align="center">
-                <v-col cols="3">
-                  <v-img
-                    class="bg-grey-lighten-2 rounded-lg"
-                    height="70"
-                    src="cafe.jpeg"
-                    cover
-                  />
-                </v-col>
-                <v-col cols="7" class="pl-0">
-                  <v-card-title class="text-h6 font-weight-bold p-0">
-                    Cafe 9
-                  </v-card-title>
-                  <v-card-text class="text-subtitle-1 p-0">
-                    14.08.23 10:00 4 Pers.
-                  </v-card-text>
-                </v-col>
-                <v-col cols="2">
-                  <v-icon
-                    icon="mdi-trash-can"
-                    color="red-lighten-2"
-                    size="large"
-                  />
-                </v-col>
-              </v-row>
+              <!-- Add a separator between list items, except for the last item -->
+              <div v-if="index !== items.length - 1" class="separator"></div>
             </v-list-item>
           </v-list>
         </v-card>
@@ -203,3 +211,12 @@ const authStore = useAuthStore();
     </v-col>
   </div>
 </template>
+
+<style>
+.separator {
+  height: 1px;
+  background-color: #ccc;
+  margin-top: 0.5rem;
+  margin-bottom: 0.1rem;
+}
+</style>

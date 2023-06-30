@@ -274,6 +274,18 @@ const login = (request, response) => {
       response.status(400).send(error.detail);
     });
 };
+
+const getGuestBookings = (request, response) => {
+  const guestId = request.user.guest_id;
+  pool
+    .query("SELECT * FROM reservations WHERE guest_id = $1", [guestId])
+    .then((result) => {
+      response.status(200).json(result.rows);
+    })
+    .catch((error) => {
+      response.status(400).send(error.detail);
+    });
+};
 // #endregion Api Functions
 
 // #region Helper Functions
@@ -399,4 +411,5 @@ module.exports = {
   getRestaurants,
   updateRestaurantSettings,
   getRestaurantSettings,
+  getGuestBookings,
 };

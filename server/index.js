@@ -23,6 +23,8 @@ app.get("/users", db.getUsers);
 
 app.get("/users/:id", db.getUserById);
 
+app.get("/guests/bookings", authMiddleware, db.getGuestBookings);
+
 app.get("/restaurants/:restaurant_id?", db.getRestaurants);
 
 app.get("/restaurants/availabilities", db.getRestaurantAvailabilities);
