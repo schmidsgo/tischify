@@ -106,7 +106,7 @@ for guest_id in range(1, num_guests+1):
         })
 
 
-with open('db/dummy-data-new.sql', 'w') as f:
+with open('dummy-data.sql', 'w') as f:
     # Create users
     user_values = [(user['username'], user['password'], user['role'])
                    for user in users]
