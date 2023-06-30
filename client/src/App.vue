@@ -241,26 +241,21 @@ const fourCafes = computed(() =>
 
 .carousel__slide {
   opacity: 0.7;
-  transform: rotateY(-20deg) scale(1);
+  transform: perspective(1500px) scale(0.94);
   margin: 1.5rem 0;
 }
 
-.carousel__slide--active ~ .carousel__slide {
-  transform: rotateY(20deg) scale(1);
-}
-
 .carousel__slide--prev {
-  opacity: 0.85;
-  transform: rotateY(-10deg) scale(1);
-}
-
-.carousel__slide--next {
-  opacity: 0.85;
-  transform: rotateY(10deg) scale(1);
+  transform: perspective(1500px) rotateY(-8deg);
 }
 
 .carousel__slide--active {
   opacity: 1;
-  transform: rotateY(0) scale(1.1);
+  transform: rotateY(0) scale(1.03);
+}
+
+.carousel__slide--next {
+  opacity: 0.85;
+  transform: perspective(1500px) rotateY(8deg);
 }
 </style>
