@@ -4,6 +4,7 @@ import type { ItemType } from '../../types/types';
 import BookingModal from './BookingModal.vue';
 import { useAuthStore } from '../../stores/state';
 import { ref } from 'vue';
+import axios from 'axios';
 
 defineProps<{ item: ItemType }>();
 
@@ -12,14 +13,35 @@ const bookingStore = useBookingStore();
 
 const selectedItemId = ref('');
 
-// const selectedItem = computed(() => {
-//   if (selectedItemId.value) {
-//     return state.restaurants.find(
-//       item => item.restaurant_id === selectedItemId.value
-//     );
-//   }
-//   return null;
-// });
+const today = new Date().toLocaleDateString('de-DE');
+
+const requestBody = {
+  startDateTime: `${today} 08:00`,
+  endDateTime: `${today} 08:30`
+};
+
+const availableSymbol = async () => {
+  await axios
+    .get('http://localhost:3000/restaurants/availabilities', {
+      params: requestBody
+    })
+    .then(res => {
+      switch (res.data) {
+        case 'available':
+          return '◎';
+        case 'partially available':
+          return '〇';
+        case 'not available':
+          return '△';
+        default:
+          return '-';
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      return '-';
+    });
+};
 </script>
 
 <template>
@@ -91,10 +113,18 @@ const selectedItemId = ref('');
         </v-row>
       </v-card-text>
       <v-card-actions class="mt-1 ml-1 mb-2">
-        <!-- TODO: add switch cases for availabilities symbols -->
-        <v-btn color="pink-lighten-1" variant="flat">○ 18:00 </v-btn>
-        <v-btn color="pink-lighten-1" variant="flat">△ 18:30 </v-btn>
-        <v-btn color="pink-lighten-1" variant="flat">◎ 19:00 </v-btn>
+        <v-btn color="pink-lighten-1" variant="flat"
+          ><span class="text-h6">{{ availableSymbol() }}</span>
+          18:00
+        </v-btn>
+        <v-btn color="pink-lighten-1" variant="flat"
+          ><span class="text-h6">{{ availableSymbol() }}</span>
+          18:30
+        </v-btn>
+        <v-btn color="pink-lighten-1" variant="flat"
+          ><span class="text-h6">{{ availableSymbol() }}</span>
+          19:00
+        </v-btn>
       </v-card-actions>
       <BookingModal :item="item" :itemId="selectedItemId" />
     </v-card>
