@@ -97,7 +97,7 @@ export const useAuthStore = defineStore('auth', {
           .then(res => {
             localStorage.setItem('jwt', res.data.token);
             this.user.role = res.data.role;
-            setAuthHeader(res.data);
+            setAuthHeader(res.data.token);
           })
           .catch(err => {});
 
