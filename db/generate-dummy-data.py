@@ -1,5 +1,11 @@
 import random
 from datetime import datetime, timedelta
+import bcrypt
+
+def encrypt_password(password):
+    salt = bcrypt.gensalt(rounds=10, prefix=b'2a')  # Generate a salt
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)  # Hash the password
+    return hashed_password.decode('utf-8')
 
 users = []
 guests = []
@@ -26,6 +32,11 @@ for i in range(num_restaurants):
             'role': 'restaurant',
         }
     )
+
+for user in users:
+    password = user['password']
+    hashed_password = encrypt_password(password)
+    user['password'] = hashed_password
 
 for i in range(num_guests):
     guests.append(
@@ -95,7 +106,7 @@ for guest_id in range(1, num_guests+1):
         })
 
 
-with open('db/dummy-data.sql', 'w') as f:
+with open('db/dummy-data-new.sql', 'w') as f:
     # Create users
     user_values = [(user['username'], user['password'], user['role'])
                    for user in users]
