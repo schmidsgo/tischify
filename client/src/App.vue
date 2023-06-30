@@ -69,7 +69,7 @@ const fourRests = computed(() =>
 const fourCafes = computed(() =>
   state.restaurants
     .filter(item => item.opening_hours === '10:00-22:00')
-    .slice(0, 4)
+    .slice(0, 10)
 );
 
 // const selectedItemId = ref<string | null>(null);
@@ -147,9 +147,14 @@ const fourCafes = computed(() =>
                 <v-row>
                   <v-col sm:cols="3">
                     <Carousel
-                      :itemsToShow="3.5"
+                      :itemsToShow="3.6"
                       :wrapAround="true"
                       :transition="600"
+                      style="
+                        align-items: center;
+                        margin: 0 auto;
+                        max-width: 1200px;
+                      "
                     >
                       <Slide
                         v-for="item in fourRests"
@@ -194,9 +199,14 @@ const fourCafes = computed(() =>
                 <v-row>
                   <v-col sm:cols="3">
                     <Carousel
-                      :itemsToShow="3.6"
+                      :itemsToShow="3.5"
                       :wrapAround="true"
                       :transition="600"
+                      style="
+                        align-items: center;
+                        margin: 0 auto;
+                        max-width: 1200px;
+                      "
                     >
                       <Slide
                         v-for="item in fourCafes"
@@ -231,6 +241,10 @@ const fourCafes = computed(() =>
 </template>
 
 <style scoped>
+.carousel__item {
+  width: 290px;
+}
+
 .carousel__track {
   transform-style: preserve-3d;
 }
