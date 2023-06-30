@@ -52,10 +52,14 @@ const login = async () => {
                 title="Bist du zum Testen hier?"
                 type="info"
                 variant="tonal"
+                class="mb-5"
               >
-                <p>Es gibt z.B. Nutzername:</p>
-                <p>'restaurant1' und Passwort: 'restaurant1' als Restaurant.</p>
-                <p>Nutzername: 'guest1' und Passwort: 'guest1' als Gast.</p>
+                <p>Es gibt z.B.:</p>
+                <p>
+                  Nutzername: 'restaurant1', Passwort: 'restaurant1' als
+                  Restaurant.
+                </p>
+                <p>Nutzername: 'guest1', Passwort: 'guest1' als Gast.</p>
               </v-alert>
 
               <form @submit.prevent="login">
