@@ -43,9 +43,15 @@ const settings = async () => {
 };
 
 onMounted(async () => {
-  await axios.get('http://localhost:3000/restaurants/settings/').then(res => {
-    state.item = res.data;
-  });
+  console.log('mounted');
+  await axios
+    .get('http://localhost:3000/restaurants/settings')
+    .then(res => {
+      state.item = res.data;
+    })
+    .catch(err => {
+      console.log(err);
+    });
 });
 </script>
 

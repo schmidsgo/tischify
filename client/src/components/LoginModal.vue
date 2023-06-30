@@ -54,8 +54,8 @@ const login = async () => {
                 variant="tonal"
               >
                 <p>Es gibt z.B. Nutzername:</p>
-                <p>'Test73' und Passwort: 'Test' als Restaurant.</p>
-                <p>Nutzername: 'Test104564' und Passwort: 'Test' als Gast.</p>
+                <p>'restaurant1' und Passwort: 'restaurant1' als Restaurant.</p>
+                <p>Nutzername: 'guest1' und Passwort: 'guest1' als Gast.</p>
               </v-alert>
 
               <form @submit.prevent="login">
