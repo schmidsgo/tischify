@@ -29,7 +29,7 @@ const visible = computed(() => {
 const book = async () => {
   isLoading.value = true;
   await axios
-    .put('http://localhost:3000/restaurants/settings', {
+    .post('http://localhost:3000/bookings', {
       name: name.valueOf,
       email: email.value,
       people: people.value,

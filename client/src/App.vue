@@ -147,7 +147,7 @@ const fourCafes = computed(() =>
                 <v-row>
                   <v-col sm:cols="3">
                     <Carousel
-                      :itemsToShow="2.7"
+                      :itemsToShow="3.5"
                       :wrapAround="true"
                       :transition="600"
                     >
@@ -194,7 +194,7 @@ const fourCafes = computed(() =>
                 <v-row>
                   <v-col sm:cols="3">
                     <Carousel
-                      :itemsToShow="2.8"
+                      :itemsToShow="3.6"
                       :wrapAround="true"
                       :transition="600"
                     >
