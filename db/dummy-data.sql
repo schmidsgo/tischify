@@ -40,7 +40,7 @@ INSERT INTO guests (user_id) VALUES
 (3),
 (4),
 (5);
-INSERT INTO restaurants (user_id, name, location, category, address, rating, price_level, phone_number, opening_hours) VALUES
+INSERT INTO restaurants (user_id, name, city, category, address, rating, price_level, phone_number, opening_hours) VALUES
 (6, 'restaurant1', 'Essen', 'cafe', 'address-str.1', '2', '3', '0851/2629', '10:00-22:00'),
 (7, 'restaurant2', 'Dortmund', 'cafe', 'address-str.2', '2', '2', '0415/5541', '11:00-23:00'),
 (8, 'restaurant3', 'Wuppertal', 'bar', 'address-str.3', '4', '2', '0446/564', '08:00-20:00'),

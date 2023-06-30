@@ -65,7 +65,7 @@ for i in range(num_restaurants):
         {
             'user_id': i + 1 + num_guests,
             'name': f'restaurant{i+1}',
-            'location': location,
+            'city': location,
             'category': category,
             'address': f'address-str.{i+1}',
             'rating': rating,
