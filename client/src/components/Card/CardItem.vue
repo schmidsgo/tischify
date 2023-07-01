@@ -21,26 +21,26 @@ const requestBody = {
 };
 
 const availableSymbol = async () => {
-  await axios
-    .get('http://localhost:3000/restaurants/availabilities', {
-      params: requestBody
-    })
-    .then(res => {
-      switch (res.data) {
-        case 'available':
-          return '◎';
-        case 'partially available':
-          return '〇';
-        case 'not available':
-          return '△';
-        default:
-          return '-';
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      return '-';
-    });
+  // await axios
+  //   .get('http://localhost:3000/restaurants/availabilities', {
+  //     params: requestBody
+  //   })
+  //   .then(res => {
+  //     switch (res.data) {
+  //       case 'available':
+  //         return '◎';
+  //       case 'partially available':
+  //         return '〇';
+  //       case 'not available':
+  //         return '△';
+  //       default:
+  //         return '-';
+  //     }
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //     return '-';
+  //   });
 };
 </script>
 

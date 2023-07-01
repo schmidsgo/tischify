@@ -278,7 +278,7 @@ const login = (request, response) => {
 const getGuestBookings = (request, response) => {
   const guestId = request.user.guest_id;
   pool
-    .query("SELECT * FROM reservations WHERE guest_id = $1", [guestId])
+    .query("SELECT * FROM get_reservations_for_guest($1)", [guestId])
     .then((result) => {
       response.status(200).json(result.rows);
     })

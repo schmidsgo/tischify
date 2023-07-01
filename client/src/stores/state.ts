@@ -23,6 +23,14 @@ type BookingInfo = {
   datetime: string;
 };
 
+type Booking = {
+  reservation_id: string;
+  datetime: Date;
+  party_size: number;
+  restaurant_name: string;
+  restaurant_category: string;
+};
+
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     OpenLoginModal: false,
@@ -37,7 +45,7 @@ export const useAuthStore = defineStore('auth', {
       phone_number: '',
       opening_hours: '',
       capacity: 0,
-      bookings: []
+      bookings: [] as Booking[]
     },
     isError: false,
     isLoading: false
@@ -104,6 +112,7 @@ export const useAuthStore = defineStore('auth', {
 
         this.user.name = username;
         console.log(this.user.name, this.user.restaurant_id);
+        this.getBookings();
         this.isLoading = false;
         this.OpenLoginModal = false;
       } catch (error) {
@@ -115,6 +124,7 @@ export const useAuthStore = defineStore('auth', {
         .get('http://localhost:3000/guests/bookings')
         .then(response => {
           console.log(response.data);
+          this.user.bookings = response.data;
         })
         .catch(error => {
           console.log(error);

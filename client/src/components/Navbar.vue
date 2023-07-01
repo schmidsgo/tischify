@@ -1,40 +1,20 @@
 <script setup lang="ts">
-import axios from 'axios';
+import { watch } from 'vue';
 import { useAuthStore } from '../stores/state';
 
 const authStore = useAuthStore();
 
-const items = [
-  {
-    bookingId: 1,
-    title: 'Restaurant 1',
-    imageSrc: 'restaurant.jpeg',
-    date: '10.10.2023',
-    time: '12:00',
-    guests: 2
-  },
-  {
-    bookingId: 2,
-    title: 'Restaurant 2',
-    imageSrc: 'restaurant.jpeg',
-    date: '10.10.2023',
-    time: '12:00',
-    guests: 2
+let items = authStore.user.bookings;
+
+watch(
+  () => authStore.user.bookings,
+  newBookings => {
+    items = newBookings;
+    console.log(items);
   }
-];
+);
 
-const getBookings = () => {
-  axios
-    .get('http://localhost:3000/guests/bookings')
-    .then(response => {
-      console.log(response.data);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-};
-
-getBookings();
+console.log(items);
 </script>
 
 <template>
@@ -64,22 +44,25 @@ getBookings();
           >
           <v-divider />
           <v-list>
-            <v-list-item v-for="(item, index) in items" :key="item.bookingId">
+            <v-list-item
+              v-for="(item, index) in items"
+              :key="item.reservation_id"
+            >
               <v-row align="center">
                 <v-col cols="3">
                   <v-img
                     class="bg-grey-lighten-2 rounded-lg"
                     height="70"
-                    :src="item.imageSrc"
+                    :src="item.restaurant_category + '.jpeg'"
                     cover
                   />
                 </v-col>
                 <v-col cols="7" class="pl-0">
                   <v-card-title class="text-h6 font-weight-bold p-0">
-                    {{ item.title }}
+                    {{ item.restaurant_name }}
                   </v-card-title>
                   <v-card-text class="text-subtitle-1 p-0">
-                    {{ item.date }} | {{ item.time }} | {{ item.guests }} Pers.
+                    {{ item.datetime }} | {{ item.party_size }} Pers.
                   </v-card-text>
                 </v-col>
                 <v-col cols="2">
