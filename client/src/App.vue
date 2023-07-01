@@ -4,7 +4,7 @@ import axios from 'axios';
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Pagination, Navigation, Slide } from 'vue3-carousel';
 import type { ItemType } from './types/types';
-import { useAuthStore, useBookingStore } from './stores/state';
+import { useAuthStore } from './stores/state';
 import Navbar from './components/Navbar.vue';
 import Searchbar from './components/Searchbar.vue';
 import CardItem from './components/Card/CardItem.vue';
@@ -12,7 +12,6 @@ import LoginModal from './components/LoginModal.vue';
 import Settings from './components/Settings.vue';
 
 const authStore = useAuthStore();
-// const bookStore = useBookingStore();
 
 const state = reactive({
   restaurants: [] as ItemType[]
@@ -51,7 +50,7 @@ const filteredItems = computed(() => {
         break;
       case 'category':
         items = items.filter(item =>
-          item.category.toLowerCase().includes(searchQuery.value.toLowerCase())
+          item.category?.toLowerCase().includes(searchQuery.value.toLowerCase())
         );
         break;
       default:
@@ -71,8 +70,6 @@ const fourCafes = computed(() =>
     .filter(item => item.opening_hours === '10:00-22:00')
     .slice(0, 10)
 );
-
-// const selectedItemId = ref<string | null>(null);
 </script>
 
 <template>

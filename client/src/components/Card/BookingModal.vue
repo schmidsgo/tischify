@@ -9,13 +9,12 @@ const props = defineProps<{ item: ItemType; itemId: string }>();
 const authStore = useAuthStore();
 const bookingStore = useBookingStore();
 
-const name = authStore.user.name !== '' ? authStore.user.name : ref('');
-const email = ref('');
 const people = ref(0);
 const datetime = ref('');
 
 const isError = ref(false);
 const errText = ref('');
+const isSuccessful = ref(false);
 const isLoading = ref(false);
 
 const visible = computed(() => {
@@ -23,22 +22,22 @@ const visible = computed(() => {
     props.item.restaurant_id === bookingStore.selectedItemRestaurantId &&
     bookingStore.showBookingModal
   );
-  return null;
 });
 
 const book = async () => {
   isLoading.value = true;
   await axios
     .post('http://localhost:3000/bookings', {
-      name: name.valueOf,
-      email: email.value,
       people: people.value,
       datetime: datetime.value
     })
     .then(response => {
       if (response.status === 200) {
         isLoading.value = false;
+        isSuccessful.value = true;
         bookingStore.showBookingModal = false;
+      } else {
+        errText.value = 'Error!';
       }
     })
     .catch(error => {
@@ -99,20 +98,6 @@ const closeModal = () => {
           <v-card-text>
             <form @submit.prevent="book">
               <v-text-field
-                placeholder="Name"
-                v-model="name"
-                outlined
-                type="text"
-                required
-              />
-              <v-text-field
-                placeholder="Email"
-                v-model="email"
-                outlined
-                type="email"
-                required
-              />
-              <v-text-field
                 placeholder="Personen"
                 v-model="people"
                 outlined
@@ -126,28 +111,33 @@ const closeModal = () => {
                 outlined
                 required
               />
-              <p v-if="isError" class="text-red ml-4">{{ errText }}</p>
-              <v-card-actions class="justify-end">
-                <v-btn
-                  v-if="!isLoading"
-                  color="info"
-                  variant="flat"
-                  size="large"
-                  type="submit"
-                  class="rounded-xl px-4"
-                >
-                  buchen
-                </v-btn>
-                <v-btn
-                  v-else-if="isLoading"
-                  color="Blue"
-                  variant="flat"
-                  class="p-2"
-                  disabled
-                >
-                  <v-progress-circular color="Blue" size="25" indeterminate />
-                </v-btn>
-              </v-card-actions>
+              <div class="d-flex align-center justify-end">
+                <p v-if="isError" class="text-red mr-4">{{ errText }}</p>
+                <p v-if="isSuccessful" class="text-green mr-4">
+                  Erfolgreich überschrieben!
+                </p>
+                <v-card-actions>
+                  <v-btn
+                    v-if="!isLoading"
+                    color="info"
+                    variant="flat"
+                    size="large"
+                    type="submit"
+                    class="rounded-xl px-4"
+                  >
+                    buchen
+                  </v-btn>
+                  <v-btn
+                    v-else-if="isLoading"
+                    color="Blue"
+                    variant="flat"
+                    class="p-2"
+                    disabled
+                  >
+                    <v-progress-circular color="Blue" size="25" indeterminate />
+                  </v-btn>
+                </v-card-actions>
+              </div>
             </form>
           </v-card-text>
         </v-col>

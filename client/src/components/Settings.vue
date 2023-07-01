@@ -3,14 +3,15 @@ import { useAuthStore } from '../stores/state';
 import { onMounted, ref, reactive } from 'vue';
 import axios from 'axios';
 import type { ItemType } from '../types/types';
-import { it } from 'date-fns/locale';
+// import { it } from 'date-fns/locale';
 
 const authStore = useAuthStore();
 
-const restaurant_name = authStore.user.restaurant_name;
+// const restaurant_name = authStore.user.restaurant_name;
 
 const isError = ref(false);
 const errText = ref('');
+const isSuccessful = ref(false);
 const isLoading = ref(false);
 
 const updateSettings = async () => {
@@ -26,6 +27,7 @@ const updateSettings = async () => {
     })
     .then(response => {
       isLoading.value = false;
+      if (response.status == 200) isSuccessful.value = true;
     })
     .catch(error => {
       isError.value = true;
@@ -62,7 +64,7 @@ onMounted(async () => {
 
 <template>
   <v-layout>
-    <v-main class="mb-5 pa-4">
+    <v-main class="h-screen pa-4">
       <v-container>
         <v-row>
           <v-col cols="12" class="pb-0">
@@ -103,7 +105,6 @@ onMounted(async () => {
                 required
                 append-inner-icon="mdi-pencil"
               />
-              <!-- <p>city: {{ item.city }}</p> -->
               <v-text-field
                 v-model="item.city"
                 :placeholder="item.city"
@@ -132,31 +133,36 @@ onMounted(async () => {
                 required
                 append-inner-icon="mdi-pencil"
               />
-              <p v-if="isError" class="text-red ml-4">{{ errText }}</p>
-              <v-card-actions class="justify-end">
-                <v-btn
-                  v-if="!isLoading"
-                  color="info"
-                  variant="flat"
-                  size="large"
-                  type="submit"
-                  text="Update"
-                  class="rounded-xl px-4"
-                  @click="updateSettings"
-                />
-                <v-btn
-                  v-else-if="isLoading"
-                  color="info"
-                  variant="flat"
-                  size="large"
-                  type="submit"
-                  text="Update"
-                  class="rounded-xl px-4"
-                  disabled
-                >
-                  <v-progress-circular color="Blue" size="25" indeterminate />
-                </v-btn>
-              </v-card-actions>
+              <div class="d-flex align-center justify-end">
+                <p v-if="isError" class="text-red mr-4">{{ errText }}</p>
+                <p v-if="isSuccessful" class="text-green mr-4">
+                  Erfolgreich überschrieben!
+                </p>
+                <v-card-actions>
+                  <v-btn
+                    v-if="!isLoading"
+                    color="info"
+                    variant="flat"
+                    size="large"
+                    type="submit"
+                    text="Updaten"
+                    class="rounded-xl px-4"
+                    @click="updateSettings"
+                  />
+                  <v-btn
+                    v-else-if="isLoading"
+                    color="info"
+                    variant="flat"
+                    size="large"
+                    type="submit"
+                    text="Updaten"
+                    class="rounded-xl px-4"
+                    disabled
+                  >
+                    <v-progress-circular color="Blue" size="25" indeterminate />
+                  </v-btn>
+                </v-card-actions>
+              </div>
             </form>
           </v-col>
         </v-row>
