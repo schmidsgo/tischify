@@ -20,28 +20,6 @@ const getUsers = (request, response) => {
   });
 };
 
-const getUserById = (request, response) => {
-  const id = parseInt(request.params.id);
-
-  pool.query(
-    "SELECT * FROM users WHERE user_id = $1",
-    [id],
-    (error, results) => {
-      if (error) {
-        response.status(400).send(error);
-      } else {
-        response.status(200).json(results.rows);
-      }
-    }
-  );
-};
-
-const createBooking = (request, response) => {
-  const user = request.user;
-  createBookingInputValidation(request, response);
-  const { restaurant_id, date, time, number_of_people } = request.body;
-};
-
 const getRestaurants = (request, response) => {
   const { restaurant_id } = request.params;
 
@@ -72,6 +50,52 @@ const getRestaurants = (request, response) => {
       }
     });
   }
+};
+
+const createBooking = (request, response) => {
+  const user = request.user;
+  createBookingInputValidation(request, response);
+  const { restaurant_id, datetime, number_of_people } = request.body;
+  const startDateTime = new Date(datetime);
+  const endDateTime = new Date(startDateTime.getTime() + 5400000); // 1.5 hours later
+
+  //check if restaurant has availabilities for the given datetime and number of people
+  pool
+    .query(
+      "SELECT * FROM reservations WHERE restaurant_id = $1 AND datetime > $2 AND datetime < $3",
+      [restaurant_id, datetime, endDateTime]
+    )
+    .then((result) => {
+      const bookings = result.rows;
+      const quaterhourcapacity = calculateQuaterHourCapacity(
+        bookings,
+        datetime,
+        endDateTime,
+        restaurant_id
+      );
+      //if all quaterhours have capacity, create booking
+      if (
+        quaterhourcapacity.every(
+          (quaterhourcapacity) => quaterhourcapacity.capacity > number_of_people
+        )
+      ) {
+        pool
+          .query(
+            "INSERT INTO reservations (guest_id, restaurant_id, datetime, party_size) VALUES ($1, $2, $3, $4) RETURNING reservation_id",
+            [user.guest_id, restaurant_id, datetime, number_of_people]
+          )
+          .then((result) => {
+            const reservationId = result.rows[0].reservation_id;
+            response.status(201).json({ reservation_id: reservationId });
+          })
+          .catch((error) => {
+            response.status(400).send(error);
+          });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 const getRestaurantAvailabilities = (request, response) => {
@@ -116,6 +140,22 @@ const getRestaurantAvailabilities = (request, response) => {
     .catch((error) => {
       response.status(400).send(error);
     });
+};
+
+const getUserById = (request, response) => {
+  const id = parseInt(request.params.id);
+
+  pool.query(
+    "SELECT * FROM users WHERE user_id = $1",
+    [id],
+    (error, results) => {
+      if (error) {
+        response.status(400).send(error);
+      } else {
+        response.status(200).json(results.rows);
+      }
+    }
+  );
 };
 
 const updateRestaurantSettings = (request, response) => {
@@ -381,14 +421,18 @@ const getRestaurantAvailabilitiesInputValidation = (request, response) => {
 };
 
 const createBookingInputValidation = (request, response) => {
-  const { restaurant_id, startDateTime, endDateTime, capacity } = request.body;
-  if (!restaurant_id || !startDateTime || !endDateTime || !capacity) {
+  const { restaurant_id, datetime, number_of_people } = request.body;
+  if (!restaurant_id || !datetime || !number_of_people) {
     response.status(400).send("Missing fields.");
     return;
   }
-  const regex = new RegExp("^\\d{2}.\\d{2}.\\d{4} \\d{2}:\\d{2}$");
-  if (!regex.test(startDateTime) || !regex.test(endDateTime)) {
-    response.status(400).send("Invalid date format. Must be DD.MM.YYYY HH:MM");
+  const regex = new RegExp("^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}$");
+  if (!regex.test(datetime)) {
+    response.status(400).send("Invalid date format. Must be DD.MM.YYYYTHH:MM");
+    return;
+  }
+  if (number_of_people < 1) {
+    response.status(400).send("Invalid number of people.");
     return;
   }
 };

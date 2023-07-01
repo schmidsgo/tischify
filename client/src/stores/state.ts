@@ -106,12 +106,11 @@ export const useAuthStore = defineStore('auth', {
           .then(res => {
             localStorage.setItem('jwt', res.data.token);
             this.user.role = res.data.role;
+            this.user.name = username;
             setAuthHeader(res.data.token);
           })
           .catch(err => {});
 
-        this.user.name = username;
-        console.log(this.user.name, this.user.restaurant_id);
         if (this.user.role === 'guest') {
           this.getBookings();
         }

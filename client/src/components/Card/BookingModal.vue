@@ -9,7 +9,7 @@ const props = defineProps<{ item: ItemType; itemId: string }>();
 const authStore = useAuthStore();
 const bookingStore = useBookingStore();
 
-const people = ref(0);
+const people = ref(2);
 const datetime = ref('');
 
 const isError = ref(false);
@@ -26,13 +26,18 @@ const visible = computed(() => {
 
 const book = async () => {
   isLoading.value = true;
+  console.log('number of people: ', people.value);
+  console.log('datetime: ', datetime.value);
+  console.log('restaurant_id: ', props.item.restaurant_id);
+
   await axios
     .post('http://localhost:3000/bookings', {
-      people: people.value,
-      datetime: datetime.value
+      number_of_people: people.value,
+      datetime: datetime.value,
+      restaurant_id: props.item.restaurant_id
     })
     .then(response => {
-      if (response.status === 200) {
+      if (response.status === 201) {
         isLoading.value = false;
         isSuccessful.value = true;
         bookingStore.showBookingModal = false;
@@ -41,6 +46,7 @@ const book = async () => {
       }
     })
     .catch(error => {
+      console.log(error.response.data);
       isError.value = true;
       errText.value = error.response.data.message;
       isLoading.value = false;
@@ -98,14 +104,14 @@ const closeModal = () => {
           <v-card-text>
             <form @submit.prevent="book">
               <v-text-field
-                placeholder="Personen"
+                label="Personen"
                 v-model="people"
                 outlined
                 type="number"
                 required
               />
               <v-text-field
-                placeholder="Datum und Uhrzeit"
+                label="Datum und Uhrzeit"
                 v-model="datetime"
                 type="datetime-local"
                 outlined
