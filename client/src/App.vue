@@ -199,7 +199,7 @@ const fourCafes = computed(() =>
                 <v-row>
                   <v-col sm:cols="3">
                     <Carousel
-                      :itemsToShow="3.5"
+                      :itemsToShow="3.6"
                       :wrapAround="true"
                       :transition="600"
                       style="
@@ -255,21 +255,22 @@ const fourCafes = computed(() =>
 
 .carousel__slide {
   opacity: 0.7;
-  transform: perspective(1500px) scale(0.94);
+  transform: perspective(1500px) scale(0.97);
   margin: 1.5rem 0;
 }
 
 .carousel__slide--prev {
-  transform: perspective(1500px) rotateY(-8deg);
+  opacity: 0.9;
+  transform: perspective(1500px) rotateY(-8deg) scale(0.98);
 }
 
 .carousel__slide--active {
   opacity: 1;
-  transform: rotateY(0) scale(1.03);
+  transform: rotateY(0) scale(1);
 }
 
 .carousel__slide--next {
-  opacity: 0.85;
-  transform: perspective(1500px) rotateY(8deg);
+  opacity: 0.9;
+  transform: perspective(1500px) rotateY(8deg) scale(0.98);
 }
 </style>
