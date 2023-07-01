@@ -27,15 +27,15 @@ app.get("/guests/bookings", authMiddleware, db.getGuestBookings);
 
 app.delete("/guests/bookings/:booking_id", authMiddleware, db.deleteBooking);
 
+app.post("/bookings", authMiddleware, db.createBooking);
+
+app.get("/restaurants/settings/", authMiddleware, db.getRestaurantSettings);
+
 app.get("/restaurants/:restaurant_id?", db.getRestaurants);
 
 app.get("/restaurants/availabilities", db.getRestaurantAvailabilities);
 
 app.put("/restaurants/settings/", authMiddleware, db.updateRestaurantSettings);
-
-app.get("/restaurant/settings/", authMiddleware, db.getRestaurantSettings);
-
-app.post("/bookings", db.createBooking);
 
 app.post("/login", db.login);
 

@@ -11,7 +11,6 @@ watch(
   () => authStore.user.bookings,
   newBookings => {
     items = newBookings;
-    console.log(items);
   }
 );
 
@@ -25,7 +24,6 @@ function formatDateTime(datetime: Date) {
   const formattedTime = format(date, 'HH:mm');
   return `${formattedDate} ${formattedTime}`;
 }
-console.log('Buchungen: ' + items);
 </script>
 
 <template>

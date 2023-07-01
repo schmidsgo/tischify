@@ -112,7 +112,9 @@ export const useAuthStore = defineStore('auth', {
 
         this.user.name = username;
         console.log(this.user.name, this.user.restaurant_id);
-        this.getBookings();
+        if (this.user.role === 'guest') {
+          this.getBookings();
+        }
         this.isLoading = false;
         this.OpenLoginModal = false;
       } catch (error) {
@@ -123,7 +125,6 @@ export const useAuthStore = defineStore('auth', {
       axios
         .get('http://localhost:3000/guests/bookings')
         .then(response => {
-          console.log(response.data);
           this.user.bookings = response.data;
         })
         .catch(error => {

@@ -1,6 +1,6 @@
 export type ItemType = {
   restaurant_id?: string;
-  restaurant_name: string;
+  name: string;
   address: string;
   city: string;
   category?: string;

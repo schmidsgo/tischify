@@ -1,32 +1,28 @@
 <script setup lang="ts">
 import { useAuthStore } from '../stores/state';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, reactive } from 'vue';
 import axios from 'axios';
 import type { ItemType } from '../types/types';
+import { it } from 'date-fns/locale';
 
 const authStore = useAuthStore();
 
 const restaurant_name = authStore.user.restaurant_name;
-const address = ref(authStore.user.address);
-const city = ref(authStore.user.city);
-const phone_number = ref(authStore.user.phone_number);
-const opening_hours = ref(authStore.user.opening_hours);
-const capacity = ref(authStore.user.capacity);
 
 const isError = ref(false);
 const errText = ref('');
 const isLoading = ref(false);
 
-const settings = async () => {
+const updateSettings = async () => {
   isLoading.value = true;
   await axios
     .put('http://localhost:3000/restaurants/settings', {
-      restaurant_name: restaurant_name.valueOf,
-      address: address.value,
-      city: city.value,
-      phone_number: phone_number.value,
-      opening_hours: opening_hours.value,
-      capacity: capacity.value
+      name: item.name,
+      address: item.address,
+      city: item.city,
+      phone_number: item.phone_number,
+      opening_hours: item.opening_hours,
+      capacity: item.capacity
     })
     .then(response => {
       isLoading.value = false;
@@ -38,22 +34,20 @@ const settings = async () => {
     });
 };
 
-let item: ItemType = {
-  restaurant_name: '',
+const item = reactive<ItemType>({
+  name: '',
   address: '',
   city: '',
   phone_number: '',
   opening_hours: '',
   capacity: 0
-};
+});
 
 onMounted(async () => {
-  console.log('mounted');
   await axios
     .get('http://localhost:3000/restaurants/settings/')
     .then(res => {
-      console.log(res.data);
-      item.restaurant_name = res.data.restaurant_name;
+      item.name = res.data.name;
       item.address = res.data.address;
       item.city = res.data.city;
       item.phone_number = res.data.phone_number;
@@ -92,12 +86,12 @@ onMounted(async () => {
           <v-col cols="6" class="px-8">
             <v-text class="text-h6 font-weight-semibold">
               Bearbeitung:
-              <span class="font-weight-bold">{{ item.restaurant_name }}</span>
+              <span class="font-weight-bold">{{ item.name }}</span>
             </v-text>
-            <form @submit.prevent="settings" class="mt-4 p-4">
+            <form @submit.prevent="updateSettings" class="mt-4 p-4">
               <v-text-field
-                v-model="item.restaurant_name"
-                :placeholder="item.restaurant_name"
+                v-model="item.name"
+                :placeholder="item.name"
                 label="restaurant name"
                 required
                 append-inner-icon="mdi-pencil"
@@ -146,9 +140,9 @@ onMounted(async () => {
                   variant="flat"
                   size="large"
                   type="submit"
-                  text="buchen"
+                  text="Update"
                   class="rounded-xl px-4"
-                  @click="settings"
+                  @click="updateSettings"
                 />
                 <v-btn
                   v-else-if="isLoading"
@@ -156,7 +150,7 @@ onMounted(async () => {
                   variant="flat"
                   size="large"
                   type="submit"
-                  text="buchen"
+                  text="Update"
                   class="rounded-xl px-4"
                   disabled
                 >

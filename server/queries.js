@@ -38,6 +38,7 @@ const getUserById = (request, response) => {
 
 const createBooking = (request, response) => {
   const user = request.user;
+  createBookingInputValidation(request, response);
   const { restaurant_id, date, time, number_of_people } = request.body;
 };
 
@@ -369,6 +370,19 @@ const loginInputValidation = (request, response) => {
 const getRestaurantAvailabilitiesInputValidation = (request, response) => {
   const { restaurant_id, startDateTime, endDateTime } = request.body;
   if (!restaurant_id || !startDateTime || !endDateTime) {
+    response.status(400).send("Missing fields.");
+    return;
+  }
+  const regex = new RegExp("^\\d{2}.\\d{2}.\\d{4} \\d{2}:\\d{2}$");
+  if (!regex.test(startDateTime) || !regex.test(endDateTime)) {
+    response.status(400).send("Invalid date format. Must be DD.MM.YYYY HH:MM");
+    return;
+  }
+};
+
+const createBookingInputValidation = (request, response) => {
+  const { restaurant_id, startDateTime, endDateTime, capacity } = request.body;
+  if (!restaurant_id || !startDateTime || !endDateTime || !capacity) {
     response.status(400).send("Missing fields.");
     return;
   }
