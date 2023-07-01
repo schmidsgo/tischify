@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAuthStore } from '../stores/state';
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import axios from 'axios';
 import type { ItemType } from '../types/types';
 
@@ -16,10 +16,6 @@ const capacity = ref(authStore.user.capacity);
 const isError = ref(false);
 const errText = ref('');
 const isLoading = ref(false);
-
-const state = reactive({
-  item: [] as ItemType[]
-});
 
 const settings = async () => {
   isLoading.value = true;
@@ -42,12 +38,27 @@ const settings = async () => {
     });
 };
 
+let item: ItemType = {
+  restaurant_name: '',
+  address: '',
+  city: '',
+  phone_number: '',
+  opening_hours: '',
+  capacity: 0
+};
+
 onMounted(async () => {
   console.log('mounted');
   await axios
-    .get('http://localhost:3000/restaurants/settings')
+    .get('http://localhost:3000/restaurants/settings/')
     .then(res => {
-      state.item = res.data;
+      console.log(res.data);
+      item.restaurant_name = res.data.restaurant_name;
+      item.address = res.data.address;
+      item.city = res.data.city;
+      item.phone_number = res.data.phone_number;
+      item.opening_hours = res.data.opening_hours;
+      item.capacity = res.data.capacity;
     })
     .catch(err => {
       console.log(err);
@@ -81,48 +92,48 @@ onMounted(async () => {
           <v-col cols="6" class="px-8">
             <v-text class="text-h6 font-weight-semibold">
               Bearbeitung:
-              <span class="font-weight-bold">{{ restaurant_name }}</span>
+              <span class="font-weight-bold">{{ item.restaurant_name }}</span>
             </v-text>
             <form @submit.prevent="settings" class="mt-4 p-4">
               <v-text-field
-                v-model="restaurant_name"
-                :placeholder="restaurant_name"
+                v-model="item.restaurant_name"
+                :placeholder="item.restaurant_name"
                 label="restaurant name"
                 required
                 append-inner-icon="mdi-pencil"
               />
               <v-text-field
-                v-model="address"
-                :placeholder="address"
+                v-model="item.address"
+                :placeholder="item.address"
                 label="Adresse"
                 required
                 append-inner-icon="mdi-pencil"
               />
-              <!-- <p>city: {{ city }}</p> -->
+              <!-- <p>city: {{ item.city }}</p> -->
               <v-text-field
-                v-model="city"
-                :placeholder="city"
+                v-model="item.city"
+                :placeholder="item.city"
                 label="Stadt"
                 required
                 append-inner-icon="mdi-pencil"
               />
               <v-text-field
-                v-model="phone_number"
-                :placeholder="phone_number"
+                v-model="item.phone_number"
+                :placeholder="item.phone_number"
                 label="Telefon Nummer"
                 required
                 append-inner-icon="mdi-pencil"
               />
               <v-text-field
-                v-model="opening_hours"
-                :placeholder="opening_hours"
+                v-model="item.opening_hours"
+                :placeholder="item.opening_hours"
                 label="Öffnungszeit"
                 required
                 append-inner-icon="mdi-pencil"
               />
               <v-text-field
-                v-model="capacity"
-                :placeholder="capacity"
+                v-model="item.capacity"
+                :placeholder="item.capacity"
                 label="Kapazität"
                 required
                 append-inner-icon="mdi-pencil"

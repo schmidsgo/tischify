@@ -156,15 +156,6 @@ export const useAuthStore = defineStore('auth', {
       this.user.bookings = [];
       localStorage.removeItem('jwt');
       console.log('user: ' + this.user.name, this.user.role);
-    },
-    async getRestaurant() {
-      try {
-        const res = await axios.get('http://localhost:3000/restaurants');
-        console.log('test: ' + res);
-        this.user = res.data;
-      } catch (err) {
-        console.log(err);
-      }
     }
   }
 });

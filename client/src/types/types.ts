@@ -1,17 +1,13 @@
 export type ItemType = {
-  restaurant_id: string;
-  name: string;
+  restaurant_id?: string;
+  restaurant_name: string;
   address: string;
   city: string;
-  category: string;
-  image: string;
-  // capacity: {
-  //   '18:00': string;
-  //   '18:30': string;
-  //   '19:00': string;
-  // };
-  rating: number;
-  price_level: number;
+  category?: string;
+  image?: string;
+  rating?: number;
+  price_level?: number;
   phone_number: string;
   opening_hours: string;
+  capacity: number;
 };
