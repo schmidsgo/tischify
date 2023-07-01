@@ -286,6 +286,38 @@ const getGuestBookings = (request, response) => {
       response.status(400).send(error.detail);
     });
 };
+
+const deleteBooking = (request, response) => {
+  if (request.user.role === "guest") {
+    const guestId = request.user.guest_id;
+    const reservationId = request.params.booking_id;
+    pool
+      .query(
+        "DELETE FROM reservations WHERE guest_id = $1 AND reservation_id = $2",
+        [guestId, reservationId]
+      )
+      .then(() => {
+        response.status(200).send("Reservation deleted successfully");
+      })
+      .catch((error) => {
+        response.status(400).send("Error deleting reservation $1", [error]);
+      });
+  } else if (request.user.role === "restaurant") {
+    const restaurantId = request.user.restaurant_id;
+    const reservationId = request.params.reservation_id;
+    pool
+      .query(
+        "DELETE FROM reservations WHERE restaurant_id = $1 AND reservation_id = $2",
+        [restaurantId, reservationId]
+      )
+      .then(() => {
+        response.status(200).send("Reservation deleted successfully");
+      })
+      .catch((error) => {
+        response.status(400).send("Error deleting reservation $1", [error]);
+      });
+  }
+};
 // #endregion Api Functions
 
 // #region Helper Functions
@@ -412,4 +444,5 @@ module.exports = {
   updateRestaurantSettings,
   getRestaurantSettings,
   getGuestBookings,
+  deleteBooking,
 };

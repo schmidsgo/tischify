@@ -14,6 +14,10 @@ watch(
   }
 );
 
+function deleteBooking(id: string) {
+  authStore.deleteBooking(id);
+}
+
 console.log(items);
 </script>
 
@@ -36,6 +40,7 @@ console.log(items);
             variant="icon"
             v-bind="props"
             class="mr-6"
+            @click="authStore.getBookings()"
           />
         </template>
         <v-card min-width="360" class="mt-1">
@@ -70,6 +75,7 @@ console.log(items);
                     icon="mdi-trash-can"
                     color="red-lighten-2"
                     size="large"
+                    @click="deleteBooking(item.reservation_id)"
                   />
                 </v-col>
               </v-row>

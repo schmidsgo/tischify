@@ -130,9 +130,31 @@ export const useAuthStore = defineStore('auth', {
           console.log(error);
         });
     },
+
+    async deleteBooking(id: string) {
+      axios
+        .delete('http://localhost:3000/guests/bookings/' + id)
+        .then(response => {
+          console.log(response.data);
+          this.getBookings();
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+
     logout() {
       this.user.name = '';
       this.user.role = '';
+      this.user.restaurant_id = '';
+      this.user.restaurant_name = '';
+      this.user.address = '';
+      this.user.city = '';
+      this.user.phone_number = '';
+      this.user.opening_hours = '';
+      this.user.capacity = 0;
+      this.user.bookings = [];
+      localStorage.removeItem('jwt');
       console.log('user: ' + this.user.name, this.user.role);
     },
     async getRestaurant() {

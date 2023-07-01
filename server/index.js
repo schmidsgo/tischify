@@ -25,6 +25,8 @@ app.get("/users/:id", db.getUserById);
 
 app.get("/guests/bookings", authMiddleware, db.getGuestBookings);
 
+app.delete("/guests/bookings/:booking_id", authMiddleware, db.deleteBooking);
+
 app.get("/restaurants/:restaurant_id?", db.getRestaurants);
 
 app.get("/restaurants/availabilities", db.getRestaurantAvailabilities);

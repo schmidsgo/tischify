@@ -22,6 +22,7 @@ const requestBody = {
 
 const availableSymbol = async () => {
   // await axios
+
   //   .get('http://localhost:3000/restaurants/availabilities', {
   //     params: requestBody
   //   })
@@ -41,6 +42,11 @@ const availableSymbol = async () => {
   //     console.log(err);
   //     return '-';
   //   });
+
+  // return random on of these symbols ◎ 〇 △
+  const symbols = ['◎', '〇', '△', '-'];
+  const randomIndex = Math.floor(Math.random() * symbols.length);
+  return symbols[randomIndex];
 };
 </script>
 
