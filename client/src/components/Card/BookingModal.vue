@@ -89,7 +89,6 @@ const closeModal = () => {
               Book {{ item.name }}
             </v-card-text>
             <v-card-actions class="justify-end">
-              <!-- FIXME -->
               <v-btn
                 icon="mdi-close"
                 @click="closeModal"

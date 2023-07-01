@@ -162,14 +162,6 @@ export const useAuthStore = defineStore('auth', {
         const res = await axios.get('http://localhost:3000/restaurants');
         console.log('test: ' + res);
         this.user = res.data;
-        // this.user.restaurant_id = res.data[restaurant_id].restaurant_id;
-        // this.user.address = res.data[restaurant_id + 2].address;
-        // this.user.city = res.data[restaurant_id + 2].city;
-        // this.user.phone_number = res.data[restaurant_id + 2].phone_number;
-        // this.user.opening_hours = res.data[restaurant_id + 2].opening_hours;
-        // this.user.capacity = res.data[restaurant_id + 2].capacity;
-        // capacity: 0;
-        // console.log(res.data[restaurant_id + 2]);
       } catch (err) {
         console.log(err);
       }

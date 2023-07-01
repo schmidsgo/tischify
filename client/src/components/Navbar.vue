@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { watch } from 'vue';
 import { useAuthStore } from '../stores/state';
+import { format } from 'date-fns';
 
 const authStore = useAuthStore();
 
@@ -18,7 +19,13 @@ function deleteBooking(id: string) {
   authStore.deleteBooking(id);
 }
 
-console.log(items);
+function formatDateTime(datetime: Date) {
+  const date = new Date(datetime);
+  const formattedDate = format(date, 'dd.MM.yyyy');
+  const formattedTime = format(date, 'HH:mm');
+  return `${formattedDate} ${formattedTime}`;
+}
+console.log('Buchungen: ' + items);
 </script>
 
 <template>
@@ -49,7 +56,13 @@ console.log(items);
           >
           <v-divider />
           <v-list>
+            <v-list-item v-if="items.length === 0">
+              <v-card-title class="text-subtitle-2">
+                keine Buchungen vorhanden
+              </v-card-title>
+            </v-list-item>
             <v-list-item
+              v-else
               v-for="(item, index) in items"
               :key="item.reservation_id"
             >
@@ -67,7 +80,8 @@ console.log(items);
                     {{ item.restaurant_name }}
                   </v-card-title>
                   <v-card-text class="text-subtitle-1 p-0">
-                    {{ item.datetime }} | {{ item.party_size }} Pers.
+                    {{ formatDateTime(item.datetime) }}
+                    <span class="text-blue">|</span> {{ item.party_size }} Pers.
                   </v-card-text>
                 </v-col>
                 <v-col cols="2">
@@ -79,8 +93,7 @@ console.log(items);
                   />
                 </v-col>
               </v-row>
-              <!-- Add a separator between list items, except for the last item -->
-              <div v-if="index !== items.length - 1" class="separator"></div>
+              <v-divider v-if="index !== items.length - 1" thickness="2" />
             </v-list-item>
           </v-list>
         </v-card>
@@ -112,7 +125,6 @@ console.log(items);
       cols="6"
       class="d-flex align-center justify-end"
     >
-      <!-- TODO: function? -->
       <v-menu>
         <template v-slot:activator="{ props }">
           <v-btn icon="mdi-bell" v-bind="props" variant="icon" class="mr-3" />
@@ -200,12 +212,3 @@ console.log(items);
     </v-col>
   </div>
 </template>
-
-<style>
-.separator {
-  height: 1px;
-  background-color: #ccc;
-  margin-top: 0.5rem;
-  margin-bottom: 0.1rem;
-}
-</style>
