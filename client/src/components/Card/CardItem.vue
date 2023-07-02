@@ -11,13 +11,6 @@ const authStore = useAuthStore();
 const bookingStore = useBookingStore();
 
 const selectedItemId = ref('');
-
-const availableSymbol = () => {
-  // return random on of these symbols ◎ 〇 △
-  const symbols = ['◎', '〇', '△', '-'];
-  const randomIndex = Math.floor(Math.random() * symbols.length);
-  return symbols[randomIndex];
-};
 </script>
 
 <template>
@@ -89,15 +82,15 @@ const availableSymbol = () => {
       </v-card-text>
       <v-card-actions class="mt-1 ml-1 mb-2">
         <v-btn color="pink-lighten-1" variant="flat"
-          ><span class="text-h6">{{ availableSymbol() }}</span>
+          ><span class="text-h6">△</span>
           18:00
         </v-btn>
         <v-btn color="pink-lighten-1" variant="flat"
-          ><span class="text-h6">{{ availableSymbol() }}</span>
+          ><span class="text-h6">〇</span>
           18:30
         </v-btn>
         <v-btn color="pink-lighten-1" variant="flat"
-          ><span class="text-h6">{{ availableSymbol() }}</span>
+          ><span class="text-h6">◎</span>
           19:00
         </v-btn>
       </v-card-actions>

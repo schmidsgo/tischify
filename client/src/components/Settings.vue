@@ -3,11 +3,8 @@ import { useAuthStore } from '../stores/state';
 import { onMounted, ref, reactive } from 'vue';
 import axios from 'axios';
 import type { ItemType } from '../types/types';
-// import { it } from 'date-fns/locale';
 
 const authStore = useAuthStore();
-
-// const restaurant_name = authStore.user.restaurant_name;
 
 const isError = ref(false);
 const errText = ref('');
