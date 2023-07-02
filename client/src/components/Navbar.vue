@@ -127,37 +127,41 @@ function formatDateTime(datetime: Date) {
         <template v-slot:activator="{ props }">
           <v-btn icon="mdi-bell" v-bind="props" variant="icon" class="mr-3" />
         </template>
-        <v-card min-width="120" min-height="180" class="mt-1 text-left">
+        <v-card min-width="280" min-height="180" class="mt-1 text-left">
           <v-card-text class="text-subtitle-1">Neue Buchungen:</v-card-text>
           <v-divider />
           <v-list>
             <v-list-item>
               <v-row align="center">
-                <v-col cols="9">
-                  <v-card-text class="text-subtitle-2 ma-0 pa-0">
-                    4 Pers., 18:30 Uhr
+                <v-col cols="9" class="pr-0">
+                  <v-card-text class="text-subtitle-2 pa-0">
+                    20.05.23 18:30, 4 Pers.
                   </v-card-text>
                 </v-col>
-                <v-col cols="2">
+                <v-col cols="3" class="d-flex pl-0">
                   <v-icon
                     icon="mdi-check-circle-outline"
-                    color="grey-lighten-1"
+                    color="green"
+                    class="mr-2"
                   />
+                  <v-icon icon="mdi-close-circle-outline" color="red" />
                 </v-col>
               </v-row>
             </v-list-item>
             <v-list-item>
               <v-row align="center">
-                <v-col cols="9">
-                  <v-card-text class="text-subtitle-2 ma-0 pa-0">
-                    2 Pers., 20:00 Uhr
+                <v-col cols="9" class="pr-0">
+                  <v-card-text class="text-subtitle-2 pa-0">
+                    16.08.23 20:30, 2 Pers.
                   </v-card-text>
                 </v-col>
-                <v-col cols="2">
+                <v-col cols="3" class="d-flex pl-0">
                   <v-icon
                     icon="mdi-check-circle-outline"
-                    color="grey-lighten-1"
+                    color="green"
+                    class="mr-2"
                   />
+                  <v-icon icon="mdi-close-circle-outline" color="red" />
                 </v-col>
               </v-row>
             </v-list-item>
