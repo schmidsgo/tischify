@@ -4,7 +4,6 @@ import type { ItemType } from '../../types/types';
 import BookingModal from './BookingModal.vue';
 import { useAuthStore } from '../../stores/state';
 import { ref } from 'vue';
-import axios from 'axios';
 
 defineProps<{ item: ItemType }>();
 
@@ -13,36 +12,7 @@ const bookingStore = useBookingStore();
 
 const selectedItemId = ref('');
 
-const today = new Date().toLocaleDateString('de-DE');
-
-const requestBody = {
-  startDateTime: `${today} 08:00`,
-  endDateTime: `${today} 08:30`
-};
-
-const availableSymbol = async () => {
-  // await axios
-
-  //   .get('http://localhost:3000/restaurants/availabilities', {
-  //     params: requestBody
-  //   })
-  //   .then(res => {
-  //     switch (res.data) {
-  //       case 'available':
-  //         return '◎';
-  //       case 'partially available':
-  //         return '〇';
-  //       case 'not available':
-  //         return '△';
-  //       default:
-  //         return '-';
-  //     }
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //     return '-';
-  //   });
-
+const availableSymbol = () => {
   // return random on of these symbols ◎ 〇 △
   const symbols = ['◎', '〇', '△', '-'];
   const randomIndex = Math.floor(Math.random() * symbols.length);
@@ -107,8 +77,7 @@ const availableSymbol = async () => {
               @click="
                 authStore.user.name === ''
                   ? (authStore.OpenLoginModal = true)
-                  : ((selectedItemId = item.restaurant_id),
-                    bookingStore.openModal(item))
+                  : bookingStore.openModal(item)
               "
               variant="tonal"
               class="bg-blue hover:bg-blue-lighten-3 rounded-xl focus:outline-none"
