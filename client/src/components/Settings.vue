@@ -35,6 +35,7 @@ const updateSettings = async () => {
 
 const item = reactive<ItemType>({
   name: '',
+  category: '',
   address: '',
   city: '',
   phone_number: '',
@@ -47,6 +48,7 @@ onMounted(async () => {
     .get('http://localhost:3000/restaurants/settings/')
     .then(res => {
       item.name = res.data.name;
+      item.category = res.data.category;
       item.address = res.data.address;
       item.city = res.data.city;
       item.phone_number = res.data.phone_number;
@@ -70,23 +72,28 @@ onMounted(async () => {
             </v-text>
           </v-col>
           <v-col>
-            <v-text class="text-h6 text-grey-darken-3 font-weight-bold">
+            <v-text class="text-subtitle-1 text-grey-darken-3">
               Hier kannst du deine Restaurantsinfo bearbeiten.
             </v-text>
           </v-col>
         </v-row>
         <v-divider class="my-4" />
-        <v-row class="pa-4">
-          <v-col cols="6" justify="start" class="bg-yellow">
-            <image>
-              <v-img src="restaurant.jpeg" width="100%" />
-            </image>
+        <v-row>
+          <v-col cols="6" justify="start">
+            <v-text class="pa-2 text-h6 font-weight-semibold">
+              Bearbeitung:
+              <span class="font-weight-bold text-blue-darken-1 mr-2">{{
+                item.name
+              }}</span
+              >({{ item.category }})
+            </v-text>
+            <v-img
+              :src="`${item.category}.jpeg`"
+              width="100%"
+              class="bg-yellow my-4 mx-0 pa-2"
+            />
           </v-col>
           <v-col cols="6" class="px-8">
-            <v-text class="text-h6 font-weight-semibold">
-              Bearbeitung:
-              <span class="font-weight-bold">{{ item.name }}</span>
-            </v-text>
             <form @submit.prevent="updateSettings" class="mt-4 p-4">
               <v-text-field
                 v-model="item.name"

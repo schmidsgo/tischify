@@ -90,7 +90,7 @@ const fourCafes = computed(() =>
               class="d-flex justify-center align-center mt-8 p-0"
             >
               <v-row>
-                <v-col cols="12">
+                <v-col cols="12" class="px-0">
                   <div class="d-flex align-center">
                     <h2 class="text-h4 text-grey-darken-3 font-weight-bold">
                       Suchergebnisse:

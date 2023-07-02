@@ -149,7 +149,13 @@ function formatDateTime(datetime: Date) {
           <v-card-text class="text-subtitle-1">Neue Buchungen:</v-card-text>
           <v-divider />
           <v-list>
+            <v-list-item v-if="reservationsForRestaurants.length === 0">
+              <v-card-title class="text-subtitle-2">
+                keine neue Buchungen vorhanden
+              </v-card-title>
+            </v-list-item>
             <v-list-item
+              v-else
               v-for="reservation in reservationsForRestaurants"
               :key="reservation.reservation_id"
             >
