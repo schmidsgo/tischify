@@ -23,12 +23,18 @@ type BookingInfo = {
   datetime: string;
 };
 
-type Booking = {
+type BookingForGuest = {
   reservation_id: string;
   datetime: Date;
   party_size: number;
   restaurant_name: string;
   restaurant_category: string;
+};
+
+type BookingForRestaurant = {
+  reservation_id: string;
+  datetime: Date;
+  party_size: number;
 };
 
 export const useAuthStore = defineStore('auth', {
@@ -45,7 +51,8 @@ export const useAuthStore = defineStore('auth', {
       phone_number: '',
       opening_hours: '',
       capacity: 0,
-      bookings: [] as Booking[]
+      bookingsForGuest: [] as BookingForGuest[],
+      bookingsForRestaurant: [] as BookingForRestaurant[]
     },
     isError: false,
     isLoading: false
@@ -95,6 +102,7 @@ export const useAuthStore = defineStore('auth', {
         this.isError = true;
       }
     },
+
     async login({ username, password }: UserInfo) {
       try {
         this.isLoading = true;
@@ -112,7 +120,7 @@ export const useAuthStore = defineStore('auth', {
           .catch(err => {});
 
         if (this.user.role === 'guest') {
-          this.getBookings();
+          this.getBookingsForGuest();
         }
         this.isLoading = false;
         this.OpenLoginModal = false;
@@ -120,11 +128,23 @@ export const useAuthStore = defineStore('auth', {
         this.isError = true;
       }
     },
-    async getBookings() {
+
+    async getBookingsForGuest() {
       axios
         .get('http://localhost:3000/guests/bookings')
         .then(response => {
-          this.user.bookings = response.data;
+          this.user.bookingsForGuest = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+
+    async getBookingsForRestaurant() {
+      axios
+        .get('http://localhost:3000/restaurants/bookings')
+        .then(response => {
+          this.user.bookingsForRestaurant = response.data;
         })
         .catch(error => {
           console.log(error);
@@ -136,7 +156,11 @@ export const useAuthStore = defineStore('auth', {
         .delete('http://localhost:3000/guests/bookings/' + id)
         .then(response => {
           console.log(response.data);
-          this.getBookings();
+          if (this.user.role === 'guest') {
+            this.getBookingsForGuest();
+          } else {
+            this.getBookingsForRestaurant();
+          }
         })
         .catch(error => {
           console.log(error);
@@ -153,7 +177,7 @@ export const useAuthStore = defineStore('auth', {
       this.user.phone_number = '';
       this.user.opening_hours = '';
       this.user.capacity = 0;
-      this.user.bookings = [];
+      this.user.bookingsForGuest = [];
       localStorage.removeItem('jwt');
       console.log('user: ' + this.user.name, this.user.role);
     }

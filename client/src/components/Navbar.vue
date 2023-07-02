@@ -5,12 +5,21 @@ import { format } from 'date-fns';
 
 const authStore = useAuthStore();
 
-let items = authStore.user.bookings;
+let reservationsForGuests = authStore.user.bookingsForGuest;
+
+let reservationsForRestaurants = authStore.user.bookingsForRestaurant;
 
 watch(
-  () => authStore.user.bookings,
+  () => authStore.user.bookingsForGuest,
   newBookings => {
-    items = newBookings;
+    reservationsForGuests = newBookings;
+  }
+);
+
+watch(
+  () => authStore.user.bookingsForRestaurant,
+  newBookings => {
+    reservationsForRestaurants = newBookings;
   }
 );
 
@@ -45,7 +54,7 @@ function formatDateTime(datetime: Date) {
             variant="icon"
             v-bind="props"
             class="mr-6"
-            @click="authStore.getBookings()"
+            @click="authStore.getBookingsForGuest()"
           />
         </template>
         <v-card min-width="360" class="mt-1">
@@ -54,14 +63,14 @@ function formatDateTime(datetime: Date) {
           >
           <v-divider />
           <v-list>
-            <v-list-item v-if="items.length === 0">
+            <v-list-item v-if="reservationsForGuests.length === 0">
               <v-card-title class="text-subtitle-2">
                 keine Buchungen vorhanden
               </v-card-title>
             </v-list-item>
             <v-list-item
               v-else
-              v-for="(item, index) in items"
+              v-for="(item, index) in reservationsForGuests"
               :key="item.reservation_id"
             >
               <v-row align="center">
@@ -91,7 +100,10 @@ function formatDateTime(datetime: Date) {
                   />
                 </v-col>
               </v-row>
-              <v-divider v-if="index !== items.length - 1" thickness="2" />
+              <v-divider
+                v-if="index !== reservationsForGuests.length - 1"
+                thickness="2"
+              />
             </v-list-item>
           </v-list>
         </v-card>
@@ -125,17 +137,27 @@ function formatDateTime(datetime: Date) {
     >
       <v-menu>
         <template v-slot:activator="{ props }">
-          <v-btn icon="mdi-bell" v-bind="props" variant="icon" class="mr-3" />
+          <v-btn
+            icon="mdi-bell"
+            v-bind="props"
+            variant="icon"
+            class="mr-3"
+            @click="authStore.getBookingsForRestaurant()"
+          />
         </template>
         <v-card min-width="280" min-height="180" class="mt-1 text-left">
           <v-card-text class="text-subtitle-1">Neue Buchungen:</v-card-text>
           <v-divider />
           <v-list>
-            <v-list-item>
+            <v-list-item
+              v-for="reservation in reservationsForRestaurants"
+              :key="reservation.reservation_id"
+            >
               <v-row align="center">
                 <v-col cols="9" class="pr-0">
                   <v-card-text class="text-subtitle-2 pa-0">
-                    20.05.23 18:30, 4 Pers.
+                    {{ formatDateTime(reservation.datetime) }},
+                    {{ reservation.party_size }} Pers.
                   </v-card-text>
                 </v-col>
                 <v-col cols="3" class="d-flex pl-0">
@@ -144,24 +166,11 @@ function formatDateTime(datetime: Date) {
                     color="green"
                     class="mr-2"
                   />
-                  <v-icon icon="mdi-close-circle-outline" color="red" />
-                </v-col>
-              </v-row>
-            </v-list-item>
-            <v-list-item>
-              <v-row align="center">
-                <v-col cols="9" class="pr-0">
-                  <v-card-text class="text-subtitle-2 pa-0">
-                    16.08.23 20:30, 2 Pers.
-                  </v-card-text>
-                </v-col>
-                <v-col cols="3" class="d-flex pl-0">
                   <v-icon
-                    icon="mdi-check-circle-outline"
-                    color="green"
-                    class="mr-2"
+                    icon="mdi-close-circle-outline"
+                    color="red"
+                    @click="deleteBooking(reservation.reservation_id)"
                   />
-                  <v-icon icon="mdi-close-circle-outline" color="red" />
                 </v-col>
               </v-row>
             </v-list-item>

@@ -345,7 +345,7 @@ const deleteBooking = (request, response) => {
       });
   } else if (request.user.role === "restaurant") {
     const restaurantId = request.user.restaurant_id;
-    const reservationId = request.params.reservation_id;
+    const reservationId = request.params.booking_id;
     pool
       .query(
         "DELETE FROM reservations WHERE restaurant_id = $1 AND reservation_id = $2",
