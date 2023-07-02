@@ -35,6 +35,8 @@ app.get("/restaurants/availabilities", db.getRestaurantAvailabilities);
 
 app.put("/restaurants/settings/", authMiddleware, db.updateRestaurantSettings);
 
+app.get("/restaurants/bookings", authMiddleware, db.getRestaurantBookings);
+
 app.get("/restaurants/:restaurant_id?", db.getRestaurants);
 
 app.post("/login", db.login);

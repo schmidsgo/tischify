@@ -359,6 +359,21 @@ const deleteBooking = (request, response) => {
       });
   }
 };
+
+const getRestaurantBookings = (request, response) => {
+  const restaurantId = request.user.restaurant_id;
+  pool
+    .query(
+      "SELECT reservation_id, datetime, party_size FROM reservations WHERE restaurant_id = $1",
+      [restaurantId]
+    )
+    .then((result) => {
+      response.status(200).json(result.rows);
+    })
+    .catch((error) => {
+      response.status(400).send(error.detail);
+    });
+};
 // #endregion Api Functions
 
 // #region Helper Functions
@@ -503,4 +518,5 @@ module.exports = {
   getRestaurantSettings,
   getGuestBookings,
   deleteBooking,
+  getRestaurantBookings,
 };
