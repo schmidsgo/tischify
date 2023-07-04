@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
+const env = process.env;
 
 function authMiddleware(request, response, next) {
   //Get token and cut out "Bearer "
@@ -13,7 +15,7 @@ function authMiddleware(request, response, next) {
   }
 
   try {
-    const decoded = jwt.verify(token, "yourSecretKey");
+    const decoded = jwt.verify(token, env.JWT_SECRET);
     console.log("decoded: " + decoded);
     request.user = decoded;
     next();

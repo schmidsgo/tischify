@@ -1,14 +1,23 @@
+const e = require("cors");
 const { log } = require("debug/src/browser");
+require("dotenv").config();
+const env = process.env;
 
 const jwt = require("jsonwebtoken");
 const Pool = require("pg").Pool;
 const pool = new Pool({
-  user: "tischify",
-  host: "online24.myfirewall.org",
-  database: "tischify",
-  password: "tischify",
-  port: 5432,
+  user: env.PG_USER,
+  host: env.PG_HOST,
+  database: env.PG_DATABASE,
+  password: env.PG_PASSWORD,
+  port: env.PG_PORT,
 });
+console.log("PG_USER: " + env.PG_USER);
+console.log("PG_HOST: " + env.PG_HOST);
+console.log("PG_DATABASE: " + env.PG_DATABASE);
+console.log("PG_PASSWORD: " + env.PG_PASSWORD);
+console.log("PG_PORT: " + env.PG_PORT);
+
 // #region Api Functions
 const getUsers = (request, response) => {
   pool.query("SELECT * FROM users", (error, results) => {
@@ -290,7 +299,7 @@ const login = (request, response) => {
             username: username,
             role: role,
           },
-          "yourSecretKey",
+          env.JWT_SECRET,
           { expiresIn: "1h" }
         );
       } else if (role === "restaurant") {
@@ -301,7 +310,7 @@ const login = (request, response) => {
             username: username,
             role: role,
           },
-          "yourSecretKey",
+          env.JWT_SECRET,
           { expiresIn: "1h" }
         );
       }
