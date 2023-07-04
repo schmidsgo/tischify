@@ -147,7 +147,7 @@ export const useAuthStore = defineStore('auth', {
 
     async deleteBooking(id: string) {
       axios
-        .delete('http://localhost:3000/guests/bookings/' + id)
+        .delete('http://localhost:3000/bookings/' + id)
         .then(response => {
           if (this.user.role === 'guest') {
             this.getBookingsForGuest();
