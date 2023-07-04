@@ -8,7 +8,7 @@ services:
       - POSTGRES_USER=tischify
       - POSTGRES_PASSWORD=tischify
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - db:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
