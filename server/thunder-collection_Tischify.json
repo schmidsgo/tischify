@@ -1,277 +1,458 @@
 {
-    "client": "Thunder Client",
-    "collectionName": "Tischify",
-    "dateExported": "2023-06-26T20:14:48.168Z",
-    "version": "1.1",
-    "folders": [
-        {
-            "_id": "c9afce6a-76ce-4918-a9d3-f9099735d223",
-            "name": "Register",
-            "containerId": "",
-            "created": "2023-06-26T19:56:00.149Z",
-            "sortNum": 10000
-        },
-        {
-            "_id": "25b5b1d8-c215-49cd-9020-a1020d8cf0e7",
-            "name": "Restaurant",
-            "containerId": "",
-            "created": "2023-06-26T19:56:00.150Z",
-            "sortNum": 20000
-        },
-        {
-            "_id": "018ffa42-e6b9-432e-9423-eb3d6acb74c2",
-            "name": "Settings",
-            "containerId": "25b5b1d8-c215-49cd-9020-a1020d8cf0e7",
-            "created": "2023-06-26T20:14:03.843Z",
-            "sortNum": 30000
-        }
-    ],
-    "requests": [
-        {
-            "_id": "3404496e-cea4-468c-9d6a-d0c526bf4926",
-            "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
-            "containerId": "c9afce6a-76ce-4918-a9d3-f9099735d223",
-            "name": "Register Guest",
-            "url": "localhost:3000/register",
-            "method": "POST",
-            "sortNum": 10000,
-            "created": "2023-06-26T19:56:00.149Z",
-            "modified": "2023-06-26T19:56:00.149Z",
-            "headers": [
-                {
-                    "name": "Accept",
-                    "value": "*/*",
-                    "isDisabled": true
-                },
-                {
-                    "name": "User-Agent",
-                    "value": "Thunder Client (https://www.thunderclient.com)",
-                    "isDisabled": true
-                }
-            ],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"username\": \"Test10\",\n  \"password\": \"Test\",\n  \"role\": \"guest\"\n}",
-                "form": []
-            },
-            "tests": []
-        },
-        {
-            "_id": "57869f35-e8c6-442d-abaa-c73cc35e0cd3",
-            "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
-            "containerId": "25b5b1d8-c215-49cd-9020-a1020d8cf0e7",
-            "name": "get_avalibilities",
-            "url": "localhost:3000/restaurants/availabilitys",
-            "method": "GET",
-            "sortNum": 10000,
-            "created": "2023-06-26T19:56:00.150Z",
-            "modified": "2023-06-26T19:56:00.150Z",
-            "headers": [],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"restaurant_id\": 1,\n  \"startDateTime\": \"05.06.2023 08:00\",\n  \"endDateTime\": \"05.06.2023 20:00\",\n  \"party_size\": 3\n}\n",
-                "form": []
-            },
-            "tests": []
-        },
-        {
-            "_id": "67496e8e-cf72-4530-9306-5f24ec4782c4",
-            "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
-            "containerId": "018ffa42-e6b9-432e-9423-eb3d6acb74c2",
-            "name": "update_restaurant_settings",
-            "url": "localhost:3000/restaurants/settings",
-            "method": "PUT",
-            "sortNum": 10000,
-            "created": "2023-06-26T19:56:00.154Z",
-            "modified": "2023-06-26T20:14:09.979Z",
-            "headers": [
-                {
-                    "name": "Accept",
-                    "value": "*/*",
-                    "isDisabled": true
-                },
-                {
-                    "name": "User-Agent",
-                    "value": "Thunder Client (https://www.thunderclient.com)",
-                    "isDisabled": true
-                }
-            ],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"name\": \"New Name asd\",\n  \"address\": \"New Address asd\",\n  \"phone_number\": \"123890235670293847\",\n  \"capacity\": 1000\n}",
-                "form": []
-            },
-            "tests": []
-        },
-        {
-            "_id": "623963b2-f6dc-49a5-bd98-18d78f2c6e8c",
-            "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
-            "containerId": "c9afce6a-76ce-4918-a9d3-f9099735d223",
-            "name": "Register Restaurant",
-            "url": "localhost:3000/register",
-            "method": "POST",
-            "sortNum": 20000,
-            "created": "2023-06-26T19:56:00.151Z",
-            "modified": "2023-06-26T19:56:00.151Z",
-            "headers": [
-                {
-                    "name": "Accept",
-                    "value": "*/*",
-                    "isDisabled": true
-                },
-                {
-                    "name": "User-Agent",
-                    "value": "Thunder Client (https://www.thunderclient.com)",
-                    "isDisabled": true
-                }
-            ],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"username\": \"Test73\",\n  \"password\": \"Test\",\n  \"role\": \"restaurant\",\n  \"restaurant_name\": \"Test Restauant\", \n  \"address\": \"Beispielstraße 45\", \n  \"phone\": \"123456789\",\n  \"opening_hours\": \"08:00-20:00\"\n}",
-                "form": []
-            },
-            "tests": []
-        },
-        {
-            "_id": "16f141ec-8a05-4359-97e0-186f7e39d397",
-            "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
-            "containerId": "",
-            "name": "login",
-            "url": "localhost:3000/login",
-            "method": "POST",
-            "sortNum": 20000,
-            "created": "2023-06-26T19:56:00.152Z",
-            "modified": "2023-06-26T19:57:58.176Z",
-            "headers": [
-                {
-                    "name": "Accept",
-                    "value": "*/*",
-                    "isDisabled": true
-                },
-                {
-                    "name": "User-Agent",
-                    "value": "Thunder Client (https://www.thunderclient.com)",
-                    "isDisabled": true
-                }
-            ],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"username\": \"Test73\",\n  \"password\": \"Test\"\n}",
-                "form": []
-            },
-            "tests": []
-        },
-        {
-            "_id": "12912bc3-b18a-4280-b300-26343727e754",
-            "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
-            "containerId": "018ffa42-e6b9-432e-9423-eb3d6acb74c2",
-            "name": "getRestaurantSettings",
-            "url": "localhost:3000/restaurant/settings/",
-            "method": "GET",
-            "sortNum": 20000,
-            "created": "2023-06-26T20:06:36.744Z",
-            "modified": "2023-06-26T20:14:11.362Z",
-            "headers": [
-                {
-                    "name": "Accept",
-                    "value": "*/*",
-                    "isDisabled": true
-                },
-                {
-                    "name": "User-Agent",
-                    "value": "Thunder Client (https://www.thunderclient.com)",
-                    "isDisabled": true
-                }
-            ],
-            "params": [],
-            "tests": []
-        },
-        {
-            "_id": "a3f5e65c-e3b8-4150-afee-96ee0da3ce35",
-            "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
-            "containerId": "",
-            "name": "protected",
-            "url": "localhost:3000/protected",
-            "method": "GET",
-            "sortNum": 30000,
-            "created": "2023-06-26T19:56:00.155Z",
-            "modified": "2023-06-26T19:56:00.155Z",
-            "headers": [
-                {
-                    "name": "Accept",
-                    "value": "*/*",
-                    "isDisabled": true
-                },
-                {
-                    "name": "User-Agent",
-                    "value": "Thunder Client (https://www.thunderclient.com)",
-                    "isDisabled": true
-                }
-            ],
-            "params": [],
-            "tests": []
-        },
-        {
-            "_id": "aab62328-c12f-45d7-adf0-a4734d3ffe63",
-            "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
-            "containerId": "25b5b1d8-c215-49cd-9020-a1020d8cf0e7",
-            "name": "get_restaurant_with_id",
-            "url": "localhost:3000/restaurants/1",
-            "method": "GET",
-            "sortNum": 60000,
-            "created": "2023-06-26T19:56:00.156Z",
-            "modified": "2023-06-26T19:56:00.156Z",
-            "headers": [
-                {
-                    "name": "Accept",
-                    "value": "*/*",
-                    "isDisabled": true
-                },
-                {
-                    "name": "User-Agent",
-                    "value": "Thunder Client (https://www.thunderclient.com)",
-                    "isDisabled": true
-                }
-            ],
-            "params": [],
-            "tests": []
-        },
-        {
-            "_id": "797f0a74-31ee-4f41-8c59-cc9297872bf7",
-            "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
-            "containerId": "25b5b1d8-c215-49cd-9020-a1020d8cf0e7",
-            "name": "get_all_restaurants",
-            "url": "localhost:3000/restaurants",
-            "method": "GET",
-            "sortNum": 70000,
-            "created": "2023-06-26T19:56:00.157Z",
-            "modified": "2023-06-26T19:56:00.157Z",
-            "headers": [
-                {
-                    "name": "Accept",
-                    "value": "*/*",
-                    "isDisabled": true
-                },
-                {
-                    "name": "User-Agent",
-                    "value": "Thunder Client (https://www.thunderclient.com)",
-                    "isDisabled": true
-                }
-            ],
-            "params": [],
-            "tests": []
-        }
-    ],
-    "settings": {
-        "auth": {
-            "type": "bearer",
-            "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNDciLCJyZXN0YXVyYW50X2lkIjoiMzMiLCJ1c2VybmFtZSI6IlRlc3Q3MyIsInJvbGUiOiJyZXN0YXVyYW50IiwiaWF0IjoxNjg3ODA5NjMwLCJleHAiOjE2ODc4MTMyMzB9.IZOGd4rA2E5s4lJMHwxuQ775UhEK8kUasNmaWvp2T1Y"
-        },
-        "docs": "## API Documentation\n\n### Get Information\n\n- **Endpoint**: `/`\n- **Method**: GET\n- **Description**: Get information about the Node.js, Express, and Postgres API.\n\n### Get Users\n\n- **Endpoint**: `/users`\n- **Method**: GET\n- **Description**: Get a list of all users.\n\n### Get User by ID\n\n- **Endpoint**: `/users/:id`\n- **Method**: GET\n- **Description**: Get a specific user by their ID.\n\n#### Parameters\n\n- `id` (integer) - The ID of the user.\n\n### Get Restaurants\n\n- **Endpoint**: `/restaurants`\n- **Method**: GET\n- **Description**: Get a list of all restaurants.\n\n#### Parameters\n\n- `id` (integer, optional) - The ID of a specific restaurant. If provided, returns only the restaurant with the given ID.\n\n### Get Restaurant Availabilities\n\n- **Endpoint**: `/restaurants/availabilitys`\n- **Method**: GET\n- **Description**: Get the availabilities of restaurants within a specified time range.\n\n#### Parameters (in Request Body)\n\n- `restaurant_id` (integer) - The ID of the restaurant.\n- `startDateTime` (string) - The start date and time of the time range in the format \"DD.MM.YYYY HH:MM\".\n- `endDateTime` (string) - The end date and time of the time range in the format \"DD.MM.YYYY HH:MM\".\n- `party_size` (integer, optional) - The number of people in the party. Defaults to 2 if not specified.\n\n### Update Restaurant Settings\n\n- **Endpoint**: `/restaurant/settings/:id`\n- **Method**: PUT\n- **Description**: Update the settings of a specific restaurant.\n\n#### Parameters\n\n- `id` (integer) - The ID of the restaurant to update.\n\n#### Request Body\n\n- `name` (string, optional) - The new name of the restaurant.\n- `address` (string, optional) - The new address of the restaurant.\n- `city` (string, optional) - The new city of the restaurant.\n- `phone_number` (string, optional) - The new phone number of the restaurant.\n- `opening_hours` (string, optional) - The new opening hours of the restaurant.\n- `capacity` (integer, optional) - The new capacity of the restaurant.\n- `category` (string, optional) - The new category of the restaurant.\n- `rating` (integer, optional) - The new rating of the restaurant.\n- `price_level` (integer, optional) - The new price level of the restaurant.\n\n### Create Booking\n\n- **Endpoint**: `/bookings`\n- **Method**: POST\n- **Description**: Create a new booking.\n\n#### Request Body\n\n- `restaurant_id` (integer) - The ID of the restaurant for the booking.\n- `date` (string) - The date of the booking.\n- `time` (string) - The time of the booking.\n- `number_of_people` (integer) - The number of people for the booking.\n\n### Login\n\n- **Endpoint**: `/login`\n- **Method**: POST\n- **Description**: Authenticate a user and generate a token.\n\n#### Request Body\n\n- `username` (string) - The username of the user.\n- `password` (string) - The password of the user.\n\n### Register\n\n- **Endpoint**: `/register`\n- **Method**: POST\n- **Description**: Register a new user.\n\n#### Request Body\n\n- `username` (string) - The username of the user.\n- `password` (string) - The password of the user.\n- `role` (string) - The role of the user (\"guest\" or \"restaurant\").\n- `restaurant_name` (string, required for \"restaurant\" role) - The name of the restaurant.\n- `address` (string, required for \"restaurant\" role) - The address of the restaurant.\n- `phone_number` (string, required for \"restaurant\" role) - The phone number of the restaurant.\n- `opening_hours` (string, required for \"restaurant\" role) - The opening hours of the restaurant.\n\n### Get Protected Resource\n\n- **Endpoint**: `/protected`\n- **Method**: GET\n- **Description**: Get a protected resource that requires authentication.\n\n#### Request Headers\n\n- `Authorization` (string) - A valid JWT token.\n"
+  "client": "Thunder Client",
+  "collectionName": "Tischify",
+  "dateExported": "2023-07-04T11:07:35.400Z",
+  "version": "1.1",
+  "folders": [
+    {
+      "_id": "25b5b1d8-c215-49cd-9020-a1020d8cf0e7",
+      "name": "Restaurant",
+      "containerId": "",
+      "created": "2023-06-26T19:56:00.150Z",
+      "sortNum": 20000
+    },
+    {
+      "_id": "018ffa42-e6b9-432e-9423-eb3d6acb74c2",
+      "name": "Settings",
+      "containerId": "25b5b1d8-c215-49cd-9020-a1020d8cf0e7",
+      "created": "2023-06-26T20:14:03.843Z",
+      "sortNum": 30000
+    },
+    {
+      "_id": "d0b38aba-a749-4859-abdf-df181b497fd1",
+      "name": "Guest",
+      "containerId": "",
+      "created": "2023-06-30T15:52:56.907Z",
+      "sortNum": 40000
+    },
+    {
+      "_id": "18954058-dbf9-4038-b39c-37291ae4a3f9",
+      "name": "User",
+      "containerId": "",
+      "created": "2023-07-04T10:50:15.115Z",
+      "sortNum": 50000
+    },
+    {
+      "_id": "03ef278f-5a5f-4107-81f1-9d46a1526539",
+      "name": "Bookings",
+      "containerId": "",
+      "created": "2023-07-04T10:56:33.749Z",
+      "sortNum": 60000
     }
+  ],
+  "requests": [
+    {
+      "_id": "16f141ec-8a05-4359-97e0-186f7e39d397",
+      "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
+      "containerId": "25b5b1d8-c215-49cd-9020-a1020d8cf0e7",
+      "name": "login",
+      "url": "/login",
+      "method": "POST",
+      "sortNum": 5000,
+      "created": "2023-06-26T19:56:00.152Z",
+      "modified": "2023-07-04T10:52:50.881Z",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "*/*",
+          "isDisabled": true
+        },
+        {
+          "name": "User-Agent",
+          "value": "Thunder Client (https://www.thunderclient.com)",
+          "isDisabled": true
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"username\": \"restaurant1\",\n  \"password\": \"restaurant1\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "3404496e-cea4-468c-9d6a-d0c526bf4926",
+      "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
+      "containerId": "25b5b1d8-c215-49cd-9020-a1020d8cf0e7",
+      "name": "Register Guest",
+      "url": "/register",
+      "method": "POST",
+      "sortNum": 7500,
+      "created": "2023-06-26T19:56:00.149Z",
+      "modified": "2023-07-04T10:52:53.809Z",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "*/*",
+          "isDisabled": true
+        },
+        {
+          "name": "User-Agent",
+          "value": "Thunder Client (https://www.thunderclient.com)",
+          "isDisabled": true
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"username\": \"Test10\",\n  \"password\": \"Test\",\n  \"role\": \"guest\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "57869f35-e8c6-442d-abaa-c73cc35e0cd3",
+      "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
+      "containerId": "25b5b1d8-c215-49cd-9020-a1020d8cf0e7",
+      "name": "get_avalibilities",
+      "url": "/restaurants/availabilities",
+      "method": "GET",
+      "sortNum": 10000,
+      "created": "2023-06-26T19:56:00.150Z",
+      "modified": "2023-07-04T10:52:56.938Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"restaurant_id\": 1,\n  \"startDateTime\": \"05.06.2023 08:00\",\n  \"endDateTime\": \"05.06.2023 20:00\",\n  \"party_size\": 3\n}\n",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "67496e8e-cf72-4530-9306-5f24ec4782c4",
+      "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
+      "containerId": "018ffa42-e6b9-432e-9423-eb3d6acb74c2",
+      "name": "update_restaurant_settings",
+      "url": "/restaurants/settings",
+      "method": "PUT",
+      "sortNum": 10000,
+      "created": "2023-06-26T19:56:00.154Z",
+      "modified": "2023-07-04T10:52:41.987Z",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "*/*",
+          "isDisabled": true
+        },
+        {
+          "name": "User-Agent",
+          "value": "Thunder Client (https://www.thunderclient.com)",
+          "isDisabled": true
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"New Name asd\",\n  \"address\": \"New Address asd\",\n  \"phone_number\": \"123890235670293847\",\n  \"capacity\": 1000\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "70f010ce-f9ad-4dac-b023-0c6c9451a3a2",
+      "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
+      "containerId": "03ef278f-5a5f-4107-81f1-9d46a1526539",
+      "name": "deleteBooking",
+      "url": "/bookings/1",
+      "method": "DELETE",
+      "sortNum": 10000,
+      "created": "2023-07-01T10:49:00.558Z",
+      "modified": "2023-07-04T10:56:53.189Z",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "*/*",
+          "isDisabled": true
+        },
+        {
+          "name": "User-Agent",
+          "value": "Thunder Client (https://www.thunderclient.com)",
+          "isDisabled": true
+        }
+      ],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMSIsImd1ZXN0X2lkIjoiMSIsInVzZXJuYW1lIjoiZ3Vlc3QxIiwicm9sZSI6Imd1ZXN0IiwiaWF0IjoxNjg4MjA4NTEyLCJleHAiOjE2ODgyMTIxMTJ9.RfkI1iiTnjuewW2smgSuR8trrWdRDqGSJ1Qo5PwN7zQ"
+      },
+      "tests": []
+    },
+    {
+      "_id": "12912bc3-b18a-4280-b300-26343727e754",
+      "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
+      "containerId": "018ffa42-e6b9-432e-9423-eb3d6acb74c2",
+      "name": "getRestaurantSettings",
+      "url": "/restaurants/settings/",
+      "method": "GET",
+      "sortNum": 20000,
+      "created": "2023-06-26T20:06:36.744Z",
+      "modified": "2023-07-04T10:52:45.939Z",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "*/*",
+          "isDisabled": true
+        },
+        {
+          "name": "User-Agent",
+          "value": "Thunder Client (https://www.thunderclient.com)",
+          "isDisabled": true
+        }
+      ],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNiIsInJlc3RhdXJhbnRfaWQiOiIxIiwidXNlcm5hbWUiOiJyZXN0YXVyYW50MSIsInJvbGUiOiJyZXN0YXVyYW50IiwiaWF0IjoxNjg4NDU3OTg3LCJleHAiOjE2ODg0NjE1ODd9.aKNqisdVLCzW7CMp6rFLm61iyyG0Y8UZ_-as_dzHkrw"
+      },
+      "tests": []
+    },
+    {
+      "_id": "a3f5e65c-e3b8-4150-afee-96ee0da3ce35",
+      "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
+      "containerId": "",
+      "name": "protected",
+      "url": "/protected",
+      "method": "GET",
+      "sortNum": 30000,
+      "created": "2023-06-26T19:56:00.155Z",
+      "modified": "2023-07-04T10:52:27.813Z",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "*/*",
+          "isDisabled": true
+        },
+        {
+          "name": "User-Agent",
+          "value": "Thunder Client (https://www.thunderclient.com)",
+          "isDisabled": true
+        }
+      ],
+      "params": [],
+      "tests": []
+    },
+    {
+      "_id": "d86ef786-53aa-4eb6-848e-842e28b63d94",
+      "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
+      "containerId": "d0b38aba-a749-4859-abdf-df181b497fd1",
+      "name": "login",
+      "url": "/login",
+      "method": "POST",
+      "sortNum": 40000,
+      "created": "2023-07-04T10:49:36.496Z",
+      "modified": "2023-07-04T10:51:51.229Z",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "*/*",
+          "isDisabled": true
+        },
+        {
+          "name": "User-Agent",
+          "value": "Thunder Client (https://www.thunderclient.com)",
+          "isDisabled": true
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"username\": \"guest1\",\n  \"password\": \"guest1\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "623963b2-f6dc-49a5-bd98-18d78f2c6e8c",
+      "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
+      "containerId": "d0b38aba-a749-4859-abdf-df181b497fd1",
+      "name": "Register Restaurant",
+      "url": "/register",
+      "method": "POST",
+      "sortNum": 60000,
+      "created": "2023-06-26T19:56:00.151Z",
+      "modified": "2023-07-04T10:52:02.034Z",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "*/*",
+          "isDisabled": true
+        },
+        {
+          "name": "User-Agent",
+          "value": "Thunder Client (https://www.thunderclient.com)",
+          "isDisabled": true
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"username\": \"Test73\",\n  \"password\": \"Test\",\n  \"role\": \"restaurant\",\n  \"restaurant_name\": \"Test Restauant\", \n  \"address\": \"Beispielstraße 45\", \n  \"phone\": \"123456789\",\n  \"opening_hours\": \"08:00-20:00\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "aab62328-c12f-45d7-adf0-a4734d3ffe63",
+      "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
+      "containerId": "25b5b1d8-c215-49cd-9020-a1020d8cf0e7",
+      "name": "get_restaurant_with_id",
+      "url": "/restaurants/1",
+      "method": "GET",
+      "sortNum": 60000,
+      "created": "2023-06-26T19:56:00.156Z",
+      "modified": "2023-07-04T10:53:01.628Z",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "*/*",
+          "isDisabled": true
+        },
+        {
+          "name": "User-Agent",
+          "value": "Thunder Client (https://www.thunderclient.com)",
+          "isDisabled": true
+        }
+      ],
+      "params": [],
+      "tests": []
+    },
+    {
+      "_id": "797f0a74-31ee-4f41-8c59-cc9297872bf7",
+      "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
+      "containerId": "25b5b1d8-c215-49cd-9020-a1020d8cf0e7",
+      "name": "get_all_restaurants",
+      "url": "/restaurants",
+      "method": "GET",
+      "sortNum": 70000,
+      "created": "2023-06-26T19:56:00.157Z",
+      "modified": "2023-07-04T10:53:08.186Z",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "*/*",
+          "isDisabled": true
+        },
+        {
+          "name": "User-Agent",
+          "value": "Thunder Client (https://www.thunderclient.com)",
+          "isDisabled": true
+        }
+      ],
+      "params": [],
+      "tests": []
+    },
+    {
+      "_id": "77616311-fb18-40e7-82be-0cd7f6eb4ae5",
+      "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
+      "containerId": "d0b38aba-a749-4859-abdf-df181b497fd1",
+      "name": "getGuestReservations",
+      "url": "/guests/bookings",
+      "method": "GET",
+      "sortNum": 80000,
+      "created": "2023-06-30T15:53:12.114Z",
+      "modified": "2023-07-04T10:52:05.556Z",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "*/*",
+          "isDisabled": true
+        },
+        {
+          "name": "User-Agent",
+          "value": "Thunder Client (https://www.thunderclient.com)",
+          "isDisabled": true
+        }
+      ],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMSIsImd1ZXN0X2lkIjoiMSIsInVzZXJuYW1lIjoiZ3Vlc3QxIiwicm9sZSI6Imd1ZXN0IiwiaWF0IjoxNjg4MjA4NTEyLCJleHAiOjE2ODgyMTIxMTJ9.RfkI1iiTnjuewW2smgSuR8trrWdRDqGSJ1Qo5PwN7zQ"
+      },
+      "tests": []
+    },
+    {
+      "_id": "9c89261b-b6cd-4229-827e-0c0010178cf3",
+      "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
+      "containerId": "18954058-dbf9-4038-b39c-37291ae4a3f9",
+      "name": "getUsers",
+      "url": "/users",
+      "method": "GET",
+      "sortNum": 100000,
+      "created": "2023-07-04T10:50:28.057Z",
+      "modified": "2023-07-04T10:53:48.978Z",
+      "headers": [],
+      "params": [],
+      "tests": []
+    },
+    {
+      "_id": "eb863d39-4bcd-4885-b904-bcedaa6b60ac",
+      "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
+      "containerId": "18954058-dbf9-4038-b39c-37291ae4a3f9",
+      "name": "getUserWithId",
+      "url": "/users/1",
+      "method": "GET",
+      "sortNum": 110000,
+      "created": "2023-07-04T10:54:01.980Z",
+      "modified": "2023-07-04T10:54:33.132Z",
+      "headers": [],
+      "params": [],
+      "tests": []
+    },
+    {
+      "_id": "b2e2946c-5343-445d-bf69-d63e12046d46",
+      "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
+      "containerId": "03ef278f-5a5f-4107-81f1-9d46a1526539",
+      "name": "createBooking",
+      "url": "/bookings",
+      "method": "POST",
+      "sortNum": 120000,
+      "created": "2023-07-04T10:57:40.190Z",
+      "modified": "2023-07-04T11:00:34.671Z",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "*/*",
+          "isDisabled": true
+        },
+        {
+          "name": "User-Agent",
+          "value": "Thunder Client (https://www.thunderclient.com)",
+          "isDisabled": true
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"number_of_people\": \"2\",\n  \"datetime\": \"20.12.2023T10:20\",\n  \"restaurant_id\": \"1\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "10ecb0da-c6e5-4831-a6d2-434f796d7302",
+      "colId": "1297cfa8-5dc9-4225-a634-6097824b408c",
+      "containerId": "25b5b1d8-c215-49cd-9020-a1020d8cf0e7",
+      "name": "getBookings",
+      "url": "/restaurants/bookings",
+      "method": "GET",
+      "sortNum": 130000,
+      "created": "2023-07-04T11:01:20.344Z",
+      "modified": "2023-07-04T11:05:34.867Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNiIsInJlc3RhdXJhbnRfaWQiOiIxIiwidXNlcm5hbWUiOiJyZXN0YXVyYW50MSIsInJvbGUiOiJyZXN0YXVyYW50IiwiaWF0IjoxNjg4NDY4NzI2LCJleHAiOjE2ODg0NzIzMjZ9.vJ8euwg1ZGS7FJVhnlto2lBYxd9ewUUMHCiwaEbC4tY"
+      },
+      "tests": []
+    }
+  ],
+  "settings": {
+    "docs": "## API Documentation\n\n### Get Information\n\n- **Endpoint**: `/`\n- **Method**: GET\n- **Description**: Get information about the Node.js, Express, and Postgres API.\n\n### Get Users\n\n- **Endpoint**: `/users`\n- **Method**: GET\n- **Description**: Get a list of all users.\n\n### Get User by ID\n\n- **Endpoint**: `/users/:id`\n- **Method**: GET\n- **Description**: Get a specific user by their ID.\n\n  #### Parameters\n\n  - `id` (integer) - The ID of the user.\n\n### Get Restaurants\n\n- **Endpoint**: `/restaurants`\n- **Method**: GET\n- **Description**: Get a list of all restaurants.\n\n  #### Parameters\n\n  - `id` (integer, optional) - The ID of a specific restaurant. If provided, returns only the restaurant with the given ID.\n\n### Get Restaurant Availabilities\n\n- **Endpoint**: `/restaurants/availabilitys`\n- **Method**: GET\n- **Description**: Get the availabilities of restaurants within a specified time range.\n\n  #### Parameters (in Request Body)\n\n  - `restaurant_id` (integer) - The ID of the restaurant.\n  - `startDateTime` (string) - The start date and time of the time range in the format \"DD.MM.YYYY HH:MM\".\n  - `endDateTime` (string) - The end date and time of the time range in the format \"DD.MM.YYYY HH:MM\".\n  - `party_size` (integer, optional) - The number of people in the party. Defaults to 2 if not specified.\n\n### Update Restaurant Settings\n\n- **Endpoint**: `/restaurant/settings/:id`\n- **Method**: PUT\n- **Description**: Update the settings of a specific restaurant.\n\n  #### Parameters\n\n  - `id` (integer) - The ID of the restaurant to update.\n\n  #### Request Body\n\n  - `name` (string, optional) - The new name of the restaurant.\n  - `address` (string, optional) - The new address of the restaurant.\n  - `city` (string, optional) - The new city of the restaurant.\n  - `phone_number` (string, optional) - The new phone number of the restaurant.\n  - `opening_hours` (string, optional) - The new opening hours of the restaurant.\n  - `capacity` (integer, optional) - The new capacity of the restaurant.\n  - `category` (string, optional) - The new category of the restaurant.\n  - `rating` (integer, optional) - The new rating of the restaurant.\n  - `price_level` (integer, optional) - The new price level of the restaurant.\n\n### Create Booking\n\n- **Endpoint**: `/bookings`\n- **Method**: POST\n- **Description**: Create a new booking.\n\n  #### Request Body\n\n  - `restaurant_id` (integer) - The ID of the restaurant for the booking.\n  - `date` (string) - The date of the booking.\n  - `time` (string) - The time of the booking.\n  - `number_of_people` (integer) - The number of people for the booking.\n\n### Login\n\n- **Endpoint**: `/login`\n- **Method**: POST\n- **Description**: Authenticate a user and generate a token.\n\n  #### Request Body\n\n  - `username` (string) - The username of the user.\n  - `password` (string) - The password of the user.\n\n### Register\n\n- **Endpoint**: `/register`\n- **Method**: POST\n- **Description**: Register a new user.\n\n  #### Request Body\n\n  - `username` (string) - The username of the user.\n  - `password` (string) - The password of the user.\n  - `role` (string) - The role of the user (\"guest\" or \"restaurant\").\n  - `restaurant_name` (string, required for \"restaurant\" role) - The name of the restaurant.\n  - `address` (string, required for \"restaurant\" role) - The address of the restaurant.\n  - `phone_number` (string, required for \"restaurant\" role) - The phone number of the restaurant.\n  - `opening_hours` (string, required for \"restaurant\" role) - The opening hours of the restaurant.\n\n### Get Protected Resource\n\n- **Endpoint**: `/protected`\n- **Method**: GET\n- **Description**: Get a protected resource that requires authentication.\n\n  #### Request Headers\n\n  - `Authorization` (string) - A valid JWT token.\n",
+    "options": {
+      "baseUrl": "localhost:3000"
+    }
+  }
 }
