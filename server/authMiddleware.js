@@ -6,8 +6,6 @@ function authMiddleware(request, response, next) {
   //Get token and cut out "Bearer "
   const token = request.headers.authorization.split(" ")[1];
 
-  console.log("token" + token);
-
   if (!token) {
     return response
       .status(401)
@@ -16,7 +14,6 @@ function authMiddleware(request, response, next) {
 
   try {
     const decoded = jwt.verify(token, env.JWT_SECRET);
-    console.log("decoded: " + decoded);
     request.user = decoded;
     next();
   } catch (ex) {

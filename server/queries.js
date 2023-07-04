@@ -12,11 +12,6 @@ const pool = new Pool({
   password: env.PG_PASSWORD,
   port: env.PG_PORT,
 });
-console.log("PG_USER: " + env.PG_USER);
-console.log("PG_HOST: " + env.PG_HOST);
-console.log("PG_DATABASE: " + env.PG_DATABASE);
-console.log("PG_PASSWORD: " + env.PG_PASSWORD);
-console.log("PG_PORT: " + env.PG_PORT);
 
 // #region Api Functions
 const getUsers = (request, response) => {
@@ -103,7 +98,7 @@ const createBooking = (request, response) => {
       }
     })
     .catch((error) => {
-      console.log(error);
+      response.status(400).send(error);
     });
 };
 

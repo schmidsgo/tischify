@@ -90,12 +90,6 @@ export const useAuthStore = defineStore('auth', {
         this.user.phone_number = '' ?? phone_number;
         this.user.opening_hours = '' ?? opening_hours;
         this.user.capacity = 0 ?? capacity;
-        console.log(response.data);
-        console.log(
-          'user: ' + this.user.name,
-          this.user.role,
-          'restaurant_id: ' + this.user.restaurant_id
-        );
         this.isLoading = false;
         this.OpenLoginModal = false;
       } catch (error) {
@@ -155,7 +149,6 @@ export const useAuthStore = defineStore('auth', {
       axios
         .delete('http://localhost:3000/guests/bookings/' + id)
         .then(response => {
-          console.log(response.data);
           if (this.user.role === 'guest') {
             this.getBookingsForGuest();
           } else {
@@ -179,7 +172,6 @@ export const useAuthStore = defineStore('auth', {
       this.user.capacity = 0;
       this.user.bookingsForGuest = [];
       localStorage.removeItem('jwt');
-      console.log('user: ' + this.user.name, this.user.role);
     }
   }
 });

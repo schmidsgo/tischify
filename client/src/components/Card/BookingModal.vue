@@ -26,9 +26,6 @@ const visible = computed(() => {
 
 const book = async () => {
   isLoading.value = true;
-  console.log('number of people: ', people.value);
-  console.log('datetime: ', datetime.value);
-  console.log('restaurant_id: ', props.item.restaurant_id);
 
   await axios
     .post('http://localhost:3000/bookings', {
@@ -46,7 +43,6 @@ const book = async () => {
       }
     })
     .catch(error => {
-      console.log(error.response.data);
       isError.value = true;
       errText.value = error.response.data.message;
       isLoading.value = false;

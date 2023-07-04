@@ -14,7 +14,6 @@ export default {
   methods: {
     submitSearch() {
       this.$emit('search', this.query, this.sortBy);
-      console.log(this.query, this.sortBy.toLowerCase());
     }
   }
 };
